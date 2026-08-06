@@ -498,6 +498,48 @@ details.qa li { margin-bottom: 6px; }
   cursor: not-allowed;
   pointer-events: none;
 }
+
+.req {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--warm-soft);
+  color: var(--warm);
+  font-size: .75rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.field-error {
+  margin: 8px 0 0;
+  font-size: .875rem;
+  font-weight: 700;
+  color: var(--warm);
+}
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"],
+.field select[aria-invalid="true"] {
+  border-color: var(--warm);
+  background: var(--warm-soft);
+}
+.form-status {
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: .9375rem;
+}
+.form-status--ok { background: var(--forest-soft); color: var(--forest); }
+.form-status--error { background: var(--warm-soft); color: #7c2d12; }
+.form-status--info { background: var(--accent-soft); color: var(--accent-dark); }
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 .checks { display: grid; gap: 8px; }
 .checks label { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
 .checks input { width: auto; margin-top: 5px; }
