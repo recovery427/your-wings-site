@@ -17,7 +17,8 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">메뉴</button>
     <nav class="nav" id="site-nav" aria-label="주요 메뉴">
       <a href="#packages">패키지</a>
-      <a href="#guarantee">약속</a>
+      <a href="#pricing">단품 가격</a>
+      <a href="#proof">작업물</a>
       <a href="#process">진행 과정</a>
       <a href="#faq">자주 묻는 질문</a>
       <a href="about.html">회사소개</a>
@@ -28,8 +29,16 @@
 
 <main id="main">
 
-  <section class="hero">
-    <div class="wrap">
+  <section class="hero hero--video">
+    <div class="hero-media" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+             poster="assets/hero/hero-poster.jpg">
+        <source src="assets/hero/hero.mp4" type="video/mp4">
+      </video>
+      <span class="hero-scrim"></span>
+    </div>
+
+    <div class="wrap hero-inner">
       <p class="eyebrow">종합 마케팅·광고 대행사 your wings</p>
       <h1>말만 하세요. 첫 결과물은 3일 안에 나옵니다.</h1>
       <p class="hero-sub">견적 하나 받는 데 2주씩 기다리지 않으셔도 됩니다.</p>
@@ -45,8 +54,8 @@
       </div>
 
       <p class="pricenote">
-        프로젝트 120만 원부터 · 채널 운영 월 200만 원부터 ·
-        프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내
+        패키지 120만 원부터 · 채널 운영 월 200만 원부터 ·
+        <a href="#pricing">썸네일 8만 원, 로고 35만 원 같은 <strong>단품도 가능</strong>합니다</a>
       </p>
     </div>
   </section>
@@ -135,7 +144,52 @@
     </div>
   </section>
 
-  <section class="section" id="report" style="padding-top:0;">
+  <section class="section section--soft" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">패키지가 부담스럽다면</p>
+      <h2>필요한 것 하나만도 맡기실 수 있습니다</h2>
+      <p class="lead maxw-60">로고 하나, 썸네일 하나만 필요하셔도 괜찮습니다. 아래는 단품으로 진행할 때의 시작 가격입니다. 여러 개가 한꺼번에 필요하시면 위의 패키지가 더 유리합니다.</p>
+
+      <div class="grid grid--3 mt-32">
+
+        <div class="card pricelist">
+          <p class="pricelist-tag">디자인</p>
+          <ul>
+            <li><span class="n">썸네일 <em>1건</em></span><span class="v">8만 원부터</span></li>
+            <li><span class="n">명함·스티커 <em>1종</em></span><span class="v">12만 원부터</span></li>
+            <li><span class="n">로고 디자인 <em>시안 3안</em></span><span class="v">35만 원부터</span></li>
+            <li><span class="n">상세페이지 <em>1p</em></span><span class="v">40만 원부터</span></li>
+          </ul>
+        </div>
+
+        <div class="card pricelist">
+          <p class="pricelist-tag">콘텐츠</p>
+          <ul>
+            <li><span class="n">카드뉴스 <em>5장</em></span><span class="v">20만 원부터</span></li>
+            <li><span class="n">영상 편집 <em>1편</em></span><span class="v">25만 원부터</span></li>
+            <li><span class="n">릴스·숏폼 제작 <em>1편</em></span><span class="v">30만 원부터</span></li>
+          </ul>
+        </div>
+
+        <div class="card pricelist">
+          <p class="pricelist-tag">웹</p>
+          <ul>
+            <li><span class="n">랜딩페이지 <em>1p</em></span><span class="v">80만 원부터</span></li>
+            <li><span class="n">홈페이지 <em>5p</em></span><span class="v">200만 원부터</span></li>
+          </ul>
+          <p class="small muted mt-24 mb-0">앱 디자인, 웹·앱 기획, 유지보수도 단품으로 가능합니다. 편하게 물어봐 주세요.</p>
+        </div>
+
+      </div>
+
+      <p class="unit-note">표시된 금액은 가장 기본 구성 기준의 <strong>시작가</strong>입니다. 분량과 수정 횟수, 납기에 따라 견적이 달라집니다.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html">단품 하나만 물어보기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="report">
     <div class="wrap">
       <div class="offer">
         <p class="eyebrow">무료 진단 리포트 · 매달 3건</p>
@@ -237,7 +291,37 @@
       <h2>꾸며낸 실적 대신, 직접 만든 결과물로 보여드립니다</h2>
       <p class="lead maxw-60">없는 고객사를 만들어내지 않겠습니다. 대신 가상의 브랜드를 정해 실제 프로젝트와 같은 조건으로 작업하고, 그 결과물을 그대로 공개합니다. 저희의 방식과 완성도는 결과물로 판단해 주세요.</p>
 
-      <h3 class="mt-32">가상 브랜드를 대상으로 직접 제작한 작업물입니다</h3>
+      <h3 class="mt-32">업종이 다른 가상 브랜드 네 곳을 직접 만들었습니다</h3>
+      <p class="lead maxw-60">한 업종만 잘하는 곳처럼 보이지 않으려고, 성격이 전혀 다른 네 개를 골랐습니다. 이름부터 로고, 콘텐츠, 광고 영상까지 실제 프로젝트와 같은 순서로 진행했습니다.</p>
+
+      <div class="grid grid--4 mt-24">
+        <article class="card brandcard">
+          <div class="ph ph--logo">로고 준비 중</div>
+          <p class="brandcard-cat">스킨케어</p>
+          <h4>MUHAE</h4>
+          <p class="small muted mb-0">잎사귀이자 물방울인 한 획. 순한 성분을 앞세운 저자극 스킨케어.</p>
+        </article>
+        <article class="card brandcard">
+          <div class="ph ph--logo">로고 준비 중</div>
+          <p class="brandcard-cat">세무·회계</p>
+          <h4>JEONGDO</h4>
+          <p class="small muted mb-0">저울이자 오르는 계단. 신뢰가 곧 상품인 전문직 사무소.</p>
+        </article>
+        <article class="card brandcard">
+          <div class="ph ph--logo">로고 준비 중</div>
+          <p class="brandcard-cat">디저트 카페</p>
+          <h4>BUTTERFIELD</h4>
+          <p class="small muted mb-0">버터가 밀 곡선으로 녹는 형태. 매일 굽는 동네 베이커리.</p>
+        </article>
+        <article class="card brandcard">
+          <div class="ph ph--logo">로고 준비 중</div>
+          <p class="brandcard-cat">반려동물</p>
+          <h4>PAWPOSE</h4>
+          <p class="small muted mb-0">발바닥이자 하트. 반려인의 하루를 편하게 만드는 용품 브랜드.</p>
+        </article>
+      </div>
+
+      <h3 class="mt-32">네 브랜드로 실제로 만들어 본 것들입니다</h3>
       <p class="notice">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
 
       <div class="grid grid--4">
