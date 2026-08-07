@@ -375,6 +375,32 @@ p { margin: 0 0 14px; }
   white-space: nowrap;
 }
 
+.reel { margin: 0; }
+.reel-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0b0d11;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+.reel figcaption {
+  margin-top: 14px;
+  font-size: .9375rem;
+  color: var(--ink-2);
+  max-width: 66ch;
+}
+.reel figcaption strong { display: block; margin-bottom: 4px; color: var(--ink); }
+.reel-note { display: block; margin-top: 8px; font-size: .8125rem; color: var(--muted); }
+
+.ph--done {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}
+.ph--done a { color: inherit; }
+
 .brandcard h4 { margin: 0 0 8px; font-size: 1.0625rem; font-weight: 800; letter-spacing: .04em; }
 .brandcard-cat {
   margin: 0 0 6px;
