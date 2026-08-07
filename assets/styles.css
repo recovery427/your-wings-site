@@ -207,6 +207,16 @@ p { margin: 0 0 14px; }
   background: var(--bg-ink);
   color: #fff;
   overflow: hidden;
+  min-height: min(74vh, 660px);
+  display: flex;
+  align-items: center;
+}
+
+.hero--video .hero-inner > * { max-width: 46ch; }
+.hero--video .hero-inner h1 { max-width: 15ch; }
+
+.hero--video .hero-inner {
+  text-shadow: 0 1px 14px rgba(0, 0, 0, .55), 0 1px 3px rgba(0, 0, 0, .4);
 }
 .hero-media { position: absolute; inset: 0; z-index: -1; }
 .hero-video {
@@ -218,9 +228,17 @@ p { margin: 0 0 14px; }
 .hero-scrim {
   position: absolute;
   inset: 0;
+  
   background:
-    linear-gradient(90deg, rgba(14, 17, 22, .92) 0%, rgba(14, 17, 22, .78) 46%, rgba(14, 17, 22, .42) 100%),
-    linear-gradient(180deg, rgba(14, 17, 22, .55) 0%, rgba(14, 17, 22, .2) 40%, rgba(14, 17, 22, .75) 100%);
+    linear-gradient(90deg,
+      rgba(14, 17, 22, .86) 0%,
+      rgba(14, 17, 22, .68) 34%,
+      rgba(14, 17, 22, .18) 64%,
+      rgba(14, 17, 22, 0) 88%),
+    linear-gradient(180deg,
+      rgba(14, 17, 22, .34) 0%,
+      rgba(14, 17, 22, 0) 34%,
+      rgba(14, 17, 22, .40) 100%);
 }
 .hero-inner { position: relative; }
 .hero--video .eyebrow { color: #8fa6ff; }
@@ -233,12 +251,32 @@ p { margin: 0 0 14px; }
 .hero--video .btn--ghost { color: #fff; border-color: rgba(255, 255, 255, .45); }
 .hero--video .btn--ghost:hover { border-color: #fff; background: rgba(255, 255, 255, .08); }
 
-@media (max-width: 700px) {
-  .hero-video { display: none; }
-  .hero-media {
-    background: #0e1116 url("hero/hero-poster.jpg") center / cover no-repeat;
+@media (max-width: 780px) {
+  .hero--video {
+    display: block;
+    min-height: 0;
+    padding-top: 0;
   }
+  .hero-media {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    aspect-ratio: 16 / 9;
+    margin-bottom: clamp(22px, 5vw, 34px);
+    background: #0e1116;
+  }
+  .hero-video {
+    display: block;          
+    object-fit: contain;     
+  }
+  .hero-scrim { display: none; }   
+  .hero--video .hero-inner {
+    text-shadow: none;
+  }
+  .hero--video .hero-inner > *,
+  .hero--video .hero-inner h1 { max-width: none; }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .hero-video { display: none; }
   .hero-media {
