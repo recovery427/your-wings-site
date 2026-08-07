@@ -236,6 +236,8 @@ p { margin: 0 0 14px; }
 
 .hero-scrim { display: none; }
 
+.hero--video h1 { max-width: 24ch; }
+
 .hero-inner { position: relative; }
 .hero--video .eyebrow { color: #8fa6ff; }
 .hero--video .hero-sub { color: #a8bcff; }
