@@ -686,6 +686,12 @@ a{ color: var(--primary); }
   .btn:hover, .fbtn:hover, .ing__card:hover{ transform: none; }
 }
 </style>
+<style>
+/* 레퍼런스 페이지의 미리보기 카드(iframe) 안에서는 스크롤 애니메이션이 풀리지 않는다.
+   틀 안에 들어갔을 때는 처음부터 다 보이게 둔다. 안 그러면 카드가 반쯤 빈 채로 보인다. */
+html.in-frame .reveal{opacity:1 !important;transform:none !important}
+</style>
+<script>if(window.self!==window.top){document.documentElement.className+=' in-frame';}</script>
 </head>
 <body>
 
