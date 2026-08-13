@@ -992,3 +992,10 @@ table.plain th { font-weight: 800; background: var(--bg-soft); white-space: nowr
   color: var(--muted);
   background: #fff;
 }
+
+.refcard-note{
+  margin: 4px 0 0;
+  font-size: .8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
