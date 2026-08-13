@@ -1,6 +1,6 @@
 var FORM_CONFIG = {
-  endpoint: '',
-  accessKey: ''
+  endpoint: 'https://api.web3forms.com/submit',
+  accessKey: '9b46d938-6138-41bc-98b0-d6a5d68a50ca'
 };
 
 (function () {

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>누암 배리어 세럼 30ml — 저녁 5단계를 3단계로</title>
+<meta name="description" content="민감해진 계절 피부를 위한 누암 배리어 세럼. 판테놀 5%, 세라마이드 NP, 마데카소사이드. 백탁 없이 흡수 뒤 바로 선크림까지.">
+<style>
+:root{
+  --primary: #EC4899;
+  --on-primary: #FFFFFF;
+  --secondary: #F9A8D4;
+  --on-secondary: #0F172A;
+  --accent: #8B5CF6;
+  --on-accent: #FFFFFF;
+  --background: #FDF2F8;
+  --foreground: #831843;
+  --card: #FFFFFF;
+  --card-foreground: #831843;
+  --muted: #F1EEF5;
+  --muted-foreground: #64748B;
+  --border: #FBCFE8;
+  --destructive: #DC2626;
+  --ring: #EC4899;
+
+  --elevation-1: 0 1px 3px rgba(0,0,0,0.1);
+  --elevation-2: 0 4px 6px rgba(0,0,0,0.1);
+  --elevation-3: 0 10px 20px rgba(0,0,0,0.1);
+  --elevation-4: 0 20px 40px rgba(0,0,0,0.15);
+  --blur-amount: 8px;
+
+  --ink-2: #475569;          /* 회색 위 본문용 (대비 확보) */
+  --grey-1: #EEECF3;
+  --grey-2: #E2DFE9;
+  --grey-line: #D9D5E2;
+
+  --font-h: Tahoma, 'Segoe UI', 'Malgun Gothic', '맑은 고딕', sans-serif;
+  --font-b: 'Segoe UI', Tahoma, 'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--font-b);
+  font-weight:300;
+  color:var(--foreground);
+  background:var(--background);
+  /* 실측 반영: 글자를 키우고 행간을 조인다 (16/1.75 -> 17/1.5) */
+  line-height:1.5;
+  font-size:17px;
+  overflow-x:hidden;
+  padding-bottom:96px;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+h1,h2,h3,h4,.h,.num{font-family:var(--font-h);font-weight:900;letter-spacing:-.02em;line-height:1.06;margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:var(--font-h);font-weight:900;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-2);
+}
+.lede{font-weight:300;font-size:19px;line-height:1.5;color:var(--ink-2);max-width:25em}
+/* VOLDOG 실측: 위쪽에만 쏠아 준다. 아래를 비우면 다음 섹션 상단이 간격을 만들어 중복이 없다. */
+.sec{padding:clamp(64px,9vw,116px) 0 clamp(18px,2.5vw,32px);position:relative}
+
+/* ── 1. HERO (problem state) ─────────────────────────────── */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(168deg,#F4F2F7 0%,#EAE7F0 58%,#E4E1EB 100%);
+  padding:76px 0 108px;
+  min-height:min(100svh, 980px);
+  display:flex;
+  align-items:center;
+}
+.hero::after{
+  content:"";position:absolute;inset:auto -10% -55% 40%;height:70%;
+  background:radial-gradient(closest-side,rgba(139,92,246,.10),rgba(139,92,246,0));
+  pointer-events:none;
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(30px,5.1vw,58px);color:#2E2438;margin:18px 0 22px}
+.hero h1 em{font-style:normal;display:block;color:var(--ink-2);font-weight:300;font-size:.52em;letter-spacing:-.01em;margin-top:14px;line-height:1.5}
+.brandline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brandmark{
+  font-family:var(--font-h);font-weight:900;font-size:15px;letter-spacing:.26em;
+  color:#2E2438;background:rgba(255,255,255,.72);border:1px solid var(--grey-line);
+  padding:6px 12px;border-radius:4px;box-shadow:var(--elevation-1)
+}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.chip{
+  font-size:13px;font-weight:300;color:var(--ink-2);background:rgba(255,255,255,.66);
+  border:1px solid var(--grey-line);border-radius:999px;padding:7px 14px;
+  box-shadow:var(--elevation-1);backdrop-filter:blur(var(--blur-amount))
+}
+.scrollcue{margin-top:34px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2)}
+.scrollcue svg{flex:none}
+
+/* 히어로 시각물: 무채색 아이소메트릭 층 + 겹치는 카드 */
+.stack-vis{position:relative;padding:8px 0 0}
+.stack-vis svg{display:block;width:100%;height:auto}
+.pricecard{
+  position:absolute;left:-9%;bottom:-9%;width:min(62%,262px);z-index:3;
+  background:var(--card);border:1px solid var(--grey-line);border-radius:16px;
+  padding:16px 18px;box-shadow:var(--elevation-4)
+}
+.pricecard .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-foreground);font-family:var(--font-h);font-weight:900}
+.pricecard .v{font-family:var(--font-h);font-weight:900;font-size:26px;color:var(--foreground);margin-top:4px}
+.pricecard .s{font-size:13px;color:var(--ink-2);margin-top:6px}
+.tagfloat{
+  position:absolute;right:2%;top:6%;z-index:3;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(var(--blur-amount));
+  border:1px solid var(--grey-line);border-radius:12px;padding:10px 13px;
+  box-shadow:var(--elevation-3);font-size:12px;color:var(--ink-2);max-width:44%
+}
+
+/* ── 2. TRANSFORMATION ───────────────────────────────────── */
+.xsec{background:var(--background);padding-top:88px}
+.xhead{max-width:27em;margin-bottom:44px}
+.xhead h2{font-size:clamp(25px,3.5vw,40px);color:var(--foreground)}
+.xgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.stagewrap{
+  position:relative;background:linear-gradient(180deg,#FFFFFF 0%,#FFF9FC 100%);
+  border:1px solid var(--border);border-radius:22px;padding:22px 20px 18px;
+  box-shadow:var(--elevation-3)
+}
+.stagewrap::before{
+  content:"";position:absolute;inset:12px 12px auto 12px;height:1px;background:var(--border);opacity:.6
+}
+.stagetop{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:16px}
+.stagetop .lab{font-family:var(--font-h);font-weight:900;font-size:13px;letter-spacing:.12em;color:var(--muted-foreground);text-transform:uppercase}
+.stepcount{font-family:var(--font-h);font-weight:900;font-size:14px;color:var(--foreground)}
+.stage{position:relative;height:320px}
+.card{
+  position:absolute;left:0;right:0;border-radius:14px;display:flex;align-items:center;
+  gap:12px;padding:0 16px;overflow:hidden;
+  top:calc((var(--b) + (var(--a) - var(--b)) * var(--p,0)) * 1px);
+  height:calc((var(--hb) + (var(--ha) - var(--hb)) * var(--p,0)) * 1px);
+}
+.card .bg,.card .bg2{position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.card .bg{background:var(--grey-1);border:1px solid var(--grey-line);box-shadow:var(--elevation-1);opacity:calc(1 - var(--p,0))}
+.card .bg2{
+  background:linear-gradient(122deg,#FFFFFF 0%,#FFF3F9 62%,#FBE8FF 100%);
+  border:1px solid var(--border);box-shadow:var(--elevation-4);opacity:var(--p,0)
+}
+.keep .bg2{background:linear-gradient(122deg,#FFFFFF,#FFF9FC);box-shadow:var(--elevation-2)}
+.card .in{position:relative;z-index:2;display:flex;align-items:center;gap:12px;width:100%;min-width:0}
+.dot{
+  position:relative;flex:none;width:26px;height:26px;border-radius:8px;
+  font-family:var(--font-h);font-weight:900;font-size:11px;color:#33283C;
+  background:#fff;border:1px solid var(--grey-line);overflow:hidden
+}
+.dot .ds{position:absolute;inset:0;display:grid;place-items:center;z-index:2}
+.dot .ds.a{opacity:clamp(0,calc(1 - var(--p,0) * 2),1)}
+.dot .ds.b{opacity:clamp(0,calc(var(--p,0) * 2 - 1),1)}
+.cname{font-family:var(--font-h);font-weight:900;font-size:15px;color:#33283C}
+.cnote{font-size:12px;color:var(--ink-2);font-weight:300}
+.card.fade{opacity:clamp(0,calc(1.15 - var(--p,0) * 1.7),1);z-index:1}
+.card.keep{z-index:2}
+.card.merge{z-index:3}
+.merge .in{align-items:flex-start;flex-direction:column;gap:2px;justify-content:center;height:100%;padding:10px 0}
+.merge .row{display:flex;align-items:center;gap:10px}
+.swap{position:relative;display:inline-block}
+.swap .a{opacity:clamp(0,calc(1 - var(--p,0) * 2),1)}
+.swap .b{opacity:clamp(0,calc(var(--p,0) * 2 - 1),1);position:absolute;left:0;top:0;white-space:nowrap}
+.merge .dot::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(140deg,#FBCFE8,#DDD0FA);opacity:var(--p,0)
+}
+.mergemeta{font-size:12px;color:var(--ink-2);opacity:clamp(0,calc(var(--p,0)*1.6 - .5),1);padding-left:36px}
+
+.track{position:relative;height:44px;margin-top:18px;touch-action:none;cursor:pointer}
+.track .rail{position:absolute;left:22px;right:22px;top:21px;height:3px;border-radius:3px;background:var(--grey-2)}
+.track .fill{position:absolute;left:22px;top:21px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--accent));width:calc((100% - 44px) * var(--p,0))}
+.knob{
+  position:absolute;top:0;left:calc((100% - 44px) * var(--p,0));width:44px;height:44px;border-radius:50%;
+  background:var(--card);border:1px solid var(--border);box-shadow:var(--elevation-3);
+  display:grid;place-items:center;cursor:grab
+}
+.knob:active{cursor:grabbing}
+.knob i{width:14px;height:14px;border-radius:50%;background:linear-gradient(140deg,var(--primary),var(--accent));display:block}
+.trackhint{display:flex;justify-content:space-between;font-size:12px;color:var(--muted-foreground);margin-top:2px}
+
+.readout{position:relative}
+.rostate{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:900;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
+  background:var(--card);border:1px solid var(--border);border-radius:999px;padding:8px 14px;
+  box-shadow:var(--elevation-2)
+}
+.rostate .pip{width:8px;height:8px;border-radius:50%;background:var(--muted-foreground)}
+.readout h3{font-size:clamp(21px,2.6vw,29px);margin:18px 0 12px;color:var(--foreground)}
+.readout .body{font-size:16px;color:var(--ink-2);max-width:23em}
+.feelgrid{display:grid;gap:10px;margin-top:24px}
+.feelgrid .feel:nth-child(2){margin-left:20px;box-shadow:var(--elevation-3)}
+.feelgrid .feel:nth-child(3){margin-left:40px;box-shadow:var(--elevation-4)}
+.feel{
+  display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:14px 16px;box-shadow:var(--elevation-2)
+}
+.feel svg{flex:none;margin-top:3px}
+.feel b{font-family:var(--font-h);font-weight:900;font-size:15px;display:block;color:var(--foreground)}
+.feel span{font-size:13px;color:var(--ink-2)}
+.midcta{
+  margin-top:32px;background:linear-gradient(126deg,#FFFFFF,#FFF3F9);
+  border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--elevation-4)
+}
+.midcta .t{font-family:var(--font-h);font-weight:900;font-size:19px;color:var(--foreground)}
+.midcta .s{font-size:14px;color:var(--ink-2);margin-top:6px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;
+  font-family:var(--font-h);font-weight:900;font-size:16px;letter-spacing:-.01em;
+  background:var(--foreground);color:#fff;box-shadow:var(--elevation-3);
+  transition:transform .22s ease, box-shadow .22s ease;text-decoration:none;width:100%
+}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--elevation-4)}
+.btn.ghost{background:var(--card);color:var(--foreground);border:1px solid var(--foreground);box-shadow:var(--elevation-1)}
+.btnrow{display:grid;gap:10px;margin-top:18px}
+
+/* ── 3. HOW IT WORKS ─────────────────────────────────────── */
+.how{background:linear-gradient(180deg,#FDF2F8 0%,#F7F1FA 100%)}
+.how h2{font-size:clamp(25px,3.5vw,40px);color:var(--foreground);margin-bottom:14px}
+.howgrid{display:grid;grid-template-columns:.92fr 1.08fr;gap:48px;align-items:center;margin-top:46px}
+.ingvis{position:relative}
+.ingvis svg{display:block;width:100%;height:auto;filter:drop-shadow(0 20px 40px rgba(131,24,67,.14))}
+.inglist{display:grid;gap:14px}
+.ing{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:18px 20px 18px 22px;box-shadow:var(--elevation-2)
+}
+.ing::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--bar)}
+.ing .n{font-family:var(--font-h);font-weight:900;font-size:11px;letter-spacing:.16em;color:var(--muted-foreground)}
+.ing h3{font-size:19px;margin:4px 0 7px;color:var(--foreground)}
+.ing p{font-size:14px;color:var(--ink-2)}
+/* ---------- 사진 ----------
+   비율을 미리 선언한다. 실제 파일이 1600x904 / 1200x1604 이므로 16:9 · 3:4 로 정확히 맞는다.
+   figure 에 padding/border 를 주는 전역 규칙이 나중에 생겨도 어긋나지 않게 여기서 0 으로 박아 둔다. */
+/* Vero 실측: 풀블리드 밴드 비율이 2.09. 16:9 는 장식 띠로 너무 높다. */
+.band{margin:0;padding:0;border:0;aspect-ratio:21/9;overflow:hidden;background:var(--muted)}
+.band img{width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block}
+.band figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.step-fig{
+  margin:-26px -22px 18px;padding:0;border:0;
+  aspect-ratio:3/4;overflow:hidden;background:var(--muted);
+  border-radius:18px 18px 0 0
+}
+.step-fig img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.step:hover .step-fig img{transform:scale(1.03)}
+@media (prefers-reduced-motion: reduce){
+  .step-fig img,.step:hover .step-fig img{transition:none;transform:none}
+}
+@media (max-width:760px){ .step-fig{aspect-ratio:4/3} }
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.step{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:26px 22px 22px;box-shadow:var(--elevation-2)
+}
+.step:nth-child(2){margin:26px 0 0 -32px;z-index:2;box-shadow:var(--elevation-3)}
+.step:nth-child(3){margin:52px 0 0 -32px;z-index:3;box-shadow:var(--elevation-4)}
+.step .sn{
+  position:absolute;top:-16px;left:20px;width:36px;height:36px;border-radius:11px;
+  display:grid;place-items:center;font-family:var(--font-h);font-weight:900;font-size:15px;
+  color:#fff;background:linear-gradient(140deg,var(--primary),var(--accent));box-shadow:var(--elevation-2)
+}
+.step h4{font-size:17px;margin:14px 0 8px;color:var(--foreground)}
+.step p{font-size:14px;color:var(--ink-2)}
+
+/* ── 4. RESULTS + CTA ────────────────────────────────────── */
+.res{background:var(--background)}
+.res h2{font-size:clamp(25px,3.5vw,40px);color:var(--foreground)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.metric{
+  background:linear-gradient(150deg,#FFFFFF,#FFF6FB);border:1px solid var(--border);
+  border-radius:18px;padding:24px 22px;box-shadow:var(--elevation-3)
+}
+.metric .num{font-size:clamp(34px,5vw,48px);color:var(--foreground);line-height:1}
+.metric .num small{font-size:.42em;font-weight:900;margin-left:3px}
+.metric .cap{font-size:13px;color:var(--ink-2);margin-top:10px}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.quote{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;
+  box-shadow:var(--elevation-2);position:relative
+}
+.quote p{font-size:15px;color:var(--ink-2)}
+.quote .who{font-family:var(--font-h);font-weight:900;font-size:12px;letter-spacing:.06em;color:var(--muted-foreground);margin-top:12px}
+.note{font-size:12px;color:var(--muted-foreground);margin-top:16px;line-height:1.7}
+
+.buypanel{
+  margin-top:56px;position:relative;border-radius:26px;overflow:hidden;
+  background:linear-gradient(140deg,#FFFFFF 0%,#FFF1F8 46%,#F4EBFF 100%);
+  border:1px solid var(--border);box-shadow:var(--elevation-4)
+}
+.buypanel .inner{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;padding:40px;align-items:center}
+.buypanel h3{font-size:clamp(22px,3vw,32px);color:var(--foreground)}
+.buypanel .sub{font-size:15px;color:var(--ink-2);margin-top:12px;max-width:20em}
+.pricebox{background:rgba(255,255,255,.78);backdrop-filter:blur(var(--blur-amount));border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--elevation-2)}
+.prow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0}
+.prow + .prow{border-top:1px solid var(--border)}
+.prow .l{font-size:14px;color:var(--ink-2)}
+.prow .r{font-family:var(--font-h);font-weight:900;font-size:20px;color:var(--foreground)}
+.prow .r.small{font-size:16px}
+.guar{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:13px;color:var(--ink-2)}
+.guar svg{flex:none;margin-top:2px}
+
+/* 하단 고정 구매 바 */
+.buybar{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:rgba(253,242,248,.86);backdrop-filter:blur(var(--blur-amount));
+  border-top:1px solid var(--border);box-shadow:0 -10px 30px rgba(131,24,67,.10);
+  transform:translateY(120%);transition:transform .34s ease
+}
+.buybar.on{transform:none}
+.buybar .in{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px}
+.buybar .txt{min-width:0}
+.buybar .p1{font-family:var(--font-h);font-weight:900;font-size:17px;color:var(--foreground);white-space:nowrap}
+.buybar .p2{font-size:12px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.buybar .btn{width:auto;margin-left:auto;min-height:48px;padding:12px 22px;font-size:15px;flex:none}
+
+footer{background:#2E2438;color:#E6E1EC;padding:52px 0 40px;position:relative;z-index:1}
+footer .fg{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+footer .fm{font-family:var(--font-h);font-weight:900;letter-spacing:.26em;font-size:15px}
+footer p{font-size:13px;color:#B6AEC4;margin-top:10px;max-width:26em}
+footer .concept{font-size:12px;color:#9C93AC;margin-top:22px}
+
+@media (max-width:1000px){
+  .hero-grid,.xgrid,.howgrid,.buypanel .inner{grid-template-columns:1fr}
+  .hero-grid{gap:40px}
+  .buypanel .inner{padding:30px 24px}
+  .steps{grid-template-columns:1fr}
+  .step:nth-child(2),.step:nth-child(3){margin:0}
+  .feelgrid .feel:nth-child(2){margin-left:12px}
+  .feelgrid .feel:nth-child(3){margin-left:24px}
+  .metrics{grid-template-columns:1fr 1fr}
+  .quotes{grid-template-columns:1fr}
+  .btnrow{grid-template-columns:1fr 1fr}
+  .stack-vis{max-width:520px}
+  .pricecard{left:0}
+}
+@media (max-width:640px){
+  .sec{padding:70px 0}
+  .hero{padding:56px 0 84px}
+  body{line-height:1.7;padding-bottom:88px}
+  .wrap{padding:0 18px}
+  .btnrow{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr}
+  .pricecard{position:relative;left:0;bottom:0;width:100%;margin-top:18px}
+  .tagfloat{position:static;max-width:100%;margin-bottom:14px}
+  .cnote{display:none}
+  .buybar .in{padding:10px 18px;gap:12px}
+  .buybar .btn{padding:12px 16px;font-size:14px}
+  .stagewrap{padding:18px 14px 14px}
+  .card{padding:0 12px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  .btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="brandline">
+        <span class="brandmark">NUAM</span>
+        <span class="eyebrow">누암 배리어 세럼 · 30ml</span>
+      </div>
+      <h1>계절이 바뀌면<br>얼굴이 가장 먼저 대답한다
+        <em>며칠 사이 볼이 붉어지고 저녁이면 당긴다. 가짓수를 늘려도 아침엔 겉돌기만 한다.</em>
+      </h1>
+      <p class="lede">문제는 늘 가짓수가 아니었다. 저녁마다 겹겹이 쌓아 올린 층의 수였다.</p>
+      <div class="chips">
+        <span class="chip">저녁마다 당김</span>
+        <span class="chip">계절 바뀔 때 붉은 기</span>
+        <span class="chip">겉도는 흡수</span>
+        <span class="chip">아침엔 밀림</span>
+      </div>
+      <div class="scrollcue">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 3v11" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/><path d="M4.5 9.5 9 14l4.5-4.5" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>아래 슬라이더로 저녁 루틴을 직접 줄여 보세요</span>
+      </div>
+    </div>
+
+    <div class="stack-vis" id="heroVis">
+      <svg viewBox="0 0 420 350" role="img" aria-label="다섯 겹으로 무겁게 쌓인 저녁 루틴을 나타낸 무채색 층 도형">
+        <g>
+          <polygon points="210,14 390,86 210,158 30,86" fill="#CFCAD9"/>
+          <polygon points="30,86 210,158 210,172 30,100" fill="#BAB4C8"/>
+          <polygon points="390,86 210,158 210,172 390,100" fill="#ADA6BE"/>
+        </g>
+        <g>
+          <polygon points="210,58 390,130 210,202 30,130" fill="#D9D5E2"/>
+          <polygon points="30,130 210,202 210,216 30,144" fill="#C4BED2"/>
+          <polygon points="390,130 210,202 210,216 390,144" fill="#B7B0C8"/>
+        </g>
+        <g>
+          <polygon points="210,100 390,172 210,244 30,172" fill="#E4E1EB"/>
+          <polygon points="30,172 210,244 210,258 30,186" fill="#CFCAD9"/>
+          <polygon points="390,172 210,244 210,258 390,186" fill="#C2BBD1"/>
+        </g>
+        <g>
+          <polygon points="210,140 390,212 210,284 30,212" fill="#EFEDF4"/>
+          <polygon points="30,212 210,284 210,298 30,226" fill="#DAD6E3"/>
+          <polygon points="390,212 210,284 210,298 390,226" fill="#CDC7D9"/>
+        </g>
+        <g>
+          <polygon points="210,178 390,250 210,322 30,250" fill="#FAF9FC"/>
+          <polygon points="30,250 210,322 210,336 30,264" fill="#E4E1EB"/>
+          <polygon points="390,250 210,322 210,336 390,264" fill="#D6D1E0"/>
+        </g>
+        <g fill="#514764" font-family="Tahoma, 'Segoe UI', sans-serif" font-size="12" font-weight="bold" letter-spacing="1">
+          <text x="210" y="90" text-anchor="middle">05</text>
+          <text x="210" y="134" text-anchor="middle">04</text>
+          <text x="210" y="176" text-anchor="middle">03</text>
+          <text x="210" y="216" text-anchor="middle">02</text>
+          <text x="210" y="254" text-anchor="middle">01</text>
+        </g>
+      </svg>
+      <div class="tagfloat">저녁에 다섯 겹.<br>다 마르길 기다리는 시간이 길다.</div>
+      <div class="pricecard">
+        <div class="k">single bottle</div>
+        <div class="v">32,000원</div>
+        <div class="s">30ml 스포이드 유리병 · 정기배송 28,800원</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<figure class="band">
+  <img src="../img/nuam-hero.jpg" width="1600" height="904" loading="eager" decoding="async"
+       alt="라벤더에서 연분홍으로 번지는 배경에 놓인 누암 배리어 세럼 스포이드 유리병.">
+  <figcaption>누암 배리어 세럼 30ml</figcaption>
+</figure>
+
+<span id="afterHero" aria-hidden="true"></span>
+
+<section class="sec xsec" aria-labelledby="xtitle">
+  <div class="wrap">
+    <div class="xhead">
+      <div class="eyebrow">transformation</div>
+      <h2 id="xtitle">슬라이더를 밀면<br>다섯 겹이 세 겹으로 접힌다</h2>
+      <p class="lede" style="margin-top:14px">가운데 세 단계를 세럼 한 겹이 대신한다. 바르기 전과 바른 직후의 사용감도 같이 바뀐다.</p>
+    </div>
+
+    <div class="xgrid">
+      <div class="stagewrap" id="xform" style="--p:0">
+        <div class="stagetop">
+          <span class="lab">저녁 루틴</span>
+          <span class="stepcount" id="stepCount">5단계</span>
+        </div>
+
+        <div class="stage">
+          <div class="card keep" style="--b:0;--a:12;--hb:56;--ha:56">
+            <span class="bg"></span><span class="bg2"></span>
+            <span class="in"><span class="dot"><span class="ds a">01</span><span class="ds b">01</span></span><span><span class="cname">토너</span> <span class="cnote">결 정돈</span></span></span>
+          </div>
+          <div class="card fade" style="--b:66;--a:104;--hb:56;--ha:56">
+            <span class="bg"></span><span class="bg2"></span>
+            <span class="in"><span class="dot"><span class="ds a">02</span></span><span><span class="cname">수분 에센스</span> <span class="cnote">겹쳐 바르기</span></span></span>
+          </div>
+          <div class="card merge" style="--b:132;--a:104;--hb:56;--ha:112">
+            <span class="bg"></span><span class="bg2"></span>
+            <span class="in">
+              <span class="row">
+                <span class="dot"><span class="ds a">03</span><span class="ds b">02</span></span>
+                <span class="swap">
+                  <span class="cname a">보습 앰플</span>
+                  <span class="cname b">누암 배리어 세럼</span>
+                </span>
+              </span>
+              <span class="mergemeta">판테놀 5% · 세라마이드 NP · 마데카소사이드</span>
+            </span>
+          </div>
+          <div class="card fade" style="--b:198;--a:104;--hb:56;--ha:56">
+            <span class="bg"></span><span class="bg2"></span>
+            <span class="in"><span class="dot"><span class="ds a">04</span></span><span><span class="cname">진정 시트 팩</span> <span class="cnote">주 3회</span></span></span>
+          </div>
+          <div class="card keep" style="--b:264;--a:240;--hb:56;--ha:56">
+            <span class="bg"></span><span class="bg2"></span>
+            <span class="in"><span class="dot"><span class="ds a">05</span><span class="ds b">03</span></span><span><span class="cname">크림</span> <span class="cnote">마무리</span></span></span>
+          </div>
+        </div>
+
+        <div class="track" id="track" role="slider" tabindex="0"
+             aria-label="루틴 전후 비교 슬라이더"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="바르기 전, 5단계">
+          <span class="rail"></span><span class="fill"></span>
+          <span class="knob"><i></i></span>
+        </div>
+        <div class="trackhint"><span>바르기 전</span><span>바른 직후</span></div>
+      </div>
+
+      <div class="readout" id="readout">
+        <div class="rostate"><span class="pip" id="pip"></span><span id="stateLabel">바르기 전</span></div>
+        <h3 id="roTitle">겹쳐 바른 만큼 기다린다</h3>
+        <p class="body" id="roBody">에센스, 앰플, 시트 팩을 차례로 얹는 저녁. 층마다 마르길 기다리다 보면 잠들기 전 마지막 한 겹은 늘 급해진다.</p>
+
+        <div class="feelgrid" id="feelGrid">
+          <div class="feel">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.2" stroke="#EC4899" stroke-width="1.6"/><path d="M5.6 9.2l2.2 2.2 4.6-4.6" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><b>백탁 없음</b><span>흰 기가 남지 않아 목까지 이어 바르기 편합니다.</span></span>
+          </div>
+          <div class="feel">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.2" stroke="#EC4899" stroke-width="1.6"/><path d="M5.6 9.2l2.2 2.2 4.6-4.6" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><b>끈적임 적음</b><span>손바닥에 남는 느낌이 적어 머리카락이 붙지 않습니다.</span></span>
+          </div>
+          <div class="feel">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.2" stroke="#EC4899" stroke-width="1.6"/><path d="M5.6 9.2l2.2 2.2 4.6-4.6" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><b>흡수 뒤 바로 선크림</b><span>자체 측정 기준 약 40초 뒤 다음 단계를 올렸습니다.<sup>1</sup></span></span>
+          </div>
+        </div>
+
+        <div class="midcta">
+          <div class="t">세 겹을 한 겹으로 바꿔 보기</div>
+          <div class="s">누암 배리어 세럼 30ml · 32,000원 / 정기배송 28,800원 (10% 절약)</div>
+          <div class="btnrow">
+            <button class="btn" type="button" data-buy>장바구니에 담기</button>
+            <button class="btn ghost" type="button" data-buy>정기배송으로 시작</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec how" aria-labelledby="howtitle">
+  <div class="wrap">
+    <div class="eyebrow">how it works</div>
+    <h2 id="howtitle">한 겹이 세 겹을 대신하는 방법</h2>
+    <p class="lede">가벼운 제형 안에 보습·장벽·진정 성분을 함께 담았습니다. 층을 줄이는 대신 한 층의 밀도를 올린 구성입니다.</p>
+
+    <div class="howgrid">
+      <div class="ingvis">
+        <svg viewBox="0 0 420 300" role="img" aria-label="판테놀, 세라마이드 NP, 마데카소사이드 세 성분이 한 겹으로 겹쳐진 층 도형">
+          <g>
+            <polygon points="210,30 390,100 210,170 30,100" fill="#F5D0E7"/>
+            <polygon points="30,100 210,170 210,184 30,114" fill="#EFB8D9"/>
+            <polygon points="390,100 210,170 210,184 390,114" fill="#E9A6CF"/>
+          </g>
+          <g>
+            <polygon points="210,74 390,144 210,214 30,144" fill="#E8D6F7"/>
+            <polygon points="30,144 210,214 210,228 30,158" fill="#D9BDF0"/>
+            <polygon points="390,144 210,214 210,228 390,158" fill="#CFAEEA"/>
+          </g>
+          <g>
+            <polygon points="210,118 390,188 210,258 30,188" fill="#FBE3F1"/>
+            <polygon points="30,188 210,258 210,272 30,202" fill="#F4CCE5"/>
+            <polygon points="390,188 210,258 210,272 390,202" fill="#EFBEDD"/>
+          </g>
+          <g fill="#831843" font-family="Tahoma, 'Segoe UI', sans-serif" font-size="13" font-weight="bold" letter-spacing="1.5">
+            <text x="210" y="106" text-anchor="middle">01</text>
+            <text x="210" y="150" text-anchor="middle">02</text>
+            <text x="210" y="194" text-anchor="middle">03</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="inglist">
+        <div class="ing" style="--bar:#EC4899">
+          <div class="n">01</div>
+          <h3>판테놀 5%</h3>
+          <p>나눠 바르던 수분 단계를 한 겹으로 모으는 축입니다. 물기가 남은 얼굴에 얹으면 더 고르게 퍼집니다.</p>
+        </div>
+        <div class="ing" style="--bar:#8B5CF6">
+          <div class="n">02</div>
+          <h3>세라마이드 NP</h3>
+          <p>피부가 원래 두르고 있는 장벽 성분과 같은 계열입니다. 마른 계절에 겉도는 느낌을 덜어 줍니다.</p>
+        </div>
+        <div class="ing" style="--bar:#F9A8D4">
+          <div class="n">03</div>
+          <h3>마데카소사이드</h3>
+          <p>붉은 기가 자주 올라오는 계절에 오래 기대 온 진정 계열 성분입니다. 향료와 색소는 넣지 않았습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <figure class="step-fig">
+          <img src="../img/nuam-cut-drop.jpg" width="1200" height="1604" loading="lazy" decoding="async" alt="유리 스포이드 끝에서 세럼 한 방울이 떨어지는 순간의 매크로 컷.">
+        </figure>
+        <span class="sn">1</span>
+        <h4>세안 후 2~3방울</h4>
+        <p>물기를 완전히 닦지 않은 얼굴에 스포이드로 2~3방울 덜어 냅니다.</p>
+      </div>
+      <div class="step">
+        <figure class="step-fig">
+          <img src="../img/nuam-cut-texture.jpg" width="1200" height="1604" loading="lazy" decoding="async" alt="손등에 얇게 펴 바른 세럼이 빛을 받아 윤이 나는 클로즈업.">
+        </figure>
+        <span class="sn">2</span>
+        <h4>얼굴 전체에 얇게</h4>
+        <p>양 볼, 이마, 턱에 나눠 올린 뒤 얼굴 전체에 얇게 펴 바릅니다.</p>
+      </div>
+      <div class="step">
+        <figure class="step-fig">
+          <img src="../img/nuam-cut-lineup.jpg" width="1200" height="1604" loading="lazy" decoding="async" alt="토너·세럼·크림 세 병이 연한 라일락 배경의 선반에 나란히 놓여 있다.">
+        </figure>
+        <span class="sn">3</span>
+        <h4>손바닥으로 감싸 흡수</h4>
+        <p>손바닥으로 감싸 잠깐 두면 흡수가 끝납니다. 아침에는 이어서 선크림을 올립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec res" id="final" aria-labelledby="restitle">
+  <div class="wrap">
+    <div class="eyebrow">results</div>
+    <h2 id="restitle">한 병이 다 비워지는 8주 동안</h2>
+    <p class="lede" style="margin-top:14px">숫자는 모두 용량 계산과 자체 측정에서 나온 값입니다. 특정한 효과를 약속하는 수치가 아닙니다.</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="num" data-count="8">8<small>주</small></div>
+        <div class="cap">하루 2번, 1회 2~3방울 기준 30ml 사용 기간<sup>2</sup></div>
+      </div>
+      <div class="metric">
+        <div class="num"><span data-count="5">5</span> → <span data-count="3">3</span></div>
+        <div class="cap">저녁 루틴 단계 수. 에센스·앰플·시트 팩 자리를 한 겹이 대신합니다.</div>
+      </div>
+      <div class="metric">
+        <div class="num" data-count="40">40<small>초</small></div>
+        <div class="cap">흡수 뒤 다음 단계를 올리기까지 걸린 시간<sup>1</sup></div>
+      </div>
+    </div>
+
+    <div class="quotes">
+      <div class="quote">
+        <p>“저녁에 세 개를 겹쳐 바르던 걸 하나로 줄였어요. 아침에 선크림이 밀리지 않는 게 제일 마음에 듭니다.”</p>
+        <div class="who">20대 후반 · 복합성</div>
+      </div>
+      <div class="quote">
+        <p>“계절이 바뀌어 코 옆이 붉어질 때 먼저 손이 갑니다. 흰 기가 남지 않아 목까지 같이 바르고 있어요.”</p>
+        <div class="who">30대 초반 · 건성</div>
+      </div>
+    </div>
+    <p class="note">
+      1. 실내 22도·습도 50% 환경에서 사내 인원 12명이 2~3방울 도포 후 다음 단계를 올릴 때까지 걸린 시간의 평균값(자체 측정)입니다.<br>
+      2. 하루 2회, 1회 2~3방울 사용을 가정해 30ml를 나눈 용량 계산값입니다. 1회 사용량에 따라 달라집니다.<br>
+      3. 후기는 체험단이 직접 남긴 사용 소감이며 개인차가 있습니다. 사용 중 붉은 기나 따가움이 있으면 사용을 멈추고 전문가와 상담하세요.
+    </p>
+
+    <div class="buypanel">
+      <div class="inner">
+        <div>
+          <h3>다섯 겹을 세 겹으로 두는 8주</h3>
+          <p class="sub">한 병이 비워질 때까지 저녁 순서를 그대로 유지해 보세요. 정기배송은 언제든 건너뛰거나 해지할 수 있습니다.</p>
+          <div class="guar">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2.2l5.4 2.1v4.4c0 3.3-2.2 6-5.4 7.1-3.2-1.1-5.4-3.8-5.4-7.1V4.3L9 2.2z" stroke="#831843" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.4 9.1l1.9 1.9 3.5-3.6" stroke="#EC4899" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>첫 병은 개봉 후에도 30일 안에 교환·환불이 가능합니다.</span>
+          </div>
+        </div>
+        <div class="pricebox">
+          <div class="prow"><span class="l">누암 배리어 세럼 30ml</span><span class="r">32,000원</span></div>
+          <div class="prow"><span class="l">정기배송 (4주 주기)</span><span class="r">28,800원</span></div>
+          <div class="prow"><span class="l">배송</span><span class="r small">3만원 이상 무료</span></div>
+          <div class="btnrow" style="grid-template-columns:1fr">
+            <button class="btn" type="button" data-buy>장바구니에 담기</button>
+            <button class="btn ghost" type="button" data-buy>정기배송으로 시작 · 28,800원</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fg">
+    <div>
+      <div class="fm">NUAM</div>
+      <p>누암 배리어 세럼 30ml · 판테놀 5%, 세라마이드 NP, 마데카소사이드 · 향료·색소 무첨가</p>
+      <p class="concept">본 페이지는 your wings가 제작한 가상 브랜드 콘셉트 작업입니다.</p>
+    </div>
+    <p style="margin:0">화장품은 질병의 치료·예방을 위한 제품이 아닙니다.</p>
+  </div>
+</footer>
+
+<div class="buybar" id="buybar">
+  <div class="in">
+    <div class="txt">
+      <div class="p1">32,000원</div>
+      <div class="p2">정기배송 28,800원 · 30ml</div>
+    </div>
+    <button class="btn" type="button" data-buy>장바구니에 담기</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── 시그니처: 루틴 레이어 접기 슬라이더 ── */
+  var xform = document.getElementById('xform');
+  var track = document.getElementById('track');
+  var stepCount = document.getElementById('stepCount');
+  var stateLabel = document.getElementById('stateLabel');
+  var roTitle = document.getElementById('roTitle');
+  var roBody = document.getElementById('roBody');
+  var pip = document.getElementById('pip');
+  var p = 0, dragging = false, interacted = false;
+
+  var COPY = {
+    before: {
+      title: '겹쳐 바른 만큼 기다린다',
+      body: '에센스, 앰플, 시트 팩을 차례로 얹는 저녁. 층마다 마르길 기다리다 보면 잠들기 전 마지막 한 겹은 늘 급해진다.',
+      state: '바르기 전'
+    },
+    after: {
+      title: '세 겹이 한 겹으로 겹쳐진다',
+      body: '가운데 세 단계를 세럼 한 겹이 대신한다. 백탁이 남지 않아 흡수 뒤 곧바로 다음 단계로 이어진다.',
+      state: '바른 직후'
+    }
+  };
+
+  function apply(v, fromKey){
+    p = Math.max(0, Math.min(1, v));
+    if (xform) xform.style.setProperty('--p', p.toFixed(3));
+    var steps = p > 0.5 ? 3 : 5;
+    if (stepCount) stepCount.textContent = steps + '단계';
+    var mode = p > 0.5 ? COPY.after : COPY.before;
+    if (stateLabel) stateLabel.textContent = mode.state;
+    if (roTitle) roTitle.textContent = mode.title;
+    if (roBody) roBody.textContent = mode.body;
+    if (pip) pip.style.background = p > 0.5 ? 'linear-gradient(140deg,#EC4899,#8B5CF6)' : '#64748B';
+    if (track){
+      track.setAttribute('aria-valuenow', Math.round(p * 100));
+      track.setAttribute('aria-valuetext', mode.state + ', ' + steps + '단계');
+    }
+    if (fromKey && track) track.focus();
+  }
+
+  function fromX(clientX){
+    if (!track) return;
+    var r = track.getBoundingClientRect();
+    var usable = r.width - 44;
+    if (usable <= 0) return;
+    apply((clientX - r.left - 22) / usable);
+  }
+
+  if (track){
+    track.addEventListener('pointerdown', function(e){
+      dragging = true; interacted = true;
+      if (track.setPointerCapture && e.pointerId !== undefined) {
+        try { track.setPointerCapture(e.pointerId); } catch (err) { /* 무시 */ }
+      }
+      fromX(e.clientX);
+      e.preventDefault();
+    });
+    track.addEventListener('pointermove', function(e){ if (dragging) fromX(e.clientX); });
+    track.addEventListener('pointerup', function(){ dragging = false; });
+    track.addEventListener('pointercancel', function(){ dragging = false; });
+    track.addEventListener('keydown', function(e){
+      var k = e.key, step = 0.1, done = true;
+      interacted = true;
+      if (k === 'ArrowRight' || k === 'ArrowUp') apply(p + step, true);
+      else if (k === 'ArrowLeft' || k === 'ArrowDown') apply(p - step, true);
+      else if (k === 'Home') apply(0, true);
+      else if (k === 'End') apply(1, true);
+      else if (k === 'Enter' || k === ' ') apply(p > 0.5 ? 0 : 1, true);
+      else done = false;
+      if (done) e.preventDefault();
+    });
+  }
+  apply(0);
+
+  /* 처음 화면에 들어올 때 한 번만 살짝 열어 보여 준다 */
+  var teased = false;
+  if (xform && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting || teased) return;
+        teased = true;
+        io.disconnect();
+        if (reduce) return;
+        /* 살짝 열었다가 다시 닫아, 손잡이를 움직일 수 있다는 것만 알린다 */
+        var t0 = 0, DUR = 1500, PEAK = 0.3;
+        var run = function(ts){
+          if (!t0) t0 = ts;
+          if (dragging || interacted) return;
+          var e = Math.min(1, (ts - t0) / DUR);
+          var wave = Math.sin(e * Math.PI);
+          apply(wave * PEAK);
+          if (e < 1) requestAnimationFrame(run); else if (!interacted) apply(0);
+        };
+        requestAnimationFrame(run);
+      });
+    }, { threshold: 0.45 });
+    io.observe(xform);
+  }
+
+  /* ── 결과 숫자 카운트 ── */
+  var nums = [].slice.call(document.querySelectorAll('[data-count]'));
+  function fill(el){
+    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    var small = el.querySelector('small');
+    var suffix = small ? small.outerHTML : '';
+    if (reduce){ el.innerHTML = target + suffix; return; }
+    var t0 = 0, done = false;
+    var run = function(ts){
+      if (!t0) t0 = ts;
+      var e = Math.min(1, (ts - t0) / 800);
+      var val = Math.round(target * (1 - Math.pow(1 - e, 3)));
+      if (!done) el.innerHTML = val + suffix;
+      if (e < 1) requestAnimationFrame(run); else done = true;
+    };
+    requestAnimationFrame(run);
+    /* rAF 가 멈춰도 숫자는 반드시 최종값으로 남는다 */
+    window.setTimeout(function(){ done = true; el.innerHTML = target + suffix; }, 1100);
+  }
+  if ('IntersectionObserver' in window){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ fill(en.target); io2.unobserve(en.target); }
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function(el){ io2.observe(el); });
+  } else {
+    nums.forEach(fill);
+  }
+
+  /* ── 하단 구매 바 ── */
+  var bar = document.getElementById('buybar');
+  var sentinel = document.getElementById('afterHero');
+  var finalSec = document.getElementById('final');
+  var pastHero = false, atFinal = false;
+  function syncBar(){
+    if (!bar) return;
+    if (pastHero && !atFinal) bar.classList.add('on');
+    else bar.classList.remove('on');
+  }
+  if (bar && 'IntersectionObserver' in window){
+    if (sentinel){
+      new IntersectionObserver(function(en){
+        pastHero = !en[0].isIntersecting && en[0].boundingClientRect.top < 0;
+        syncBar();
+      }, { threshold: 0 }).observe(sentinel);
+    }
+    if (finalSec){
+      new IntersectionObserver(function(en){
+        atFinal = en[0].isIntersecting;
+        syncBar();
+      }, { threshold: 0.12 }).observe(finalSec);
+    }
+  }
+
+  /* ── 히어로 층 패럴랙스 (아주 얕게) ── */
+  var vis = document.getElementById('heroVis');
+  if (vis && !reduce){
+    var queued = false;
+    window.addEventListener('scroll', function(){
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function(){
+        queued = false;
+        var y = window.pageYOffset || 0;
+        if (y < 900) vis.style.transform = 'translate3d(0,' + (y * 0.045).toFixed(2) + 'px,0)';
+      });
+    }, { passive: true });
+  }
+
+  /* ── 담기 버튼 (콘셉트 페이지) ── */
+  [].slice.call(document.querySelectorAll('[data-buy]')).forEach(function(b){
+    b.addEventListener('click', function(){
+      var old = b.textContent;
+      b.textContent = '담았습니다';
+      window.setTimeout(function(){ b.textContent = old; }, 1400);
+    });
+  });
+})();
+</script>
+</body>
+</html>

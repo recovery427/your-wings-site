@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오독 — 씹는 소리까지 재료 그대로</title>
+<style>
+  :root{
+    --primary: #15803D;
+    --on-primary: #FFFFFF;
+    --secondary: #22C55E;
+    --on-secondary: #0F172A;
+    --accent: #A16207;
+    --on-accent: #FFFFFF;
+    --background: #F0FDF4;
+    --foreground: #14532D;
+    --card: #FFFFFF;
+    --card-foreground: #14532D;
+    --muted: #E8F0F1;
+    --muted-foreground: #64748B;
+    --border: #BBF7D0;
+    --destructive: #DC2626;
+    --ring: #15803D;
+
+    --sky: #87CEEB;
+    --r-lg: 28px;
+    --r-md: 22px;
+    --r-sm: 16px;
+    --shadow-soft: 0 8px 32px rgba(20, 83, 45, .08);
+    --shadow-lift: 0 14px 40px rgba(20, 83, 45, .14);
+    --font-head: 'Trebuchet MS', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    --font-body: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    --font-num: Georgia, 'Times New Roman', serif;
+    --gap: 14px;
+    --pad: clamp(16px, 3vw, 26px);
+  }
+
+  *, *::before, *::after{ box-sizing: border-box; }
+
+  html{ -webkit-text-size-adjust: 100%; }
+
+  body{
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.66;
+    overflow-x: hidden;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .nowrap{ white-space: nowrap; }
+
+  /* 아주 옅은 흙/잎 텍스처 (장식) */
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(rgba(21, 128, 61, .07) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
+
+  .num{ font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+  h1, h2, h3, h4{
+    font-family: var(--font-head);
+    color: var(--foreground);
+    line-height: 1.28;
+    margin: 0;
+    letter-spacing: -.01em;
+  }
+
+  p{ margin: 0; }
+
+  a{ color: var(--primary); }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 40px);
+  }
+
+  .eyebrow{
+    font-family: var(--font-head);
+    font-size: .8125rem;
+    letter-spacing: .12em;
+    text-transform: lowercase;
+    color: var(--primary);
+    margin: 0 0 10px;
+  }
+
+  .eyebrow--muted{ color: var(--muted-foreground); }
+
+  /* ---------- 시그니처: 베어 먹은 위쪽 모서리 ---------- */
+  .bitten{
+    --bite-r: 13px;
+    --bite-step: 36px;
+    -webkit-mask-image: radial-gradient(var(--bite-r) at 50% 0, transparent 97%, #000 100%);
+    -webkit-mask-size: var(--bite-step) 100%;
+    -webkit-mask-repeat: repeat-x;
+    mask-image: radial-gradient(var(--bite-r) at 50% 0, transparent 97%, #000 100%);
+    mask-size: var(--bite-step) 100%;
+    mask-repeat: repeat-x;
+    box-shadow: none;
+    border: 0;
+    padding-top: calc(var(--pad) + 16px);
+  }
+
+  /* ---------- 헤더 ---------- */
+  .topbar{
+    position: relative;
+    z-index: 3;
+    padding: 20px 0 8px;
+  }
+
+  .topbar__inner{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .mark{
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    gap: 10px;
+    font-family: var(--font-head);
+    font-size: 1.375rem;
+    text-transform: lowercase;
+    letter-spacing: .01em;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+
+  .mark svg{ width: 30px; height: 30px; display: block; color: var(--primary); }
+
+  .mark b{ font-weight: 700; }
+
+  .mark span{
+    font-family: var(--font-body);
+    font-size: .875rem;
+    color: var(--muted-foreground);
+    letter-spacing: 0;
+  }
+
+  .topnav{
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .topnav a{
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: .9375rem;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+
+  .topnav a:hover{ background: #FFFFFF; }
+
+  /* ---------- 1. Hero ---------- */
+  .hero{ position: relative; padding: 26px 0 30px; overflow: hidden; }
+
+  .hero__bg{
+    position: absolute;
+    inset: -40px -10% -10px -10%;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(180deg, #000 52%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 52%, transparent 100%);
+  }
+
+  .hero__bg svg{ width: 100%; height: 100%; display: block; }
+
+  .hero__inner{ position: relative; z-index: 1; }
+
+  .hero__grid{
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(18px, 3vw, 36px);
+    align-items: end;
+  }
+
+  h1{
+    font-size: clamp(2.1rem, 6.2vw, 3.5rem);
+    letter-spacing: -.02em;
+  }
+
+  h1 em{
+    font-style: normal;
+    color: var(--primary);
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .hero__lead{
+    margin-top: 18px;
+    max-width: 25em;
+    color: #1B5E36;
+  }
+
+  .chips{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chips li{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px 7px 11px;
+    font-size: .9375rem;
+    color: var(--card-foreground);
+  }
+
+  .chips svg{ width: 17px; height: 17px; color: var(--primary); flex: none; }
+
+  .hero__actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-family: var(--font-head);
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease;
+  }
+
+  .btn svg{ width: 18px; height: 18px; flex: none; }
+
+  .btn--solid{ background: var(--primary); color: var(--on-primary); box-shadow: var(--shadow-soft); }
+  .btn--solid:hover{ background: #116634; transform: translateY(-2px); }
+
+  .btn--ghost{ background: transparent; color: var(--primary); border-color: var(--primary); }
+  .btn--ghost:hover{ background: #FFFFFF; transform: translateY(-2px); }
+
+  .hero__aside{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg) var(--r-sm) var(--r-lg) var(--r-lg);
+    box-shadow: var(--shadow-soft);
+    padding: var(--pad);
+  }
+
+  .hero__aside h2{ font-size: 1.0625rem; }
+
+  /* 이름을 소리로 보여주는 타이포 장치 */
+  .hero__aside p.crunch{
+    font-family: var(--font-head);
+    font-size: clamp(1.9rem, 5.2vw, 2.6rem);
+    line-height: 1.9;
+    margin: 12px 0 12px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    white-space: nowrap;
+  }
+
+  .crunch i{
+    font-style: normal;
+    display: inline-block;
+  }
+
+  .crunch i:nth-child(1){ transform: translateY(-6px); }
+  .crunch i:nth-child(2){ transform: translateY(5px); opacity: .9; }
+  .crunch i:nth-child(3){ transform: translateY(-6px); opacity: .78; }
+  .crunch i:nth-child(4){ transform: translateY(5px); opacity: .64; }
+  .crunch i:nth-child(5){ transform: translateY(-6px); opacity: .5; }
+
+  .hero__aside p{
+    font-size: .9375rem;
+    color: var(--muted-foreground);
+  }
+
+  /* ---------- 2. Bento Grid ---------- */
+  .section{ padding: clamp(34px, 5vw, 58px) 0 0; }
+
+  .section-head{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .section-head h2{ font-size: clamp(1.5rem, 3.4vw, 2.05rem); }
+
+  .section-head p{
+    max-width: 24em;
+    font-size: .9375rem;
+    color: var(--muted-foreground);
+  }
+
+  .bento{
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+
+  /* ---------- 사진 타일 ----------
+     벤토 안에 사진을 한 칸으로 넣는다. 비율을 미리 박아 로딩 중 격자가 안 흔들린다.
+     실제 파일이 1600x904 / 1200x1604 이므로 16:9 · 3:4 로 정확히 맞는다. */
+  .tile--photo{
+    padding: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: var(--muted);
+  }
+  .tile--photo img{ width: 100%; height: 100%; object-fit: cover; object-position: center 46%; display: block; }
+  .photo{
+    margin: 0; padding: 0; border: 0;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background: var(--muted);
+  }
+  .photo img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo figcaption{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+  .tile{
+    position: relative;
+    background: var(--card);
+    color: var(--card-foreground);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-soft);
+    padding: var(--pad);
+    min-width: 0;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+
+  .tile:nth-of-type(even){ border-radius: var(--r-md) var(--r-lg) var(--r-md) var(--r-lg); }
+
+  .tile:hover{ transform: scale(1.02); box-shadow: var(--shadow-lift); }
+
+  .tile--dark{ background: var(--primary); color: var(--on-primary); }
+  .tile--dark h3, .tile--dark h4{ color: var(--on-primary); }
+  .tile--gold{ background: var(--accent); color: var(--on-accent); }
+  .tile--gold h3{ color: var(--on-accent); }
+
+  .tile h3{
+    font-size: 1.1875rem;
+    margin-bottom: 4px;
+  }
+
+  .tile__note{
+    font-size: .875rem;
+    color: var(--muted-foreground);
+  }
+
+  .tile--dark .tile__note, .tile--gold .tile__note{ color: rgba(255, 255, 255, .95); }
+
+  /* 벤토 행 계산: [사진 12] [라인업 7 + 공정 5] [이력 5 + 숫자 3 + 무첨가 4] [급여 12]
+     사진은 한 행을 통째로 쓰는 띠로 둔다. 12칸 안에 끼워 넣으면 나머지 행 합이 깨진다. */
+  .t-photo{ grid-column: span 12; aspect-ratio: 16 / 7; }
+  .t-lineup{ grid-column: span 7; display: flex; flex-direction: column; }
+  .t-process{ grid-column: span 5; }
+  .t-trace{ grid-column: span 5; }
+  .t-numbers{ grid-column: span 3; display: flex; flex-direction: column; }
+  .t-clean{ grid-column: span 4; display: flex; flex-direction: column; }
+  .t-feed{ grid-column: span 12; }
+
+  /* 라인업 타일 */
+  .lineup{
+    list-style: none;
+    flex: 1 1 auto;
+    margin: 16px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .lineup li{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: rgba(255, 255, 255, .12);
+    border-radius: var(--r-sm);
+    padding: 11px 13px;
+  }
+
+  .lineup svg{ width: 42px; height: 42px; flex: none; }
+
+  .lineup b{
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .lineup small{
+    display: block;
+    font-size: .8125rem;
+    color: rgba(255, 255, 255, .95);
+  }
+
+  /* 공정 타일 */
+  .flowchart{ margin: 12px 0 0; }
+  .flowchart svg{ width: 100%; height: auto; display: block; }
+
+  .steps{
+    counter-reset: step;
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 7px;
+  }
+
+  .steps li{
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    font-size: .9375rem;
+  }
+
+  .steps li::before{
+    counter-increment: step;
+    content: counter(step);
+    font-family: var(--font-num);
+    font-size: .8125rem;
+    color: var(--primary);
+    background: #E7F8EC;
+    border-radius: 999px;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+  }
+
+  /* 이력 타일 */
+  .trace{
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .trace li{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    align-items: baseline;
+    padding: 10px 0;
+    border-top: 1px solid var(--muted);
+  }
+
+  .trace li:first-child{ border-top: 0; }
+
+  .trace b{ font-weight: 600; font-size: .9375rem; }
+
+  .trace span{
+    font-size: .875rem;
+    color: var(--muted-foreground);
+    text-align: right;
+  }
+
+  .trace em{
+    grid-column: 1 / -1;
+    font-style: normal;
+    font-size: .875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* 숫자 타일 */
+  .stat{
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+    flex: 1 1 auto;
+    align-content: space-between;
+  }
+
+  .stat div{ line-height: 1.2; }
+
+  .stat strong{
+    display: block;
+    font-family: var(--font-num);
+    font-size: clamp(1.5rem, 3.6vw, 2rem);
+    font-weight: 400;
+  }
+
+  .stat span{
+    display: block;
+    font-size: .8125rem;
+    color: rgba(255, 255, 255, .95);
+  }
+
+  /* 무첨가 타일 */
+  .clean{
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 9px;
+  }
+
+  .tile__foot{
+    margin-top: auto;
+    padding-top: 16px;
+    font-size: .875rem;
+    color: var(--muted-foreground);
+  }
+
+  .clean li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .9375rem;
+  }
+
+  .clean svg{ width: 26px; height: 26px; flex: none; color: var(--accent); }
+
+  /* 급여 요약 타일 */
+  .t-feed .feed-row{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: clamp(14px, 3vw, 30px);
+    align-items: center;
+  }
+
+  .feed-mini{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .feed-mini li{
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 11px 12px;
+  }
+
+  .feed-mini b{
+    display: block;
+    font-family: var(--font-num);
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--primary);
+  }
+
+  .feed-mini small{
+    display: block;
+    font-size: .8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .grid-foot{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .grid-foot p{ font-size: .875rem; color: var(--muted-foreground); }
+
+  /* ---------- 3. Detail Cards ---------- */
+  .cards{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+
+  .card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg) var(--r-md) var(--r-lg) var(--r-md);
+    box-shadow: var(--shadow-soft);
+    padding: var(--pad);
+    min-width: 0;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+
+  .card:hover{ transform: scale(1.02); box-shadow: var(--shadow-lift); }
+
+  .card__art{
+    display: block;
+    width: 104px;
+    height: 104px;
+    margin-bottom: 14px;
+  }
+
+  .card h3{ font-size: 1.0625rem; }
+
+  .card > p{
+    font-size: .9375rem;
+    color: var(--muted-foreground);
+    margin-top: 6px;
+  }
+
+  .dl{
+    margin: 14px 0 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 7px 12px;
+    font-size: .875rem;
+  }
+
+  .dl dt{ color: var(--muted-foreground); }
+  .dl dd{ margin: 0; text-align: right; }
+
+  /* ---------- 4. Tech Specs ---------- */
+  .specs{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+
+  .panel{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-soft);
+    padding: var(--pad);
+    min-width: 0;
+  }
+
+  .panel h3{ font-size: 1.125rem; margin-bottom: 12px; }
+
+  .tablewrap{ overflow-x: auto; }
+
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9375rem;
+  }
+
+  caption{
+    caption-side: bottom;
+    text-align: left;
+    font-size: .8125rem;
+    color: var(--muted-foreground);
+    padding-top: 10px;
+  }
+
+  th, td{
+    text-align: left;
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--muted);
+    vertical-align: top;
+  }
+
+  th{
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: .875rem;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td{ border-bottom: 0; }
+
+  td:last-child, th:last-child{ padding-right: 0; }
+
+  .footnote{
+    margin-top: 16px;
+    font-size: .8125rem;
+    color: var(--muted-foreground);
+  }
+
+  /* ---------- 5. CTA ---------- */
+  .cta{
+    margin: clamp(34px, 5vw, 58px) 0 0;
+    --bite-r: 15px;
+    --bite-step: 42px;
+    background: var(--primary);
+    color: var(--on-primary);
+    border-radius: var(--r-lg);
+    padding: var(--pad);
+  }
+
+  .cta__inner{
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(16px, 3vw, 34px);
+    align-items: center;
+  }
+
+  .cta h2{ color: var(--on-primary); font-size: clamp(1.5rem, 3.6vw, 2.1rem); }
+
+  .cta p{
+    margin-top: 12px;
+    color: rgba(255, 255, 255, .95);
+    max-width: 25em;
+  }
+
+  .cta .btn--solid{
+    background: var(--card);
+    color: var(--primary);
+  }
+
+  .cta .btn--solid:hover{ background: #E7F8EC; }
+
+  .cta .btn--ghost{
+    color: var(--on-primary);
+    border-color: rgba(255, 255, 255, .6);
+  }
+
+  .cta .btn--ghost:hover{ background: rgba(255, 255, 255, .14); }
+
+  .cta__actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .cta__box{
+    background: rgba(255, 255, 255, .12);
+    border-radius: var(--r-md);
+    padding: 16px 18px;
+  }
+
+  .cta__box ul{
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    font-size: .9375rem;
+  }
+
+  .cta__box li{ display: flex; gap: 9px; align-items: flex-start; }
+  .cta__box svg{ width: 18px; height: 18px; flex: none; margin-top: 4px; color: #BBF7D0; }
+  .cta__box h3{ color: var(--on-primary); font-size: 1rem; }
+
+  /* FAB */
+  .fab{
+    position: fixed;
+    right: clamp(14px, 3vw, 28px);
+    bottom: clamp(14px, 3vw, 28px);
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-head);
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 12px 30px rgba(20, 83, 45, .28);
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease;
+  }
+
+  .fab:hover{ background: #8A5406; transform: translateY(-2px); }
+  .fab svg{ width: 20px; height: 20px; flex: none; }
+
+  /* 푸터 */
+  footer{
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(30px, 5vw, 52px);
+    padding: 26px 0 96px;
+    border-top: 1px solid var(--border);
+  }
+
+  .foot{
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: .875rem;
+    color: var(--muted-foreground);
+  }
+
+  .foot strong{
+    font-family: var(--font-head);
+    color: var(--foreground);
+    text-transform: lowercase;
+    font-size: 1rem;
+  }
+
+  /* 포커스 */
+  a:focus-visible, button:focus-visible{
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .tile--dark a:focus-visible, .cta a:focus-visible, .fab:focus-visible{
+    outline-color: #FFFFFF;
+  }
+
+  .skip{
+    position: absolute;
+    left: -9999px;
+    top: 0;
+  }
+
+  .skip:focus{
+    left: 12px;
+    top: 12px;
+    z-index: 40;
+    background: var(--card);
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+
+  /* staggered reveal */
+  .reveal{
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+    transition-delay: var(--d, 0ms);
+  }
+
+  .reveal.in{ opacity: 1; transform: none; }
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width: 1000px){
+    .t-photo{ grid-column: span 12; aspect-ratio: 16 / 10; }
+    .t-lineup{ grid-column: span 12; }
+    .t-process{ grid-column: span 12; }
+    .t-trace{ grid-column: span 7; }
+    .t-numbers{ grid-column: span 5; }
+    .t-clean{ grid-column: span 12; }
+    .cards{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero__grid{ grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .hero__lead{ max-width: none; }
+  }
+
+  @media (max-width: 820px){
+    .specs{ grid-template-columns: minmax(0, 1fr); }
+    .cta__inner{ grid-template-columns: minmax(0, 1fr); }
+    .t-feed .feed-row{ grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (max-width: 640px){
+    body{ font-size: 1.0625rem; }
+    .t-trace, .t-numbers{ grid-column: span 12; }
+    .lineup{ grid-template-columns: minmax(0, 1fr); }
+    .cards{ grid-template-columns: minmax(0, 1fr); }
+    .feed-mini{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .clean li{ font-size: 1rem; }
+    .fab{ padding: 0 18px; font-size: .9375rem; }
+    .topnav{ width: 100%; margin-left: 0; }
+    .stat{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal{ opacity: 1; transform: none; }
+    .tile:hover, .card:hover, .btn:hover, .fab:hover{ transform: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#lineup">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="mark" href="#top">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M16 3c5 2 9 6 9 11.5C25 21 21 27 16 29 11 27 7 21 7 14.5C7 9 11 5 16 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M16 8v16" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M16 14c2-1.6 4-2 5.6-1.8M16 19c-2-1.6-4-2-5.6-1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <b>odok</b> <span>오독</span>
+    </a>
+    <nav class="topnav" aria-label="주요 메뉴">
+      <a href="#lineup">라인업</a>
+      <a href="#process">공정</a>
+      <a href="#specs">급여 가이드</a>
+      <a href="#order">주문</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <svg viewBox="0 0 1200 420" preserveAspectRatio="none" focusable="false">
+        <path d="M0 210C120 120 240 96 372 150c132 54 210 30 300-42 90-72 240-96 348-30 108 66 180 42 180 42v300H0z" fill="#DCFBE6" opacity=".85"/>
+        <path d="M120 300c150-96 258-42 384 6 126 48 258 24 366-42 108-66 234-42 330 12v144H120z" fill="#CFF3E0" opacity=".7"/>
+        <ellipse cx="960" cy="120" rx="150" ry="72" fill="#87CEEB" opacity=".26"/>
+        <ellipse cx="210" cy="84" rx="108" ry="48" fill="#87CEEB" opacity=".18"/>
+      </svg>
+    </div>
+
+    <div class="wrap hero__inner">
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">odok · 반려동물 수제간식</p>
+          <h1>씹는 소리까지<br><em>재료 그대로</em></h1>
+          <p class="hero__lead">오독은 손질부터 소분까지 한 작업장에서 만듭니다. 원료가 어디서 왔고 며칠에 한 번 들어오는지, 몇 도에서 얼마나 말렸는지를 라인업마다 그대로 적어 둡니다.</p>
+          <ul class="chips">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              보존료 무첨가
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              합성 색소 무첨가
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              향료 무첨가
+            </li>
+          </ul>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#lineup">
+              라인업 네 가지 보기
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M12 5.5l6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="#process">만드는 과정 네 단계</a>
+          </div>
+        </div>
+
+        <aside class="hero__aside" aria-label="오독이라는 이름">
+          <h2>이름을 소리에서 가져왔습니다</h2>
+          <p class="crunch" aria-hidden="true"><i>오</i><i>독</i><i>오</i><i>독</i><i>오</i></p>
+          <p>수분을 <span class="num">12%</span> 아래로 내리면 살코기가 가루로 부서지지 않고 오독오독 끊깁니다. 그 소리가 남는 지점까지만 말립니다.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lineup">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow eyebrow--muted">bento</p>
+          <h2>한 화면에 담은 오독</h2>
+        </div>
+        <p>라인업, 공정, 원료 이력, 급여량을 타일 하나씩으로 나눠 두었습니다. 필요한 칸만 읽으셔도 됩니다.</p>
+      </div>
+
+      <div class="bento">
+
+        <article class="tile tile--photo t-photo reveal" style="--d:0ms" aria-label="오독 큐브 간식 사진">
+          <img src="../img/odok-hero.jpg" width="1600" height="904" loading="eager" decoding="async"
+               alt="나무 보드에 쌓인 갈색 큐브 간식과 인쇄가 없는 크라프트 파우치, 옆에 단호박 조각과 현미.">
+        </article>
+
+        <article class="tile tile--dark bitten t-lineup reveal" style="--d:0ms">
+          <h3>라인업 네 가지</h3>
+          <p class="tile__note">품목마다 원료를 세 가지 안으로 묶고, 한 가지 방식으로만 말립니다.</p>
+          <ul class="lineup">
+            <li>
+              <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M24 8L39 17L24 26L9 17Z" fill="#F8FBF2" stroke="#F8FBF2" stroke-width="1.4" stroke-linejoin="round" opacity=".95"/>
+                <path d="M9 17V31L24 40V26Z" fill="#DCEFE1" opacity=".9"/>
+                <path d="M39 17V31L24 40V26Z" fill="#C6E2CE" opacity=".9"/>
+                <path d="M9 23L24 32M39 23L24 32" stroke="#A16207" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>
+                <path d="M16 12L31 21" stroke="#A16207" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+              </svg>
+              <div><b>닭가슴살 큐브</b><small>닭가슴살·단호박·현미 · 작게 끊김</small></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M13 35L35 13" stroke="#F8FBF2" stroke-width="16" stroke-linecap="round" opacity=".95"/>
+                <path d="M15 31L31 15M18 36L34 20M10 30L26 14" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>
+              </svg>
+              <div><b>오리 안심 스틱</b><small>길게 그대로 · 오래 씹힘</small></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M7 28C10 18 19 11 30 9C39 7.5 45 11 45 17C45 23 38 28 30 33C22 37 13 40 9 36C6 33 5.5 31 7 28Z" fill="#F8FBF2" opacity=".95"/>
+                <path d="M12 29C19 22 27 17 36 15M14 34C21 29 28 25 37 22" stroke="#A16207" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>
+              </svg>
+              <div><b>대구살 칩</b><small>얇게 포 떠서 · 바스러짐</small></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M37 17A15 15 0 1 0 37 31Z" fill="#F8FBF2" opacity=".95"/>
+                <circle cx="24" cy="24" r="9" fill="none" stroke="#A16207" stroke-width="1.5" opacity=".8"/>
+                <circle cx="21" cy="24" r="2.6" fill="#A16207" opacity=".7"/>
+              </svg>
+              <div><b>고구마 슬라이스</b><small>둥글게 썰어 · 쫀득함</small></div>
+            </li>
+          </ul>
+        </article>
+
+        <article class="tile t-process reveal" id="process" style="--d:80ms">
+          <h3>만드는 과정 네 단계</h3>
+          <p class="tile__note">같은 날 들어온 원료를 같은 날 손질합니다.</p>
+          <div class="flowchart" aria-hidden="true">
+            <svg viewBox="0 0 420 84" focusable="false">
+              <path d="M18 58C70 18 110 66 158 42c48-24 84 30 128 12 44-18 76-24 116-30" fill="none" stroke="#BBF7D0" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="18" cy="58" r="8" fill="#15803D"/>
+              <circle cx="158" cy="42" r="8" fill="#15803D"/>
+              <circle cx="286" cy="54" r="8" fill="#15803D"/>
+              <circle cx="402" cy="24" r="8" fill="#A16207"/>
+            </svg>
+          </div>
+          <ol class="steps">
+            <li><span>손질 — 힘줄과 기름을 떼고 두께를 맞춥니다.</span></li>
+            <li><span>저온건조 <span class="num">55</span>도 — 겉만 굳지 않게 천천히 말립니다.</span></li>
+            <li><span>수분율 확인 — 한 판마다 재서 기록으로 남깁니다.</span></li>
+            <li><span>소분 포장 — 개봉 단위를 작게 나눠 담습니다.</span></li>
+          </ol>
+        </article>
+
+        <article class="tile t-trace reveal" id="trace" style="--d:160ms">
+          <h3>원료 이력</h3>
+          <p class="tile__note">원산지와 입고 주기를 라인업별로 적습니다.</p>
+          <ul class="trace">
+            <li><b>닭가슴살 큐브</b><span>충남 논산 · 주 <span class="num">2</span>회 입고</span></li>
+            <li><b>오리 안심 스틱</b><span>전남 나주 · 주 <span class="num">1</span>회 입고</span></li>
+            <li><b>대구살 칩</b><span>북태평양산 대구 · 월 <span class="num">2</span>회 입고</span></li>
+            <li><b>고구마 슬라이스</b><span>전남 해남 밤고구마 · 주 <span class="num">1</span>회 입고</span></li>
+            <li><em>봉지 뒷면 번호로 손질한 날짜와 건조 판을 되짚을 수 있습니다.</em></li>
+          </ul>
+        </article>
+
+        <article class="tile tile--gold bitten t-numbers reveal" style="--d:240ms">
+          <h3>작업장 숫자</h3>
+          <div class="stat">
+            <div><strong>55도</strong><span>건조기 설정 온도</span></div>
+            <div><strong>8~12시간</strong><span>품목별 건조 시간</span></div>
+            <div><strong>12% 이하</strong><span>포장 직전 수분율</span></div>
+          </div>
+        </article>
+
+        <article class="tile t-clean reveal" style="--d:320ms">
+          <h3>넣지 않는 것</h3>
+          <p class="tile__note">맛과 색은 원료에서만 나옵니다.</p>
+          <ul class="clean">
+            <li>
+              <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 21L21 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 8.5c2.6 3 4 5 4 6.6a4 4 0 01-8 0c0-1.6 1.4-3.6 4-6.6z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+              보존료 — 대신 수분을 낮춥니다
+            </li>
+            <li>
+              <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 21L21 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="11" cy="11" r="1.6" fill="currentColor"/><circle cx="17" cy="13" r="1.6" fill="currentColor"/><circle cx="13" cy="17.5" r="1.6" fill="currentColor"/></svg>
+              합성 색소 — 이 갈색은 말린 색 그대로입니다
+            </li>
+            <li>
+              <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 21L21 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M11 8h6l-1 4.5 3 6.5H9l3-6.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              향료 — 말릴 때 나는 냄새만 남깁니다
+            </li>
+          </ul>
+          <p class="tile__foot">성분표에 적을 줄이 짧을수록 좋다고 봅니다.</p>
+        </article>
+
+        <article class="tile t-feed reveal" style="--d:400ms">
+          <div class="feed-row">
+            <div>
+              <h3>하루 급여량 먼저 보기</h3>
+              <p class="tile__note">간식은 주식과 물을 갖춘 다음의 몫입니다. 하루 열량의 <span class="num">10%</span> 안쪽을 권합니다.</p>
+            </div>
+            <ul class="feed-mini">
+              <li><b>2kg</b><small>하루 6g 이하</small></li>
+              <li><b>4kg</b><small>하루 8~14g</small></li>
+              <li><b>8kg</b><small>하루 14~24g</small></li>
+              <li><b>15kg</b><small>하루 24~40g</small></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid-foot">
+        <p>수치는 오독 작업장 자체 측정값입니다.</p>
+        <a class="btn btn--solid" href="#order">
+          네 가지 맛보기 세트 담기
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M12 5.5l6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="detail">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow eyebrow--muted">detail</p>
+          <h2>네 가지를 하나씩</h2>
+        </div>
+        <p>단면 그림은 결이 어느 방향으로 끊기는지를 표시한 것입니다.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal" style="--d:0ms">
+          <svg class="card__art" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <path d="M62 20L90 36L62 52L34 36Z" fill="#F1FAF3" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M34 36V64L62 80V52Z" fill="#E7F4EA" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M90 36V64L62 80V52Z" fill="#DEEFE3" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M34 45L62 61M34 54L62 70M90 45L62 61M90 54L62 70" stroke="#A16207" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+            <path d="M48 28L76 44M55 24L83 40" stroke="#A16207" stroke-width="1.4" stroke-linecap="round" opacity=".45"/>
+            <path d="M26 68L40 76L26 84L12 76Z" fill="#F1FAF3" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 76V90L26 98V84Z" fill="#E7F4EA" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M40 76V90L26 98V84Z" fill="#DEEFE3" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 82L26 90M40 82L26 90" stroke="#A16207" stroke-width="1.4" stroke-linecap="round" opacity=".6"/>
+          </svg>
+          <h3>닭가슴살 큐브</h3>
+          <p>닭가슴살에 찐 단호박과 곱게 간 현미를 섞어 깍둑 썰었습니다. 조각이 작아 처음 주는 간식으로 쓰기 좋습니다.</p>
+          <dl class="dl">
+            <dt>원산지</dt><dd>국내산 · 충남 논산</dd>
+            <dt>입고</dt><dd>주 <span class="num">2</span>회</dd>
+            <dt>건조</dt><dd><span class="num">55</span>도 · <span class="num">12</span>시간</dd>
+            <dt>수분율</dt><dd><span class="num">11</span>% 내외</dd>
+          </dl>
+        </article>
+
+        <article class="card reveal" style="--d:90ms">
+          <svg class="card__art" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <path d="M28 92L92 28" stroke="#BBF7D0" stroke-width="34" stroke-linecap="round"/>
+            <path d="M28 92L92 28" stroke="#F1FAF3" stroke-width="30" stroke-linecap="round"/>
+            <path d="M32 84L84 32M38 90L90 38M26 78L78 26" stroke="#A16207" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+            <path d="M22 96C26 100 32 100 36 98M84 22C88 18 94 18 98 22" stroke="#BBF7D0" stroke-width="3" stroke-linecap="round" fill="none"/>
+          </svg>
+          <h3>오리 안심 스틱</h3>
+          <p>안심 한 줄을 자르지 않고 길게 말렸습니다. 오래 씹는 편인 반려견에게 맞습니다.</p>
+          <dl class="dl">
+            <dt>원산지</dt><dd>국내산 · 전남 나주</dd>
+            <dt>입고</dt><dd>주 <span class="num">1</span>회</dd>
+            <dt>건조</dt><dd><span class="num">55</span>도 · <span class="num">11</span>시간</dd>
+            <dt>수분율</dt><dd><span class="num">10</span>% 내외</dd>
+          </dl>
+        </article>
+
+        <article class="card reveal" style="--d:180ms">
+          <svg class="card__art" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <path d="M16 68C22 46 42 30 66 26C84 23 98 30 100 42C102 55 88 66 70 76C54 85 34 92 24 86C16 81 13 76 16 68Z" fill="#F1FAF3" stroke="#BBF7D0" stroke-width="2"/>
+            <path d="M28 70C42 56 58 46 78 42M32 80C46 70 60 63 80 57M26 58C38 47 52 39 66 35" stroke="#A16207" stroke-width="1.8" stroke-linecap="round" opacity=".6"/>
+            <path d="M92 78C99 74 108 77 107 84C106 91 96 94 90 89C86 86 87 81 92 78Z" fill="#F1FAF3" stroke="#BBF7D0" stroke-width="2"/>
+            <path d="M93 85C97 83 101 82 104 82" stroke="#A16207" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+          </svg>
+          <h3>대구살 칩</h3>
+          <p>가시를 발라내고 얇게 포를 떠서 말렸습니다. 손으로 반을 쪼개 나눠 주기 좋습니다.</p>
+          <dl class="dl">
+            <dt>원산지</dt><dd>북태평양산 대구</dd>
+            <dt>입고</dt><dd>월 <span class="num">2</span>회</dd>
+            <dt>건조</dt><dd><span class="num">55</span>도 · <span class="num">8</span>시간</dd>
+            <dt>수분율</dt><dd><span class="num">9</span>% 내외</dd>
+          </dl>
+        </article>
+
+        <article class="card reveal" style="--d:270ms">
+          <svg class="card__art" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <path d="M88 37A34 34 0 1 0 88 83Z" fill="#F1FAF3" stroke="#BBF7D0" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="60" cy="60" r="24" fill="none" stroke="#A16207" stroke-width="2" opacity=".7"/>
+            <circle cx="60" cy="60" r="14" fill="none" stroke="#A16207" stroke-width="2" opacity=".55"/>
+            <circle cx="52" cy="60" r="4" fill="#A16207" opacity=".55"/>
+            <circle cx="66" cy="46" r="2" fill="#A16207" opacity=".4"/>
+            <circle cx="66" cy="74" r="2" fill="#A16207" opacity=".4"/>
+          </svg>
+          <h3>고구마 슬라이스</h3>
+          <p>밤고구마를 껍질만 벗겨 둥글게 썰었습니다. 고기를 덜 먹는 날 바꿔 주는 칸입니다.</p>
+          <dl class="dl">
+            <dt>원산지</dt><dd>국내산 · 전남 해남</dd>
+            <dt>입고</dt><dd>주 <span class="num">1</span>회</dd>
+            <dt>건조</dt><dd><span class="num">55</span>도 · <span class="num">10</span>시간</dd>
+            <dt>수분율</dt><dd><span class="num">12</span>% 내외</dd>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="specs">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow eyebrow--muted">specs</p>
+          <h2>공정표와 급여표</h2>
+        </div>
+        <p>작업장에서 쓰는 기록지를 그대로 옮겼습니다.</p>
+      </div>
+
+      <div class="specs">
+        <div class="panel reveal" style="--d:0ms">
+          <h3>공정 기록지</h3>
+          <div class="tablewrap">
+            <table>
+              <caption>건조 판마다 온도와 시간, 마무리 수분율을 적습니다.</caption>
+              <thead>
+                <tr><th scope="col">단계</th><th scope="col">조건</th><th scope="col">확인 항목</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>손질</td><td>입고 당일</td><td>힘줄 제거, 두께 <span class="num">8</span>mm</td></tr>
+                <tr><td>저온건조</td><td><span class="num">55</span>도 · <span class="num">8~12</span>시간</td><td>판 위치 <span class="num">2</span>시간마다 교체</td></tr>
+                <tr><td>수분율 확인</td><td>실온 식힘 <span class="num">30</span>분 뒤</td><td><span class="num">12</span>% 이하, 판마다 기록</td></tr>
+                <tr><td>소분 포장</td><td>같은 날 마감</td><td>중량 오차 <span class="num">±3</span>g, 밀봉</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="footnote">위 수치는 오독 작업장 자체 측정값이며, 원료 상태에 따라 시간이 달라집니다.</p>
+        </div>
+
+        <div class="panel reveal" style="--d:120ms">
+          <h3>체중별 하루 급여량</h3>
+          <div class="tablewrap">
+            <table>
+              <caption>간식은 주식과 물을 갖춘 다음의 몫입니다. 하루 열량의 <span class="num">10%</span> 안쪽을 권합니다.</caption>
+              <thead>
+                <tr><th scope="col">체중</th><th scope="col">하루 권장량</th><th scope="col">예시</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="num">2</span>kg 이하</td><td><span class="num">6</span>g 이하</td><td>큐브 <span class="num">2</span>조각</td></tr>
+                <tr><td><span class="num">2~5</span>kg</td><td><span class="num">8~14</span>g</td><td>큐브 <span class="num">3~5</span>조각</td></tr>
+                <tr><td><span class="num">5~10</span>kg</td><td><span class="num">14~24</span>g</td><td>스틱 <span class="num">1</span>개와 칩 <span class="num">1</span>장</td></tr>
+                <tr><td><span class="num">10~20</span>kg</td><td><span class="num">24~40</span>g</td><td>스틱 <span class="num">2</span>개</td></tr>
+                <tr><td><span class="num">20</span>kg 이상</td><td><span class="num">40~55</span>g</td><td>스틱 <span class="num">2</span>개와 칩 <span class="num">2</span>장</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="footnote">활동량과 나이에 따라 줄이거나 나눠 주세요. 마른 간식이라 물을 함께 두는 편이 좋습니다. 알레르기 이력이 있거나 급여 중 이상이 보이면 수의사와 상의하세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="order">
+    <div class="cta bitten reveal">
+      <div class="cta__inner">
+        <div>
+          <p class="eyebrow" style="color:#DCFBE6">order</p>
+          <h2>네 가지를 한 봉지씩</h2>
+          <p>맛보기 세트는 큐브·스틱·칩·슬라이스를 각 <span class="num">40</span>g씩 담습니다. 어느 칸을 좋아하는지 보고 다음 주문을 정하시면 됩니다.</p>
+          <div class="cta__actions">
+            <a class="btn btn--solid" href="#order">맛보기 세트 담기</a>
+            <a class="btn btn--ghost" href="#trace">원료 이력 다시 보기</a>
+          </div>
+        </div>
+        <div class="cta__box">
+          <figure class="photo" style="margin-bottom:14px">
+            <img src="../img/odok-cut-dog.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+                 alt="흰 강아지가 사람 손바닥에서 큐브 간식 한 알을 받아먹는 순간.">
+            <figcaption>한 알씩 나눠 주기</figcaption>
+          </figure>
+          <h3>주문 전에 알려드립니다</h3>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>주문한 날짜의 다음 건조 판으로 만들어 보냅니다.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>개봉 뒤에는 밀봉해 냉장 보관하고 <span class="nowrap"><span class="num">2</span>주</span> 안에 급여하세요.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>간식이라 주식을 대신하지 않습니다. 급여량 표를 함께 보내드립니다.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="fab" href="#order">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 8h12l-1.2 11.2a2 2 0 01-2 1.8H9.2a2 2 0 01-2-1.8z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9.2 8V6.4A2.8 2.8 0 0112 3.6a2.8 2.8 0 012.8 2.8V8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+  맛보기 세트
+</a>
+
+<footer>
+  <div class="wrap foot">
+    <p><strong>odok</strong> · 오독 수제간식 작업장 · 반려동물 간식</p>
+    <p>본 페이지는 your wings가 제작한 가상 브랜드 콘셉트 작업입니다.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function showAll() {
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.add('in');
+    }
+    items = [];
+  }
+
+  if (reduce) {
+    showAll();
+    return;
+  }
+
+  var queued = false;
+
+  // 뷰포트 아래 8% 지점을 지난 타일부터 순서대로 켠다.
+  // 스크롤을 건너뛰어도 지나간 요소는 반드시 켜지도록 위치로 판정한다.
+  function tick() {
+    queued = false;
+    var limit = window.innerHeight * 0.92;
+    var rest = [];
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].getBoundingClientRect().top < limit) {
+        items[i].classList.add('in');
+      } else {
+        rest.push(items[i]);
+      }
+    }
+    items = rest;
+  }
+
+  function schedule() {
+    if (queued || !items.length) { return; }
+    queued = true;
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(tick);
+    } else {
+      tick();
+    }
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  window.addEventListener('load', schedule);
+  tick();
+})();
+</script>
+</body>
+</html>

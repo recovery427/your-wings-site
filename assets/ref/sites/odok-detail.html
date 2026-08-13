@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오독 닭가슴살 큐브 100g — 원료 세 가지</title>
+<style>
+:root{
+  --primary: #15803D;
+  --on-primary: #FFFFFF;
+  --secondary: #22C55E;
+  --on-secondary: #0F172A;
+  --accent: #A16207;
+  --on-accent: #FFFFFF;
+  --background: #F0FDF4;
+  --foreground: #14532D;
+  --card: #FFFFFF;
+  --card-foreground: #14532D;
+  --muted: #E8F0F1;
+  --muted-foreground: #64748B;
+  --border: #BBF7D0;
+  --destructive: #DC2626;
+  --ring: #15803D;
+
+  --border-radius: 20px;
+  --border-width: 3px;
+  --shadow-inner: inset -2px -2px 8px rgba(21,128,61,.10), inset 2px 2px 6px rgba(255,255,255,.9);
+  --shadow-outer: 4px 4px 8px rgba(20,83,45,.13);
+  --shadow-lift: 6px 8px 16px rgba(20,83,45,.16);
+  --bounce: cubic-bezier(.34,1.56,.64,1);
+  --clay-grad: linear-gradient(150deg, #FFFFFF 0%, #F4FDF6 55%, #E8F6EC 100%);
+
+  /* 작은 글자용 파생 톤 — 파스텔 그라디언트 위에서도 4.5:1 확보 */
+  --ink-muted: #55606B;
+  --ink-gold: #8C5A07;
+  --ink-green: #116534;
+}
+
+*{ box-sizing: border-box; }
+
+html{ -webkit-text-size-adjust: 100%; }
+
+body{
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Verdana, 'Malgun Gothic', '맑은 고딕', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+
+h1,h2,h3,h4,p,ul,ol,dl,dd,dt,figure{ margin: 0; }
+ul,ol{ padding: 0; list-style: none; }
+
+h1,h2,h3,h4,strong,b{ font-weight: 700; }
+
+a{ color: var(--primary); }
+
+.wrap{
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- 사진 ----------
+   여기서는 .band 가 이미 섹션 클래스로 쓰이고 있어 .photo 로 이름을 나눈다.
+   비율은 실제 파일(1600x904 / 1200x1604)에 맞춰 미리 박아 둔다. */
+.photo{
+  margin:0;padding:0;border:0;
+  aspect-ratio:16/9;overflow:hidden;background:var(--muted);
+  border-radius:26px;   /* 클레이 톤: 큰 면은 크게 굴린다 */
+}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+/* 풀블리드 띠는 2.3 으로. 16:9 는 화면을 다 먹는다. */
+.photo--full{border-radius:0;aspect-ratio:21/9}
+.photo--full img{object-position:center 54%}
+.photorow{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(12px,1.6vw,20px);margin-top:clamp(24px,3vw,36px)
+}
+.photorow .photo{aspect-ratio:3/4;border-radius:20px}
+@media (max-width:700px){
+  .photorow{grid-template-columns:minmax(0,1fr)}
+  .photorow .photo{aspect-ratio:4/3}
+}
+.photo--wide{aspect-ratio:3/2;border-radius:24px;margin-top:clamp(22px,3vw,32px)}
+
+/* VOLDOG 실측: 위쪽에만 쏠아 준다. 아래를 비우면 다음 섹션 상단이 간격을 만들어 중복이 없다. */
+.band{ padding: clamp(48px,6.5vw,84px) 0 clamp(10px,1.6vw,20px); }
+.band--tight{ padding: clamp(34px,4.5vw,56px) 0 clamp(8px,1.2vw,14px); }
+.band--pad{ background: linear-gradient(180deg, rgba(232,246,236,0) 0%, rgba(214,243,224,.55) 100%); }
+
+:focus-visible{
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ---------- clay primitives ---------- */
+.clay{
+  background: var(--clay-grad);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-inner), var(--shadow-outer);
+}
+
+.pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 4px 14px;
+  border: var(--border-width) solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: var(--shadow-inner), 3px 3px 6px rgba(20,83,45,.10);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-green);
+}
+.pill--gold{ color: var(--ink-gold); border-color: #F1DFB4; }
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  min-width: 44px;
+  padding: 12px 26px;
+  border: var(--border-width) solid #0F5C2C;
+  border-radius: 18px;
+  background: linear-gradient(165deg, #22C55E 0%, #15803D 70%);
+  color: var(--on-primary);
+  font: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: inset -2px -3px 8px rgba(8,58,28,.35), inset 2px 2px 6px rgba(255,255,255,.35), var(--shadow-lift);
+  transition: transform .2s ease-out, box-shadow .2s ease-out;
+  text-decoration: none;
+}
+.btn:hover{ transform: translateY(-2px); box-shadow: inset -2px -3px 8px rgba(8,58,28,.35), inset 2px 2px 6px rgba(255,255,255,.35), 8px 12px 20px rgba(20,83,45,.22); }
+.btn:active{ transform: translateY(2px); box-shadow: inset -2px -3px 10px rgba(8,58,28,.45), 2px 3px 6px rgba(20,83,45,.16); }
+
+.btn--soft{
+  background: var(--card);
+  color: var(--primary);
+  border-color: var(--border);
+  box-shadow: var(--shadow-inner), var(--shadow-outer);
+}
+.btn--soft:hover{ box-shadow: var(--shadow-inner), 8px 12px 20px rgba(20,83,45,.18); }
+
+.eyebrow{
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.lede{ font-size: 17px; color: #1B5E35; }
+.note{ font-size: 13px; color: var(--ink-muted); }
+
+/* ---------- header ---------- */
+.topbar{
+  position: relative;
+  z-index: 3;
+  padding: 18px 0 0;
+}
+.topbar__row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 19px;
+}
+.brand__mark{
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border: var(--border-width) solid var(--border);
+  border-radius: 14px;
+  background: linear-gradient(150deg,#FFFFFF,#DCF7E4);
+  box-shadow: var(--shadow-inner), 3px 3px 6px rgba(20,83,45,.12);
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- hero ---------- */
+.hero{ padding: 28px 0 8px; }
+.hero__grid{
+  display: grid;
+  grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+  gap: 32px;
+  align-items: center;
+}
+.hero h1{
+  font-size: clamp(29px, 5.1vw, 46px);
+  line-height: 1.32;
+  margin: 16px 0 14px;
+}
+.hero h1 em{
+  font-style: normal;
+  color: var(--accent);
+}
+.hero__cta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.hero__price{
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+.hero__price b{ color: var(--foreground); font-size: 16px; }
+
+/* tray of cubes */
+.tray{
+  padding: 22px;
+  background: linear-gradient(155deg,#FFFFFF 0%, #EAF8EF 60%, #DCF3E4 100%);
+  border: 4px solid var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-inner), var(--shadow-lift);
+}
+.tray__art{ display: block; width: 100%; height: auto; }
+.tray__cap{
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* ---------- stat trio ---------- */
+.trio{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  margin-top: 34px;
+  padding: 6px;
+  background: var(--clay-grad);
+  border: 4px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-inner), var(--shadow-outer);
+}
+.stat{
+  padding: 18px 20px;
+  border-left: 3px dotted #CFEBD8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat:first-child{ border-left: 0; }
+.stat__num{
+  display: block;
+  font-size: clamp(26px, 3.4vw, 34px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--accent);
+}
+.stat__label{
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ---------- section head ---------- */
+.head{ max-width: 640px; margin-bottom: 28px; }
+.head h2{
+  font-size: clamp(23px, 3.3vw, 31px);
+  line-height: 1.4;
+  margin: 10px 0 10px;
+}
+
+/* ---------- ingredient cards ---------- */
+.ing{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 18px;
+}
+.ing__card{
+  padding: 22px 20px 24px;
+  transition: transform .2s ease-out, box-shadow .2s ease-out;
+}
+.ing__card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-inner), var(--shadow-lift); }
+.ing__art{
+  width: 84px;
+  height: 84px;
+  display: block;
+  margin-bottom: 14px;
+}
+.ing__no{
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-gold);
+  letter-spacing: 0;
+}
+.ing__card h3{ font-size: 18px; margin: 2px 0 8px; }
+.ing__card p{ font-size: 15px; }
+
+.process{
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 168px minmax(0,1fr);
+  gap: 22px;
+  align-items: center;
+  padding: 24px;
+}
+.dial{
+  width: 168px;
+  height: 168px;
+  display: block;
+}
+.process h3{ font-size: 19px; margin-bottom: 8px; }
+.process p{ font-size: 15px; }
+
+/* ---------- in / out grid ---------- */
+.split{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 18px;
+}
+.panel{ padding: 24px 22px; }
+.panel--out{
+  background: linear-gradient(150deg,#FFFFFF 0%, #F3F6F4 60%, #E8F0F1 100%);
+  border-color: #D8E4DC;
+}
+.panel h3{
+  font-size: 17px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.panel li{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  border-top: 2px dotted #CFEBD8;
+  font-size: 16px;
+}
+.panel li:first-child{ border-top: 0; }
+.panel--out li{ border-top-color: #DCE5DF; color: #3F5B4A; }
+.chip{
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--border);
+  background: linear-gradient(150deg,#FFFFFF,#DCF7E4);
+  box-shadow: inset -1px -1px 4px rgba(21,128,61,.12), 2px 2px 4px rgba(20,83,45,.1);
+}
+.chip--out{
+  border-color: #DCE5DF;
+  background: linear-gradient(150deg,#FFFFFF,#E8F0F1);
+}
+
+/* ---------- signature: real size ---------- */
+.real{
+  display: grid;
+  grid-template-columns: minmax(0,336px) minmax(0,1fr);
+  gap: 34px;
+  align-items: start;
+}
+.ruler{
+  padding: 26px 22px 22px;
+  background: linear-gradient(155deg,#FFFFFF 0%, #F0FBF3 55%, #DFF5E7 100%);
+  border: 4px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-inner), var(--shadow-lift);
+  overflow: hidden;
+}
+.ruler__stage{
+  position: relative;
+  height: 206px;
+}
+.cube-real{
+  position: absolute;
+  left: 0;
+  bottom: 74px;
+  width: 1.5cm;
+  height: 1.5cm;
+  border: 3px solid #C08A2E;
+  border-radius: 6px;
+  background: linear-gradient(150deg,#F7DFA8 0%, #E8C377 55%, #D3A64F 100%);
+  box-shadow: inset -2px -2px 6px rgba(120,80,10,.28), inset 2px 2px 5px rgba(255,255,255,.65), 4px 5px 9px rgba(20,83,45,.2);
+}
+.cube-real--half{
+  left: 2.5cm;
+  width: .75cm;
+}
+.cube-real__seam{
+  position: absolute;
+  inset: 30% 18% auto 18%;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(120,80,10,.26);
+}
+.dim{
+  position: absolute;
+  left: 0;
+  bottom: 74px;
+  width: 1.5cm;
+  height: 1.5cm;
+  border-left: 2px dashed #C08A2E;
+  border-right: 2px dashed #C08A2E;
+  pointer-events: none;
+}
+.dim::before{
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: -14px;
+  height: 2px;
+  background: #C08A2E;
+  border-radius: 2px;
+}
+.dim__label{
+  position: absolute;
+  left: 50%;
+  top: -38px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-gold);
+  white-space: nowrap;
+}
+.half__label{
+  position: absolute;
+  left: 2.5cm;
+  bottom: 74px;
+  transform: translateY(-1.5cm) translateY(-20px);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.ruler__bar{
+  position: absolute;
+  left: 0;
+  bottom: 22px;
+  width: 6cm;
+  max-width: 100%;
+  height: 42px;
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-inner);
+  overflow: hidden;
+}
+.ruler__ticks{
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(90deg, #9FCDAF 0 1px, transparent 1px .5cm),
+                    repeating-linear-gradient(90deg, #15803D 0 2px, transparent 2px 1cm);
+  background-size: 100% 40%, 100% 66%;
+  background-repeat: no-repeat, no-repeat;
+}
+.ruler__nums{ position: absolute; left: 0; right: 0; bottom: 0; height: 20px; }
+.ruler__nums span{
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+.ruler__nums span:nth-child(1){ left: 1cm; }
+.ruler__nums span:nth-child(2){ left: 2cm; }
+.ruler__nums span:nth-child(3){ left: 3cm; }
+.ruler__nums span:nth-child(4){ left: 4cm; }
+.ruler__nums span:nth-child(5){ left: 5cm; }
+.ruler__nums span:nth-child(6){ left: 6cm; transform: translateX(-100%); }
+.ruler__cap{
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+.real h2{ font-size: clamp(23px, 3.3vw, 31px); line-height: 1.4; margin: 10px 0 12px; }
+.real p + p{ margin-top: 12px; }
+.feed{
+  margin-top: 20px;
+  padding: 18px 20px;
+}
+.feed h3{ font-size: 15px; margin-bottom: 6px; }
+.feed p{ font-size: 15px; }
+
+/* ---------- Q&A ---------- */
+.filters{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.fbtn{
+  min-height: 44px;
+  padding: 8px 18px;
+  border: var(--border-width) solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-inner), 3px 3px 6px rgba(20,83,45,.1);
+  transition: transform .2s var(--bounce), box-shadow .2s ease-out, background-color .2s ease-out, color .2s ease-out;
+}
+.fbtn:hover{ transform: translateY(-2px); }
+.fbtn[aria-pressed="true"]{
+  background: linear-gradient(165deg,#22C55E,#15803D);
+  border-color: #0F5C2C;
+  color: var(--on-primary);
+  box-shadow: inset -2px -3px 8px rgba(8,58,28,.32), 4px 6px 12px rgba(20,83,45,.2);
+}
+
+.qa{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 18px;
+}
+.qa__card{
+  padding: 22px 22px 24px;
+  animation: pop .34s var(--bounce) both;
+}
+.qa__card[hidden]{ display: none; }
+.qa__tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-gold);
+  border: 2px solid #F1DFB4;
+  border-radius: 999px;
+  padding: 3px 11px;
+  background: #FFFBF0;
+}
+.qa__card h3{
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 14px 0 10px;
+  display: flex;
+  gap: 10px;
+}
+.qa__q{
+  flex: 0 0 auto;
+  color: var(--ink-green);
+}
+.qa__card p{ font-size: 15px; }
+.qa__by{
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-green);
+}
+.qa__empty{
+  padding: 20px;
+  font-size: 15px;
+  color: var(--ink-muted);
+}
+
+@keyframes pop{
+  from{ opacity: 0; transform: translateY(10px) scale(.985); }
+  to{ opacity: 1; transform: none; }
+}
+
+/* ---------- buy ---------- */
+.buy{
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,.85fr);
+  gap: 24px;
+  align-items: start;
+}
+.buy__card{ padding: 26px 24px; }
+.buy__card h2{ font-size: clamp(21px, 3vw, 27px); line-height: 1.4; }
+.opt{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  margin-top: 18px;
+  border: var(--border-width) solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: var(--shadow-inner);
+}
+.opt--best{ background: linear-gradient(150deg,#FFFFFF,#E6F8EC); }
+.opt__name{ font-size: 15px; font-weight: 700; }
+.opt__sub{ display: block; font-size: 12px; font-weight: 400; color: var(--ink-muted); }
+.opt__price{ font-size: 20px; font-weight: 700; }
+.side{ padding: 24px 22px; }
+.side h3{ font-size: 16px; margin-bottom: 12px; }
+.side li{
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 2px dotted #CFEBD8;
+  font-size: 14px;
+}
+.side li:first-of-type{ border-top: 0; }
+.side dt{ font-weight: 700; font-size: 14px; }
+.side dd{ font-size: 14px; color: #3F5B4A; margin-bottom: 12px; }
+.guard{
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 2px dashed #D8E4DC;
+  border-radius: 16px;
+  background: var(--muted);
+  font-size: 13px;
+  color: #3F5B4A;
+}
+
+.foot{
+  margin-top: 8px;
+  padding: 34px 0 44px;
+  border-top: 3px solid var(--border);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+.foot__row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  justify-content: space-between;
+}
+.foot p + p{ margin-top: 8px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px){
+  .hero__grid{ grid-template-columns: 1fr; gap: 26px; }
+  .real{ grid-template-columns: 1fr; }
+  .ruler{ max-width: 340px; }
+  .buy{ grid-template-columns: 1fr; }
+}
+@media (max-width: 820px){
+  .ing{ grid-template-columns: 1fr; }
+  .ing__card{ display: grid; grid-template-columns: 84px minmax(0,1fr); column-gap: 20px; align-items: center; }
+  .ing__art{ grid-row: span 3; align-self: start; margin-top: 6px; margin-bottom: 0; }
+  .qa{ grid-template-columns: 1fr; }
+  .process{ grid-template-columns: 1fr; justify-items: start; }
+}
+@media (max-width: 560px){
+  body{ font-size: 15px; }
+  .band{ padding: 42px 0; }
+  .trio{ grid-template-columns: 1fr; }
+  .stat{ padding: 15px 16px; border-left: 0; border-top: 3px dotted #CFEBD8; }
+  .stat:first-child{ border-top: 0; }
+  .stat__num{ font-size: 25px; }
+  .split{ grid-template-columns: 1fr; }
+  .hero__cta .btn{ width: 100%; }
+  .ing__card{ grid-template-columns: 62px minmax(0,1fr); column-gap: 16px; }
+  .ing__art{ width: 62px; height: 62px; }
+  .opt{ flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn:hover, .fbtn:hover, .ing__card:hover{ transform: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar__row">
+    <span class="brand">
+      <span class="brand__mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" focusable="false" aria-hidden="true">
+          <rect x="3.5" y="7.5" width="17" height="13" rx="4" stroke="#15803D" stroke-width="2.4"/>
+          <path d="M8 12.5h8" stroke="#A16207" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M7.5 7.5c0-2.2 2-4 4.5-4s4.5 1.8 4.5 4" stroke="#15803D" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+      </span>
+      오독
+    </span>
+    <span class="pill">반려동물 수제간식</span>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">오독 닭가슴살 큐브 100g</p>
+          <h1 id="hero-h">원료는 <em>세 가지</em>,<br>그게 전부입니다</h1>
+          <p class="lede">국내산 닭가슴살, 단호박, 현미. 뒷면 원료 표기가 세 줄에서 끝납니다. 무엇을 먹이는지 외우지 않아도 됩니다.</p>
+          <p class="hero__price"><b>12,800원</b> · 3팩 34,000원 · 개봉 후 냉장 2주</p>
+          <div class="hero__cta">
+            <a class="btn" href="#buy">한 팩 담기</a>
+            <a class="btn btn--soft" href="#ingredients">원료 세 가지 보기</a>
+          </div>
+        </div>
+        <figure class="tray">
+          <svg class="tray__art" viewBox="0 0 320 240" role="img" aria-labelledby="tray-t" focusable="false">
+            <title id="tray-t">닭가슴살, 단호박, 현미 세 가지 원료가 하나의 큐브로 모이는 그림</title>
+            <defs>
+              <linearGradient id="gCube" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#F7DFA8"/>
+                <stop offset="55%" stop-color="#E8C377"/>
+                <stop offset="1" stop-color="#CF9F45"/>
+              </linearGradient>
+              <linearGradient id="gTop" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#FCEFCF"/>
+                <stop offset="1" stop-color="#EFD69B"/>
+              </linearGradient>
+              <linearGradient id="gLeaf" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#DCF7E4"/>
+                <stop offset="1" stop-color="#A9E6C0"/>
+              </linearGradient>
+            </defs>
+
+            <ellipse cx="160" cy="205" rx="104" ry="17" fill="#CDEBD8"/>
+
+            <g>
+              <circle cx="60" cy="72" r="28" fill="url(#gLeaf)" stroke="#8FD9AB" stroke-width="3"/>
+              <g transform="rotate(-8 60 72)">
+                <rect x="45" y="62" width="30" height="20" rx="9" fill="#FFFFFF" stroke="#15803D" stroke-width="3"/>
+                <path d="M51 68h16M49 76h20" stroke="#A16207" stroke-width="2.6" stroke-linecap="round"/>
+              </g>
+
+              <circle cx="160" cy="52" r="28" fill="url(#gLeaf)" stroke="#8FD9AB" stroke-width="3"/>
+              <path d="M160 42c7 0 12 5 12 11s-5 10-12 10-12-4-12-10 5-11 12-11z" fill="#FFF7E6" stroke="#A16207" stroke-width="3"/>
+              <path d="M156 44c-2 5-2 13 0 18M164 44c2 5 2 13 0 18" stroke="#A16207" stroke-width="2.4" fill="none"/>
+              <path d="M160 42v-6c3-1 5 1 6 3" stroke="#15803D" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+
+              <circle cx="260" cy="72" r="28" fill="url(#gLeaf)" stroke="#8FD9AB" stroke-width="3"/>
+              <g fill="#FFFFFF" stroke="#15803D" stroke-width="2.8">
+                <rect x="245" y="64" width="9" height="17" rx="4.5" transform="rotate(-14 249.5 72.5)"/>
+                <rect x="256" y="61" width="9" height="17" rx="4.5"/>
+                <rect x="266" y="64" width="9" height="17" rx="4.5" transform="rotate(14 270.5 72.5)"/>
+              </g>
+            </g>
+
+            <path d="M78 96c14 20 30 30 52 34M242 96c-14 20-30 30-52 34M160 82v46" stroke="#9FCDAF" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 8" fill="none"/>
+
+            <g>
+              <path d="M160 132l58 26v46l-58 26-58-26v-46z" fill="url(#gCube)" stroke="#C08A2E" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M102 158l58 26 58-26" fill="none" stroke="#C08A2E" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M160 184v46" fill="none" stroke="#C08A2E" stroke-width="4"/>
+              <path d="M160 132l58 26-58 26-58-26z" fill="url(#gTop)" stroke="#C08A2E" stroke-width="4" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <figcaption class="tray__cap">원료 3가지 → 한 알 1.5cm 큐브</figcaption>
+        </figure>
+      </div>
+
+      <ul class="trio">
+        <li class="stat"><span class="stat__num">3가지</span><span class="stat__label">원료. 그 외에는 넣지 않습니다</span></li>
+        <li class="stat"><span class="stat__num">55도 12시간</span><span class="stat__label">저온건조. 튀기지 않습니다</span></li>
+        <li class="stat"><span class="stat__num">1.5cm</span><span class="stat__label">한 알 크기. 소형견도 한 입</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <figure class="photo photo--full">
+    <img src="../img/odok-hero.jpg" width="1600" height="904" loading="eager" decoding="async"
+         alt="나무 보드에 쌓인 갈색 큐브 간식과 인쇄가 없는 크라프트 파우치, 옆에 단호박 조각과 현미.">
+    <figcaption>오독 닭가슴살 큐브 100g</figcaption>
+  </figure>
+
+  <section class="band" id="ingredients" aria-labelledby="ing-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">원료 분해</p>
+        <h2 id="ing-h">세 줄을 하나씩 뜯어봅니다</h2>
+        <p>이름만 적어 두면 확인할 수 없으니, 어떤 상태로 들어가는지까지 적었습니다.</p>
+      </div>
+
+      <figure class="photo photo--wide">
+        <img src="../img/odok-cut-ingredients.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+             alt="세라믹 그릇에 담긴 큐브 간식과 그 주위에 놓인 생닭가슴살, 찐 단호박 조각, 현미.">
+        <figcaption>들어가는 세 가지 원료</figcaption>
+      </figure>
+
+      <ul class="ing">
+        <li class="clay ing__card">
+          <svg class="ing__art" viewBox="0 0 72 72" role="img" aria-labelledby="ing1-t" focusable="false">
+            <title id="ing1-t">닭가슴살 살코기 아이콘</title>
+            <g transform="rotate(-8 36 37)">
+              <rect x="14" y="23" width="44" height="29" rx="13" fill="#EAF8EF" stroke="#15803D" stroke-width="3.4"/>
+              <path d="M23 33h22M20 40h27M25 47h17" stroke="#A16207" stroke-width="3" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <span class="ing__no">원료 01</span>
+          <h3>국내산 닭가슴살</h3>
+          <p>껍질과 눈에 보이는 지방을 떼고 살코기만 결대로 잘라 씁니다. 가장 많이 들어가는 원료가 이 살코기입니다.</p>
+        </li>
+        <li class="clay ing__card">
+          <svg class="ing__art" viewBox="0 0 72 72" role="img" aria-labelledby="ing2-t" focusable="false">
+            <title id="ing2-t">단호박 아이콘</title>
+            <path d="M36 22c11 0 19 8 19 19s-8 17-19 17-19-6-19-17 8-19 19-19z" fill="#FFF7E6" stroke="#A16207" stroke-width="3.4"/>
+            <path d="M29 25c-3 8-3 21 0 30M43 25c3 8 3 21 0 30" stroke="#A16207" stroke-width="3" fill="none"/>
+            <path d="M36 22v-6c4-1 7 1 8 4" stroke="#15803D" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="ing__no">원료 02</span>
+          <h3>단호박</h3>
+          <p>껍질을 벗겨 찐 단호박을 그대로 섞습니다. 반죽에 도는 노란빛과 은근한 단맛은 여기서 나옵니다.</p>
+        </li>
+        <li class="clay ing__card">
+          <svg class="ing__art" viewBox="0 0 72 72" role="img" aria-labelledby="ing3-t" focusable="false">
+            <title id="ing3-t">현미 아이콘</title>
+            <g stroke="#15803D" stroke-width="3.2" fill="#EAF8EF">
+              <rect x="18" y="28" width="11" height="22" rx="5.5" transform="rotate(-14 23.5 39)"/>
+              <rect x="31" y="22" width="11" height="22" rx="5.5"/>
+              <rect x="43" y="28" width="11" height="22" rx="5.5" transform="rotate(14 48.5 39)"/>
+            </g>
+            <path d="M24 56h24" stroke="#A16207" stroke-width="3.2" stroke-linecap="round"/>
+          </svg>
+          <span class="ing__no">원료 03</span>
+          <h3>현미</h3>
+          <p>반죽이 뭉치도록 현미를 곱게 갈아 넣습니다. 밀가루나 전분을 따로 더하지 않는 대신 쓰는 재료입니다.</p>
+        </li>
+      </ul>
+
+      <div class="clay process">
+        <svg class="dial" viewBox="0 0 120 120" role="img" aria-labelledby="dial-t" focusable="false">
+          <title id="dial-t">55도에서 12시간 건조하는 공정을 나타낸 원형 표시</title>
+          <circle cx="60" cy="60" r="46" fill="#F7FDF9" stroke="#BBF7D0" stroke-width="7"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#A16207" stroke-width="7" stroke-linecap="round"
+                  stroke-dasharray="145 289" transform="rotate(-90 60 60)"/>
+          <text x="60" y="56" text-anchor="middle" font-family="Verdana, sans-serif" font-size="21" font-weight="700" fill="#14532D">55°C</text>
+          <text x="60" y="76" text-anchor="middle" font-family="Verdana, sans-serif" font-size="13" fill="#55606B">12시간</text>
+        </svg>
+        <div>
+          <h3>기름 대신 시간을 씁니다</h3>
+          <p>55도 저온에서 12시간 동안 수분만 천천히 빼냅니다. 튀기지 않기 때문에 기름이 더해지지 않고, 반죽 그대로의 향이 남습니다. 겉면이 마르는 정도에 따라 팩마다 색이 조금씩 다를 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--pad" aria-labelledby="split-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">원료 표기 그대로</p>
+        <h2 id="split-h">넣은 것 셋, 넣지 않은 것 셋</h2>
+        <p>목록을 길게 쓰는 대신 양쪽을 나란히 두었습니다. 왼쪽이 전부이고, 오른쪽은 자리를 비워 둔 항목입니다.</p>
+      </div>
+      <div class="split">
+        <div class="clay panel">
+          <h3><span class="pill">들어갑니다</span></h3>
+          <ul>
+            <li><span class="chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" focusable="false"><path d="M3 8.6l3.2 3.2L13 5" stroke="#15803D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>국내산 닭가슴살</li>
+            <li><span class="chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" focusable="false"><path d="M3 8.6l3.2 3.2L13 5" stroke="#15803D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>단호박</li>
+            <li><span class="chip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" focusable="false"><path d="M3 8.6l3.2 3.2L13 5" stroke="#15803D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>현미</li>
+          </ul>
+          <p class="note" style="margin-top:14px">세 가지 외에 다른 원료를 더하지 않습니다.</p>
+        </div>
+        <div class="clay panel panel--out">
+          <h3><span class="pill pill--gold">넣지 않습니다</span></h3>
+          <ul>
+            <li><span class="chip chip--out" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" focusable="false"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" stroke="#64748B" stroke-width="2.6" stroke-linecap="round"/></svg></span>보존료</li>
+            <li><span class="chip chip--out" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" focusable="false"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" stroke="#64748B" stroke-width="2.6" stroke-linecap="round"/></svg></span>합성색소</li>
+            <li><span class="chip chip--out" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" focusable="false"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" stroke="#64748B" stroke-width="2.6" stroke-linecap="round"/></svg></span>향료</li>
+          </ul>
+          <p class="note" style="margin-top:14px">보존료를 넣지 않아 개봉 후 보관 기간이 짧습니다. 냉장 2주를 지켜 주세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="real-h">
+    <div class="wrap real">
+      <figure class="ruler">
+        <div class="ruler__stage">
+          <div class="cube-real"><span class="cube-real__seam"></span></div>
+          <div class="dim" aria-hidden="true"><span class="dim__label">1.5cm 한 알</span></div>
+          <div class="cube-real cube-real--half"></div>
+          <span class="half__label" aria-hidden="true">반으로 쪼갠 조각</span>
+          <div class="ruler__bar"><span class="ruler__ticks"></span></div>
+          <span class="ruler__nums" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6cm</span></span>
+        </div>
+        <figcaption class="ruler__cap">위 두 조각은 화면 배율 100%에서 실제 크기로 그려집니다. 자 눈금도 실제 센티미터입니다. 기기와 배율에 따라 오차가 있을 수 있습니다.</figcaption>
+      </figure>
+      <div>
+        <p class="eyebrow">한 알 크기</p>
+        <h2 id="real-h">손톱만 한 큐브 하나가 기준입니다</h2>
+        <p>1.5cm 큐브는 소형견도 한 입에 오독 씹히는 크기로 잡았습니다. 손으로 반, 다시 반으로 쪼개지니 훈련할 때 나눠 주기에도 알맞습니다.</p>
+        <p>씹는 힘이 약한 아이라면 반으로 쪼개거나 미온수에 1~2분 불려 부드럽게 만들어 주세요.</p>
+        <div class="clay feed">
+          <h3>급여량 기준</h3>
+          <p>체중 5kg 기준 하루 5~6알. 체중과 활동량에 따라 다르니 사료량과 함께 조절하고, 물을 늘 곁에 두세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--tight" aria-hidden="false">
+    <div class="wrap">
+      <div class="photorow">
+        <figure class="photo">
+          <img src="../img/odok-cut-macro.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+               alt="큐브 한 알과 반으로 쪼갠 조각의 매크로 컷. 잘린 면에 마른 살코기 결이 보인다.">
+          <figcaption>반으로 쪼갠 단면</figcaption>
+        </figure>
+        <figure class="photo">
+          <img src="../img/odok-cut-dog.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+               alt="흰 강아지가 사람 손바닥에서 큐브 간식 한 알을 받아먹는 순간.">
+          <figcaption>한 알씩 나눠 주기</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--pad" aria-labelledby="qa-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">후기 자리</p>
+        <h2 id="qa-h">아직 후기가 없습니다. 대신 질문에 답합니다</h2>
+        <p>별점이나 후기 수를 지어내지 않았습니다. 보호자가 먼저 확인하고 싶어 할 질문을 브랜드가 직접 적고, 답도 직접 적었습니다.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="질문 주제 고르기">
+        <button class="fbtn" type="button" data-filter="all" aria-pressed="true">전체 6</button>
+        <button class="fbtn" type="button" data-filter="feed" aria-pressed="false">급여</button>
+        <button class="fbtn" type="button" data-filter="safe" aria-pressed="false">안전</button>
+        <button class="fbtn" type="button" data-filter="keep" aria-pressed="false">보관</button>
+      </div>
+
+      <ul class="qa" id="qa-list">
+        <li class="clay qa__card" data-cat="safe">
+          <span class="qa__tag">안전</span>
+          <h3><span class="qa__q" aria-hidden="true">Q.</span><span>이빨이 약한 노견도 먹을 수 있을까요?</span></h3>
+          <p>큐브는 단단한 편입니다. 씹는 힘이 약한 아이라면 반으로 쪼개거나 미온수에 1~2분 불려 주세요. 잘 씹지 않고 삼키는 습관이 있다면 옆에서 지켜봐 주시는 편이 안전합니다.</p>
+          <span class="qa__by"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" focusable="false" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#15803D" stroke-width="2"/><path d="M5 7.5h6" stroke="#15803D" stroke-width="2" stroke-linecap="round"/></svg>브랜드 답변</span>
+        </li>
+        <li class="clay qa__card" data-cat="safe">
+          <span class="qa__tag">안전</span>
+          <h3><span class="qa__q" aria-hidden="true">Q.</span><span>알레르기가 있는데 먹여도 되나요?</span></h3>
+          <p>원료가 세 가지뿐이라 무엇을 먹는지 확인하기는 쉽습니다. 다만 특정 원료에 반응한 적이 있다면 먼저 담당 동물병원과 상의해 주세요. 오독은 간식이고, 알레르기를 다루는 제품이 아닙니다.</p>
+          <span class="qa__by"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" focusable="false" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#15803D" stroke-width="2"/><path d="M5 7.5h6" stroke="#15803D" stroke-width="2" stroke-linecap="round"/></svg>브랜드 답변</span>
+        </li>
+        <li class="clay qa__card" data-cat="feed">
+          <span class="qa__tag">급여</span>
+          <h3><span class="qa__q" aria-hidden="true">Q.</span><span>훈련 간식으로 쪼개서 쓸 수 있나요?</span></h3>
+          <p>1.5cm 큐브라 손으로 반, 다시 반으로 쪼개집니다. 부스러기가 적어 주머니나 트리트 파우치에 넣고 다니기에도 괜찮습니다.</p>
+          <span class="qa__by"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" focusable="false" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#15803D" stroke-width="2"/><path d="M5 7.5h6" stroke="#15803D" stroke-width="2" stroke-linecap="round"/></svg>브랜드 답변</span>
+        </li>
+        <li class="clay qa__card" data-cat="feed">
+          <span class="qa__tag">급여</span>
+          <h3><span class="qa__q" aria-hidden="true">Q.</span><span>하루에 몇 알이 적당한가요?</span></h3>
+          <p>체중 5kg이라면 하루 5~6알을 기준으로 봅니다. 간식은 하루 먹는 양의 일부이니, 여러 알을 주는 날에는 사료를 그만큼 줄여 주세요.</p>
+          <span class="qa__by"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" focusable="false" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#15803D" stroke-width="2"/><path d="M5 7.5h6" stroke="#15803D" stroke-width="2" stroke-linecap="round"/></svg>브랜드 답변</span>
+        </li>
+        <li class="clay qa__card" data-cat="keep">
+          <span class="qa__tag">보관</span>
+          <h3><span class="qa__q" aria-hidden="true">Q.</span><span>개봉하고 나면 얼마나 두고 먹일 수 있나요?</span></h3>
+          <p>보존료를 넣지 않아 개봉 후에는 냉장 보관하고 2주 안에 급여해 주세요. 지퍼를 끝까지 닫아 냉장고 문 쪽보다 안쪽에 두시면 좋습니다.</p>
+          <span class="qa__by"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" focusable="false" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#15803D" stroke-width="2"/><path d="M5 7.5h6" stroke="#15803D" stroke-width="2" stroke-linecap="round"/></svg>브랜드 답변</span>
+        </li>
+        <li class="clay qa__card" data-cat="keep">
+          <span class="qa__tag">보관</span>
+          <h3><span class="qa__q" aria-hidden="true">Q.</span><span>팩마다 색이 조금씩 다른데 괜찮은가요?</span></h3>
+          <p>단호박의 익은 정도와 건조 상태에 따라 노란빛이 달라집니다. 색을 맞추는 합성색소를 넣지 않아 생기는 차이입니다.</p>
+          <span class="qa__by"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" focusable="false" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#15803D" stroke-width="2"/><path d="M5 7.5h6" stroke="#15803D" stroke-width="2" stroke-linecap="round"/></svg>브랜드 답변</span>
+        </li>
+      </ul>
+      <p class="clay qa__empty" id="qa-empty" hidden>고른 주제에 해당하는 질문이 없습니다.</p>
+      <p class="note" style="margin-top:18px">궁금한 점이 더 있으면 문의 게시판에 남겨 주세요. 받은 질문은 이 자리에 그대로 추가합니다.</p>
+    </div>
+  </section>
+
+  <section class="band" id="buy" aria-labelledby="buy-h">
+    <div class="wrap buy">
+      <div class="clay buy__card">
+        <p class="eyebrow">주문</p>
+        <h2 id="buy-h">오독 닭가슴살 큐브 100g</h2>
+        <div class="opt">
+          <span class="opt__name">1팩 100g<span class="opt__sub">처음이라면 한 팩으로 먹는지 먼저 확인</span></span>
+          <span class="opt__price">12,800원</span>
+        </div>
+        <div class="opt opt--best">
+          <span class="opt__name">3팩 300g<span class="opt__sub">팩당 약 11,300원<sup>1</sup></span></span>
+          <span class="opt__price">34,000원</span>
+        </div>
+        <div class="hero__cta">
+          <a class="btn" href="#buy">한 팩 담기</a>
+          <a class="btn btn--soft" href="#buy">3팩 담기</a>
+        </div>
+        <p class="guard">오독은 간식입니다. 질병을 예방하거나 치료하는 제품이 아니며, 아이의 상태가 걱정될 때는 동물병원의 진료가 먼저입니다.</p>
+      </div>
+      <div class="clay side">
+        <h3>사기 전에 확인할 것</h3>
+        <dl>
+          <dt>보관</dt>
+          <dd>개봉 전 직사광선을 피해 실온. 개봉 후 냉장 2주.</dd>
+          <dt>한 알 크기</dt>
+          <dd>1.5cm 큐브. 반으로 쪼개 나눠 줄 수 있습니다.</dd>
+          <dt>급여량</dt>
+          <dd>체중 5kg 기준 하루 5~6알.</dd>
+          <dt>공정</dt>
+          <dd>55도 12시간 저온건조. 튀기지 않습니다.</dd>
+        </dl>
+        <p class="note"><sup>1</sup> 팩당 금액은 3팩 가격을 3으로 나눠 자체 계산한 값입니다.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__row">
+      <p><b>오독</b> · 반려동물 수제간식 · 국내산 닭가슴살, 단호박, 현미</p>
+      <p>질문은 문의 게시판으로 받습니다.</p>
+    </div>
+    <p>본 페이지는 your wings가 제작한 가상 브랜드 콘셉트 작업입니다.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+
+  var reduce = false;
+  try{
+    reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }catch(e){ reduce = false; }
+
+  /* 질문 주제 고르기 */
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.fbtn'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.qa__card'));
+  var empty = document.getElementById('qa-empty');
+
+  function apply(key){
+    var shown = 0;
+    cards.forEach(function(card){
+      var match = (key === 'all') || (card.getAttribute('data-cat') === key);
+      if (match){
+        card.hidden = false;
+        shown++;
+        if (!reduce){
+          card.style.animation = 'none';
+          /* 강제 리플로 후 재생 */
+          void card.offsetWidth;
+          card.style.animation = '';
+        }
+      } else {
+        card.hidden = true;
+      }
+    });
+    if (empty){ empty.hidden = shown !== 0; }
+  }
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      apply(btn.getAttribute('data-filter'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

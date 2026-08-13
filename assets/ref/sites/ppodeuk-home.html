@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>뽀득 — 헹굼이 짧아지는 세제</title>
+<meta name="description" content="뽀득 주방 세정 라인. 주방세제, 과일·야채 세척제, 젖병 세정제와 1L 리필 파우치.">
+<style>
+:root{
+  --primary: #0D9488;
+  --on-primary: #FFFFFF;
+  --secondary: #14B8A6;
+  --on-secondary: #0F172A;
+  --accent: #EA580C;
+  --on-accent: #FFFFFF;
+  --background: #F0FDFA;
+  --foreground: #134E4A;
+  --card: #FFFFFF;
+  --card-foreground: #134E4A;
+  --muted: #E8F1F4;
+  --muted-foreground: #64748B;
+  --border: #99F6E4;
+  --destructive: #DC2626;
+  --ring: #0D9488;
+
+  --grid-columns: 12;
+  --grid-gap: 1rem;
+  --base-unit: 8px;
+  --font-primary: Helvetica, Arial, 'Malgun Gothic', '맑은 고딕', sans-serif;
+
+  --t1: 16px;
+  --t2: 28px;
+  --t3: clamp(38px, 7.4vw, 64px);
+
+  --u1: 8px;
+  --u2: 16px;
+  --u3: 24px;
+  --u4: 32px;
+  --u6: 48px;
+  --u8: 64px;
+  --u12: 96px;
+  --u16: 128px;
+
+  --shell: 1408px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--background);
+  color:var(--foreground);
+  font-family:var(--font-primary);
+  font-size:var(--t1);
+  font-weight:400;
+  /* Neue Montreal 실측: 본문 lh 1.00 / 자간 -0.03em. 한글은 1.45 까지만 조인다. */
+  line-height:1.45;
+  letter-spacing:-.02em;
+  text-align:left;
+  word-break:keep-all;
+  overflow-x:hidden;
+}
+h1,h2,h3,p,ul,ol,figure,table{margin:0;padding:0}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;letter-spacing:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin:0 auto;
+  padding-inline:var(--u3);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(var(--grid-columns),1fr);
+  gap:var(--grid-gap);
+}
+
+.t3{font-size:var(--t3);font-weight:700;line-height:1.04;letter-spacing:-.02em}
+.t2{font-size:var(--t2);font-weight:700;line-height:1.22;letter-spacing:-.02em}
+.lab{font-size:var(--t1);font-weight:700;line-height:1.3;letter-spacing:.02em}
+.mono-num{font-size:var(--t1);font-weight:700;color:var(--foreground);letter-spacing:.04em}
+.muted{color:var(--muted-foreground)}
+
+/* ---------- 상단 바 ---------- */
+.bar{
+  position:relative;z-index:5;
+  border-bottom:1px solid rgba(153,246,228,.28);
+  background:var(--on-secondary);
+  color:#FFFFFF;
+}
+.bar .shell{display:flex;align-items:center;justify-content:space-between;gap:var(--u2);min-height:56px}
+.brandmark{display:flex;align-items:center;gap:10px;font-weight:700;min-height:44px}
+.brandmark .sq{width:14px;height:14px;background:var(--accent);display:block}
+.bar nav{display:flex;gap:var(--u3)}
+.bar nav a{padding:12px 4px;min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;color:#D8F5F0}
+.bar nav a:hover{color:#FFFFFF}
+@media (max-width:767px){ .bar nav{display:none} }
+
+/* ---------- 1. 히어로 ---------- */
+.hero{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  /* Neue Montreal 실측: 히어로가 정확히 100vh. 스크롤이 있다는 걸 첫 화면에서 알린다. */
+  min-height:100svh;
+  background:var(--on-secondary);
+  color:#FFFFFF;
+  overflow:hidden;
+  isolation:isolate;
+}
+.media{position:absolute;inset:0;overflow:hidden;z-index:0}
+
+/* ---------- 사진 3단 ----------
+   VOLDOG 실측: 고정 격자에 같은 비율을 반복한다. 12칸 그리드에 4칸씩 세 장.
+   실제 파일이 1200x1604 이므로 3:4 로 정확히 맞는다. */
+/* Neue Montreal 실측: 좌우 여백 0 인 2.11 밴드를 구분자로 쓴다. */
+.fullband{margin:0;padding:0;border:0;aspect-ratio:21/9;overflow:hidden;background:var(--muted);display:block}
+.fullband img{width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block}
+.fullband figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+.shots{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--grid-gap);margin-top:var(--u6)}
+.shots figure{grid-column:span 4;margin:0;padding:0;border:0}
+.shots .fr{aspect-ratio:3/4;overflow:hidden;background:var(--muted);display:block}
+.shots img{width:100%;height:100%;object-fit:cover;display:block}
+.shots figcaption{margin-top:10px;font-size:var(--t0,.875rem);color:var(--muted-foreground)}
+@media (max-width:760px){ .shots figure{grid-column:span 12} .shots .fr{aspect-ratio:4/3} }
+.media-in{position:absolute;inset:-8% 0 -8% 0;will-change:transform}
+
+/* 기름막 베이스 — 느리게 흐르는 얼룩 */
+.oil{
+  position:absolute;inset:-14%;
+  background:
+    radial-gradient(38% 26% at 22% 30%, rgba(20,184,166,.58), rgba(20,184,166,0) 70%),
+    radial-gradient(30% 22% at 74% 22%, rgba(234,88,12,.34), rgba(234,88,12,0) 72%),
+    radial-gradient(34% 30% at 90% 58%, rgba(20,184,166,.52), rgba(20,184,166,0) 72%),
+    radial-gradient(46% 30% at 58% 76%, rgba(13,148,136,.60), rgba(13,148,136,0) 70%),
+    radial-gradient(26% 20% at 12% 82%, rgba(153,246,228,.30), rgba(153,246,228,0) 74%);
+  animation:drift 24s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)}
+  to{transform:translate3d(3%,2%,0) scale(1.12)}
+}
+
+/* 12칸 — 물이 지나간 칸은 기름막이 갈라진다 */
+.cols{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr)}
+.col{position:relative;overflow:hidden}
+.col::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(153,246,228,.44), rgba(20,184,166,.16) 46%, rgba(20,184,166,.52));
+  transform-origin:50% 0;
+  animation:split 6.4s cubic-bezier(.4,0,.2,1) infinite;
+  animation-delay:calc(var(--i) * .13s);
+}
+@keyframes split{
+  0%,5%{transform:scaleY(1);opacity:.95}
+  44%{transform:scaleY(.30);opacity:.55}
+  62%{transform:scaleY(.30);opacity:.55}
+  100%{transform:scaleY(1);opacity:.95}
+}
+.col::after{
+  content:"";position:absolute;left:0;right:0;height:2px;top:0;
+  background:var(--secondary);opacity:0;
+  animation:edge 6.4s cubic-bezier(.4,0,.2,1) infinite;
+  animation-delay:calc(var(--i) * .13s);
+}
+@keyframes edge{
+  0%,4%{top:100%;opacity:0}
+  20%{opacity:.9}
+  46%,100%{top:2%;opacity:0}
+}
+
+/* 물이 쓸고 지나가는 시트 */
+.water{
+  position:absolute;left:-25%;width:150%;height:52%;top:-52%;
+  background:linear-gradient(180deg,
+    rgba(240,253,250,0) 0%,
+    rgba(153,246,228,.38) 40%,
+    rgba(255,255,255,.54) 56%,
+    rgba(153,246,228,.20) 76%,
+    rgba(240,253,250,0) 100%);
+  animation:sweep 6.4s linear infinite;
+}
+@keyframes sweep{ from{transform:translate3d(0,-30%,0)} to{transform:translate3d(0,262%,0)} }
+
+/* 격자 괘선 + 어두운 오버레이 */
+.rules{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg, rgba(153,246,228,.20) 0 1px, rgba(153,246,228,0) 1px calc(100% / 12));
+}
+.veil{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(15,23,42,.30) 0%, rgba(15,23,42,.06) 34%, rgba(15,23,42,.46) 100%),
+    linear-gradient(96deg, rgba(15,23,42,.88) 0%, rgba(15,23,42,.78) 40%, rgba(15,23,42,.34) 100%);
+}
+
+.hero-body{
+  position:relative;z-index:2;
+  flex:1 1 auto;display:flex;align-items:flex-end;
+  padding-block:var(--u12) var(--u6);
+}
+.hero-body > .shell{width:100%}
+.hero-copy{grid-column:1 / span 8}
+.eyebrow{display:flex;align-items:center;gap:12px;color:#A7F3EA;margin-bottom:var(--u3)}
+.eyebrow .tick{width:32px;height:2px;background:var(--accent);display:block}
+.hero h1{margin-bottom:var(--u3);max-width:12em}
+.hero .lead{max-width:620px;color:#E4F6F3;margin-bottom:var(--u4)}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--u2)}
+
+.btn-accent{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--accent);color:var(--on-accent);
+  font-size:var(--t2);font-weight:700;line-height:1.2;
+  padding:14px 26px;min-height:56px;
+  border:2px solid var(--accent);
+  transition:background .18s linear, border-color .18s linear;
+}
+.btn-accent:hover{background:#C2410C;border-color:#C2410C}
+.btn-accent .arw{width:22px;height:22px;flex:none;display:block}
+.btn-ghost{
+  display:inline-flex;align-items:center;
+  font-size:var(--t1);font-weight:700;
+  padding:16px 20px;min-height:56px;
+  border:2px solid rgba(153,246,228,.55);color:#FFFFFF;
+  transition:background .18s linear;
+}
+.btn-ghost:hover{background:rgba(153,246,228,.14)}
+.btn-dark{
+  display:inline-flex;align-items:center;
+  font-size:var(--t1);font-weight:700;
+  padding:16px 20px;min-height:56px;
+  border:2px solid var(--foreground);color:var(--foreground);background:transparent;
+  transition:background .18s linear,color .18s linear;
+}
+.btn-dark:hover{background:var(--foreground);color:#FFFFFF}
+
+/* 캡션 트랙 — 영상 자막처럼 */
+.captrack{
+  position:relative;z-index:2;
+  border-top:1px solid rgba(153,246,228,.26);
+  padding-block:var(--u2) var(--u12);
+}
+.captrack .shell{display:flex;align-items:flex-start;gap:var(--u2)}
+.cc{
+  flex:none;border:1px solid rgba(153,246,228,.6);color:#A7F3EA;
+  font-size:var(--t1);font-weight:700;line-height:1;padding:7px 9px;letter-spacing:.06em;
+}
+.caplines{position:relative;min-height:calc(var(--t1) * 1.6);flex:1 1 auto}
+.caplines span{
+  display:block;color:#E4F6F3;
+  opacity:0;animation:cap 12.8s steps(1,end) infinite;
+}
+.caplines span:nth-child(1){animation-delay:0s}
+.caplines span:nth-child(2){animation-delay:4.26s}
+.caplines span:nth-child(3){animation-delay:8.52s}
+.caplines span + span{position:absolute;inset:0}
+@keyframes cap{ 0%{opacity:1} 33.3%{opacity:0} 100%{opacity:0} }
+
+/* ---------- 2. 핵심 기능 오버레이 ---------- */
+.overlay-feat{position:relative;z-index:3;margin-top:calc(var(--u8) * -1)}
+.feat-card{
+  grid-column:span 4;
+  background:var(--card);color:var(--card-foreground);
+  border-top:4px solid var(--accent);
+  padding:var(--u3);
+  box-shadow:0 1px 0 var(--border), 0 18px 40px rgba(19,78,74,.10);
+}
+.feat-card .mono-num{display:block;margin-bottom:var(--u2)}
+.feat-card h3{margin-bottom:var(--u1)}
+.feat-card p{color:var(--muted-foreground)}
+
+/* ---------- 3. 혜택 ---------- */
+.sec{padding-block:var(--u12)}
+.sec-head{grid-column:1 / span 5}
+.sec-head .lab{color:var(--foreground);margin-bottom:var(--u2);padding-left:44px;position:relative}
+.sec-head .lab::before{content:"";position:absolute;left:0;top:.62em;width:32px;height:2px;background:var(--accent)}
+.sec-head h2{margin-bottom:var(--u2)}
+.sec-head p{color:var(--muted-foreground)}
+.sec-body{grid-column:6 / span 7}
+
+.rowline{border-top:1px solid var(--border);margin-block:var(--u6) 0}
+
+.prod{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--grid-gap);padding-block:var(--u4);border-bottom:1px solid var(--border)}
+.prod:first-of-type{border-top:1px solid var(--border)}
+.prod .dia{grid-column:span 2;color:var(--primary)}
+.prod .dia svg{width:100%;height:auto;max-width:120px;display:block}
+.prod .txt{grid-column:span 7}
+.prod .txt h3{margin-bottom:var(--u1)}
+.prod .txt p{color:var(--muted-foreground);max-width:26em}
+.prod .spec{grid-column:span 3;color:var(--foreground);font-weight:700}
+.prod .spec span{display:block;color:var(--muted-foreground);font-weight:400}
+
+.facts{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--grid-gap);margin-top:var(--u6)}
+.fact{grid-column:span 4;border-top:2px solid var(--foreground);padding-top:var(--u2)}
+.fact .lab{margin-bottom:var(--u1)}
+.fact p{color:var(--muted-foreground)}
+
+.tablewrap{margin-top:var(--u6)}
+table{width:100%;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:var(--t1)}
+caption{text-align:left;font-weight:700;padding-bottom:var(--u2)}
+th,td{text-align:left;padding:12px 12px 12px 0;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{border-bottom:2px solid var(--foreground);font-weight:700;white-space:nowrap}
+tbody th{font-weight:400;width:56%;word-break:break-all}
+td{color:var(--muted-foreground)}
+.tnote{margin-top:var(--u2);color:var(--muted-foreground)}
+
+/* ---------- 4. CTA ---------- */
+.cta{background:var(--on-secondary);color:#FFFFFF;padding-block:var(--u12)}
+.cta .left{grid-column:1 / span 5}
+.cta .lab{color:#A7F3EA;margin-bottom:var(--u2)}
+.cta .big{font-size:var(--t3);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--secondary);display:block;margin-bottom:var(--u1)}
+.cta .left p{color:#E4F6F3;max-width:20em}
+.cta .right{grid-column:7 / span 6}
+.cycle{display:flex;flex-wrap:wrap;gap:var(--u1);margin-bottom:var(--u3)}
+.cycle button{
+  border:2px solid rgba(153,246,228,.55);color:#FFFFFF;
+  padding:12px 20px;min-height:48px;min-width:88px;font-weight:700;
+  transition:background .18s linear,border-color .18s linear;
+}
+.cycle button:hover{background:rgba(153,246,228,.14)}
+.cycle button[aria-pressed="true"]{background:var(--secondary);border-color:var(--secondary);color:var(--on-secondary)}
+.summary{border-top:1px solid rgba(153,246,228,.30);padding-top:var(--u2);margin-bottom:var(--u4);color:#E4F6F3}
+.summary b{color:#FFFFFF}
+.cta-actions{display:flex;flex-wrap:wrap;gap:var(--u2)}
+.btn-light{
+  display:inline-flex;align-items:center;font-size:var(--t1);font-weight:700;
+  padding:16px 20px;min-height:56px;border:2px solid #FFFFFF;color:#FFFFFF;
+  transition:background .18s linear,color .18s linear;
+}
+.btn-light:hover{background:#FFFFFF;color:var(--on-secondary)}
+
+/* ---------- 푸터 ---------- */
+footer{background:var(--muted);color:var(--foreground);padding-block:var(--u6)}
+footer .brandmark{color:var(--foreground)}
+.fcol-a{grid-column:1 / span 4}
+.fcol-b{grid-column:5 / span 4}
+.fcol-c{grid-column:9 / span 4}
+footer ul li a{display:inline-flex;align-items:center;min-height:44px;color:var(--foreground)}
+footer ul li a:hover{text-decoration:underline}
+.fnote{color:var(--foreground)}
+.fbase{border-top:1px solid var(--border);margin-top:var(--u4);padding-top:var(--u3);color:var(--foreground)}
+
+/* ---------- 스크롤 등장 ---------- */
+.anim .reveal{opacity:0;transform:translate3d(0,18px,0)}
+.anim .reveal.in{opacity:1;transform:none;transition:opacity .6s linear, transform .6s cubic-bezier(.2,.7,.2,1)}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:1023px){
+  .hero-copy{grid-column:1 / span 10}
+  .feat-card{grid-column:span 6}
+  .sec-head{grid-column:1 / span 12}
+  .sec-body{grid-column:1 / span 12;margin-top:var(--u3)}
+  .prod .dia{grid-column:span 2}
+  .prod .txt{grid-column:span 10}
+  .prod .spec{grid-column:3 / span 10;margin-top:var(--u1)}
+  .cta .left,.cta .right{grid-column:1 / span 12}
+  .cta .right{margin-top:var(--u4)}
+  .fcol-a,.fcol-b,.fcol-c{grid-column:span 6}
+}
+@media (max-width:767px){
+  .sec{padding-block:var(--u8)}
+  .cta{padding-block:var(--u8)}
+  .hero-body{padding-block:var(--u8) var(--u6)}
+  .hero-copy{grid-column:1 / span 12}
+  .feat-card{grid-column:1 / span 12}
+  .overlay-feat{margin-top:calc(var(--u6) * -1)}
+  .prod{padding-block:var(--u3)}
+  .prod .dia{grid-column:span 3}
+  .prod .txt{grid-column:span 9}
+  .prod .spec{grid-column:4 / span 9}
+  .fact{grid-column:1 / span 12}
+  .fact + .fact{margin-top:var(--u3)}
+  .fcol-a,.fcol-b,.fcol-c{grid-column:1 / span 12}
+  .fcol-b,.fcol-c{margin-top:var(--u3)}
+  tbody th{width:52%}
+  .btn-accent{padding:14px 18px;gap:10px}
+}
+@media (max-width:479px){
+  .shell{padding-inline:var(--u2)}
+  .prod .dia{grid-column:1 / span 12}
+  .prod .txt{grid-column:1 / span 12;margin-top:var(--u2)}
+  .prod .spec{grid-column:1 / span 12}
+  .prod .dia svg{max-width:88px}
+  .btn-accent,.btn-ghost,.btn-light,.btn-dark{width:100%;justify-content:space-between}
+}
+
+/* ---------- 모션 축소 ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  /* 모션이 멈추면 히어로가 비어 보인다. 실사 스틸을 더 드러내 대신하게 한다. */
+  .water{top:38%}
+  .col:nth-child(-n+5)::before{transform:scaleY(.30);opacity:.55}
+  .col:nth-child(6)::before{transform:scaleY(.62);opacity:.75}
+  .col:nth-child(n+7)::before{transform:scaleY(1);opacity:.95}
+  .col:nth-child(6)::after{top:50%;opacity:.9}
+  .caplines span:nth-child(1){opacity:1}
+  .caplines span + span{display:none}
+  .anim .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="shell">
+    <a class="brandmark" href="#top"><span class="sq" aria-hidden="true"></span>뽀득</a>
+    <nav aria-label="주요 메뉴">
+      <a href="#lineup">라인업</a>
+      <a href="#ingredients">전 성분</a>
+      <a href="#refill">리필</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-label="뽀득 소개">
+    <div class="media" aria-hidden="true">
+      <div class="media-in" id="mediaIn">
+        <div class="oil"></div>
+        <div class="cols">
+          <div class="col" style="--i:0"></div>
+          <div class="col" style="--i:1"></div>
+          <div class="col" style="--i:2"></div>
+          <div class="col" style="--i:3"></div>
+          <div class="col" style="--i:4"></div>
+          <div class="col" style="--i:5"></div>
+          <div class="col" style="--i:6"></div>
+          <div class="col" style="--i:7"></div>
+          <div class="col" style="--i:8"></div>
+          <div class="col" style="--i:9"></div>
+          <div class="col" style="--i:10"></div>
+          <div class="col" style="--i:11"></div>
+        </div>
+        <div class="water"></div>
+        <div class="rules"></div>
+      </div>
+      <div class="veil"></div>
+    </div>
+
+    <div class="hero-body">
+      <div class="shell grid">
+        <div class="hero-copy">
+          <p class="eyebrow lab"><span class="tick" aria-hidden="true"></span>뽀득 · 주방 세정 라인</p>
+          <h1 class="t3">헹굼이 짧아지는 세제</h1>
+          <p class="lead">물에 빠르게 풀리고, 그만큼 빠르게 빠집니다. 뽀득은 세제 한 병으로 끝나는 브랜드가 아닙니다. 싱크대 앞에서 필요한 세정제 세 종과, 용기를 계속 쓰는 1L 리필 파우치로 이어집니다.</p>
+          <div class="hero-actions">
+            <a class="btn-accent" href="#refill">리필 정기배송 보기<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></a>
+            <a class="btn-ghost" href="#lineup">라인업 세 종 보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="captrack">
+      <div class="shell">
+        <span class="cc" aria-hidden="true">CC</span>
+        <p class="caplines">
+          <span>물이 위에서 아래로 지나갑니다.</span>
+          <span>지나간 자리에서 기름막이 열두 칸으로 갈라집니다.</span>
+          <span>칸이 비면 그 자리는 헹굼이 끝난 자리입니다.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="fullband">
+    <img src="../img/ppodeuk-hero.jpg" width="1600" height="904" loading="eager" decoding="async"
+         alt="밝은 주방 싱크대 옆에 놓인 뽀득 주방세제 500ml 펌프 용기. 옅은 청록 액체가 담겨 있다.">
+    <figcaption>뽀득 주방세제 500ml 펌프형</figcaption>
+  </figure>
+
+  <section class="overlay-feat" aria-label="핵심 특징">
+    <div class="shell grid">
+      <article class="feat-card reveal">
+        <span class="mono-num">01</span>
+        <h3 class="lab">향료 무첨가</h3>
+        <p>전 제품에 향료를 넣지 않았습니다. 설거지 뒤 그릇에 남는 냄새를 줄이는 쪽을 택했습니다.</p>
+      </article>
+      <article class="feat-card reveal">
+        <span class="mono-num">02</span>
+        <h3 class="lab">식물유래 계면활성제 90% 이상</h3>
+        <p>세정을 담당하는 계면활성제를 식물에서 얻은 성분으로 90% 이상 채웠습니다.</p>
+      </article>
+      <article class="feat-card reveal">
+        <span class="mono-num">03</span>
+        <h3 class="lab">1L 리필 파우치</h3>
+        <p>용기는 한 번 사고, 다음부터 파우치만 받습니다. 파우치 한 장이 500ml 용기를 두 번 채웁니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="lineup" aria-labelledby="lineup-h">
+    <div class="shell">
+      <div class="grid">
+        <div class="sec-head reveal">
+          <p class="lab">라인업</p>
+          <h2 class="t2" id="lineup-h">싱크대 앞의 세 가지 일</h2>
+          <p>기름 묻은 접시, 흙 묻은 채소, 입에 닿는 젖병. 하는 일이 서로 달라서 한 가지 세제로 합치지 않았습니다.</p>
+        </div>
+        <div class="sec-body reveal">
+          <p class="muted">세 제품 모두 향료와 색소를 넣지 않고, 같은 1L 파우치로 리필합니다. 용기는 500ml 한 가지 규격이라 라벨만 바꿔 끼우면 됩니다.</p>
+        </div>
+      </div>
+
+      <div class="shots">
+        <figure class="reveal">
+          <span class="fr"><img src="../img/ppodeuk-cut-lineup.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+            alt="같은 규격 펌프 용기 세 개와 그 뒤에 세워진 1리터 리필 파우치. 라벨은 모두 무지."></span>
+          <figcaption>세 종과 1L 리필 파우치</figcaption>
+        </figure>
+        <figure class="reveal">
+          <span class="fr"><img src="../img/ppodeuk-cut-pan.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+            alt="스테인리스 프라이팬 위에서 세제 한 방울이 굳은 기름막을 방사형으로 갈라놓는 매크로 컷."></span>
+          <figcaption>기름때가 갈라지는 지점</figcaption>
+        </figure>
+        <figure class="reveal">
+          <span class="fr"><img src="../img/ppodeuk-cut-foam.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+            alt="흐르는 물 아래에서 청록 스펀지의 고운 거품으로 흰 접시를 닦는 손."></span>
+          <figcaption>헹구는 물을 줄이는 거품</figcaption>
+        </figure>
+      </div>
+
+      <div style="margin-top:var(--u6)">
+        <article class="prod reveal">
+          <div class="dia" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="8" y="8" width="104" height="104"/>
+              <path d="M8 44h104M8 80h104M44 8v104M80 8v104" stroke-opacity=".35"/>
+              <circle cx="26" cy="26" r="7" fill="currentColor" stroke="none"/>
+              <circle cx="62" cy="26" r="5" fill="currentColor" stroke="none" fill-opacity=".55"/>
+              <circle cx="98" cy="26" r="3" fill="currentColor" stroke="none" fill-opacity=".25"/>
+              <path d="M8 62h104" stroke="#EA580C" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="txt">
+            <h3 class="lab">주방세제 500ml</h3>
+            <p>기름때가 남은 식기용. 미온수에서 거품이 빨리 정리돼 헹구는 물을 줄이는 데 도움이 됩니다.</p>
+          </div>
+          <p class="spec">기름 식기<span>중성 · pH 7 전후</span></p>
+        </article>
+
+        <article class="prod reveal">
+          <div class="dia" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="8" y="8" width="104" height="104" stroke-opacity=".35"/>
+              <circle cx="60" cy="60" r="38"/>
+              <circle cx="60" cy="60" r="22" stroke-opacity=".5"/>
+              <circle cx="44" cy="42" r="3.5" fill="currentColor" stroke="none"/>
+              <circle cx="76" cy="52" r="2.5" fill="currentColor" stroke="none" fill-opacity=".6"/>
+              <circle cx="58" cy="82" r="3" fill="currentColor" stroke="none" fill-opacity=".4"/>
+              <path d="M60 8v22" stroke="#EA580C" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="txt">
+            <h3 class="lab">과일·야채 세척제 500ml</h3>
+            <p>겉면의 흙과 남은 이물질을 씻어내는 데 도움을 줍니다. 사용 후에는 흐르는 물로 충분히 헹궈 주세요.</p>
+          </div>
+          <p class="spec">채소·과일<span>흐르는 물 30초 헹굼</span></p>
+        </article>
+
+        <article class="prod reveal">
+          <div class="dia" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="8" y="8" width="104" height="104" stroke-opacity=".35"/>
+              <path d="M42 20h36v16l-8 10v54H50V46l-8-10z"/>
+              <path d="M50 62h20M50 76h20" stroke-opacity=".45"/>
+              <circle cx="60" cy="50" r="3" fill="currentColor" stroke="none" fill-opacity=".6"/>
+              <path d="M42 28h36" stroke="#EA580C" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="txt">
+            <h3 class="lab">젖병 세정제 500ml</h3>
+            <p>젖병과 유아 식기용. 좁은 입구 안쪽에 남는 분유 잔여물을 닦아내는 데 도움이 됩니다.</p>
+          </div>
+          <p class="spec">젖병·유아 식기<span>전용 솔과 함께 사용</span></p>
+        </article>
+      </div>
+
+      <div class="facts">
+        <div class="fact reveal">
+          <p class="lab">헹굼 시간</p>
+          <p>같은 양의 식기를 씻을 때 헹구는 시간이 평균 22% 짧았습니다.¹</p>
+        </div>
+        <div class="fact reveal">
+          <p class="lab">용기 수</p>
+          <p>1L 파우치로 네 번 리필하면 500ml 용기 여덟 개를 새로 사지 않습니다.</p>
+        </div>
+        <div class="fact reveal">
+          <p class="lab">전 성분 공개</p>
+          <p>아홉 가지 성분을 표에 전부 적었습니다. 생략한 줄은 없습니다.</p>
+        </div>
+      </div>
+
+      <div class="tablewrap reveal" id="ingredients">
+        <table>
+          <caption class="t2">주방세제 500ml 전 성분</caption>
+          <thead>
+            <tr><th scope="col">성분명</th><th scope="col">역할</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">정제수</th><td>용제</td></tr>
+            <tr><th scope="row">소듐라우릴글루코사이드카복실레이트</th><td>세정 · 식물유래 계면활성제</td></tr>
+            <tr><th scope="row">데실글루코사이드</th><td>세정 · 식물유래 계면활성제</td></tr>
+            <tr><th scope="row">코카미도프로필베타인</th><td>세정 보조 · 거품 안정</td></tr>
+            <tr><th scope="row">글리세린</th><td>점도 조절</td></tr>
+            <tr><th scope="row">소듐클로라이드</th><td>점도 조절</td></tr>
+            <tr><th scope="row">시트릭애씨드</th><td>산도 조절</td></tr>
+            <tr><th scope="row">소듐벤조에이트</th><td>보존제</td></tr>
+            <tr><th scope="row">포타슘소르베이트</th><td>보존제</td></tr>
+          </tbody>
+        </table>
+        <p class="tnote">향료와 색소는 넣지 않았습니다. 표는 주방세제 500ml 기준이며, 과일·야채 세척제와 젖병 세정제의 전 성분은 각 제품 페이지에 같은 형식으로 적어 두었습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="refill" aria-labelledby="refill-h">
+    <div class="shell grid">
+      <div class="left reveal">
+        <p class="lab">리필 정기배송</p>
+        <span class="big" aria-hidden="true">1L</span>
+        <h2 class="t2" id="refill-h">파우치 한 장, 용기 두 번</h2>
+        <p>쓰던 500ml 용기를 그대로 두고 파우치만 받습니다. 주기는 언제든 바꾸거나 쉴 수 있습니다.</p>
+      </div>
+      <div class="right reveal">
+        <div class="cycle" role="group" aria-label="배송 주기 선택">
+          <button type="button" data-weeks="4" aria-pressed="false">4주</button>
+          <button type="button" data-weeks="8" aria-pressed="true">8주</button>
+          <button type="button" data-weeks="12" aria-pressed="false">12주</button>
+        </div>
+        <p class="summary" id="cycleSummary" aria-live="polite"><b>8주</b>마다 1L 파우치 한 장 · 한 해 약 여섯 장</p>
+        <div class="cta-actions">
+          <a class="btn-accent" href="#refill">정기배송 시작하기<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="btn-light" href="#lineup">한 번만 받아보기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="grid">
+      <div class="fcol-a">
+        <p class="brandmark"><span class="sq" aria-hidden="true"></span>뽀득</p>
+        <p class="fnote">헹굼이 짧아지는 세제. 주방세제 · 과일·야채 세척제 · 젖병 세정제.</p>
+      </div>
+      <nav class="fcol-b" aria-label="푸터 메뉴">
+        <ul>
+          <li><a href="#lineup">라인업 세 종</a></li>
+          <li><a href="#ingredients">전 성분 표</a></li>
+          <li><a href="#refill">리필 정기배송</a></li>
+        </ul>
+      </nav>
+      <div class="fcol-c">
+        <p class="fnote">¹ 자체 실험실에서 12인용 식기 기준으로 세 번 반복 측정한 값입니다. 수압과 물 온도, 설거지 방식에 따라 달라집니다.</p>
+        <p class="fnote">눈에 들어갔을 때는 흐르는 물로 씻어내고, 어린이 손이 닿지 않는 곳에 보관하세요.</p>
+      </div>
+    </div>
+    <div class="fbase">
+      <p>본 페이지는 your wings가 제작한 가상 브랜드 콘셉트 작업입니다.</p>
+      <p>© 2026 뽀득</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+
+  /* 배송 주기 */
+  var yearly = { '4': '열세', '8': '여섯', '12': '네' };
+  var summary = document.getElementById('cycleSummary');
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.cycle button'));
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      var w = btn.getAttribute('data-weeks');
+      if (summary) {
+        summary.innerHTML = '<b>' + w + '주</b>마다 1L 파우치 한 장 · 한 해 약 ' + (yearly[w] || '여섯') + ' 장';
+      }
+    });
+  });
+
+  if (reduce) return;
+  root.classList.add('anim');
+
+  /* 스크롤 등장 */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  function reveal(){
+    var limit = window.innerHeight * 0.92;
+    for (var i = items.length - 1; i >= 0; i--) {
+      if (items[i].getBoundingClientRect().top < limit) {
+        items[i].classList.add('in');
+        items.splice(i, 1);
+      }
+    }
+  }
+
+  /* 히어로 패럴랙스 */
+  var media = document.getElementById('mediaIn');
+  var ticking = false;
+  function frame(){
+    ticking = false;
+    reveal();
+    var y = window.pageYOffset || 0;
+    if (media && y <= window.innerHeight * 1.4) {
+      media.style.transform = 'translate3d(0,' + (y * 0.14).toFixed(2) + 'px,0)';
+    }
+  }
+  function onScroll(){
+    if (!ticking) { ticking = true; window.requestAnimationFrame(frame); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  frame();
+})();
+</script>
+</body>
+</html>
