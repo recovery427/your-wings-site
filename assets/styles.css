@@ -999,3 +999,26 @@ table.plain th { font-weight: 800; background: var(--bg-soft); white-space: nowr
   line-height: 1.5;
   color: var(--muted);
 }
+
+.cardstrip{
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.cardstrip:focus-visible{ outline: 2px solid var(--accent); outline-offset: 4px; }
+.cardslide{
+  flex: 0 0 auto;
+  width: clamp(190px, 24vw, 268px);
+  margin: 0;
+  scroll-snap-align: start;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f2f4f8;
+  border: 1px solid var(--line);
+}
+.cardslide img{ width: 100%; height: auto; display: block; aspect-ratio: 4 / 5; object-fit: cover; }
