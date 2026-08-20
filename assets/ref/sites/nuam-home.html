@@ -7,29 +7,40 @@
 <title>누암 NUAM — 덜어내는 진정</title>
 <meta name="description" content="누암은 넣을 것보다 빼는 목록을 먼저 정한 스킨케어 브랜드입니다. 향료·에센셜 오일·색소·알코올 무첨가, 전 성분 공개.">
 <style>
+
+@font-face{
+  font-family:'Pretendard';
+  src:url('../fonts/pretendard.woff2') format('woff2') tech('variations'),
+      url('../fonts/pretendard.woff2') format('woff2-variations');
+  font-weight:100 900; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'NuamSerif';
+  src:url('../fonts/nuam-serif-Regular.woff2') format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'NuamSerif';
+  src:url('../fonts/nuam-serif-Bold.woff2') format('woff2');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+
 :root{
-  --primary: #EC4899;
+  --primary: #A83254;
   --on-primary: #FFFFFF;
-  --secondary: #F9A8D4;
-  --on-secondary: #0F172A;
-  --accent: #8B5CF6;
-  --on-accent: #FFFFFF;
-  --background: #FDF2F8;
-  --foreground: #831843;
+  --secondary: #DFCDD3;
+  --background: #F6F2EE;
+  --foreground: #2A1219;
   --card: #FFFFFF;
-  --card-foreground: #831843;
-  --muted: #F1EEF5;
-  --muted-foreground: #64748B;
-  --border: #FBCFE8;
-  --destructive: #DC2626;
-  --ring: #EC4899;
+  --card-foreground: #2A1219;
+  --muted: #EDE7E1;
+  --border: #E1D6D2;
 
-  /* 파생 잉크: 위 팔레트를 유지하면서 작은 본문 대비를 4.5:1 이상으로 끌어올린 값 */
-  --meta-ink: #4A5568;
-  --accent-ink: #6D28D9;
+  --meta-ink: #6E6058;
+  --accent-ink: #8A2E48;
 
-  --heading-font: Georgia, 'Nanum Myeongjo', 'Batang', '바탕', serif;
-  --body-font: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  --heading-font: 'NuamSerif', Georgia, serif;
+  --body-font: 'Pretendard', system-ui, sans-serif;
   --drop-cap-size: 4em;
   --pull-quote-size: 1.5em;
   --column-gap: 2rem;
@@ -47,8 +58,6 @@ body{
   background: var(--background);
   color: var(--foreground);
   font-family: var(--body-font);
-  /* L'Oréal 실측: 본문 20px / lh 1.40 / 자간 +0.8px.
-     한글은 라틴보다 행간이 조금 더 필요하니 1.5 까지만 조인다 (기존 1.85). */
   font-size: clamp(1.06rem, 1rem + 0.28vw, 1.19rem);
   line-height: 1.5;
   letter-spacing: 0.01em;
@@ -60,7 +69,6 @@ h1, h2, h3, .display, blockquote, .ledger-word, .plate-num{
   font-family: var(--heading-font);
   font-weight: 700;
   line-height: 1.06;
-  /* 잡지 조판은 자간을 벌린다. 스위스(뽀득 홈)가 조이는 것과 정반대 축이다. */
   letter-spacing: 0.02em;
   margin: 0;
 }
@@ -93,16 +101,15 @@ a{ color: inherit; }
   color: #FFFFFF;
   padding: 0.7rem 1.1rem;
   z-index: 60;
-  font-size: 0.9rem;
+  font-size: 0.94rem;
 }
 .skip:focus{ left: 0.5rem; top: 0.5rem; }
 
 :focus-visible{
-  outline: 3px solid var(--accent);
+  outline: 3px solid #A83254;
   outline-offset: 3px;
 }
 
-/* ---------- 진행 표시 ---------- */
 .topbar{
   position: fixed;
   inset: 0 0 auto 0;
@@ -136,8 +143,8 @@ a{ color: inherit; }
   justify-content: center;
   text-decoration: none;
   font-family: var(--heading-font);
-  font-size: 0.9rem;
-  color: var(--muted-foreground);
+  font-size: 0.94rem;
+  color: var(--meta-ink);
   cursor: pointer;
 }
 .rail a b{
@@ -157,13 +164,9 @@ a{ color: inherit; }
 }
 @media (min-width: 1100px){ .rail{ display: flex; } }
 
-/* ---------- 매스트헤드 ---------- */
 .masthead{
   padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(3rem, 7vw, 6rem);
-  background:
-    radial-gradient(120% 90% at 88% 6%, rgba(139,92,246,0.16) 0%, rgba(139,92,246,0) 58%),
-    radial-gradient(90% 70% at 4% 96%, rgba(236,72,153,0.13) 0%, rgba(236,72,153,0) 60%),
-    var(--background);
+  background: var(--background);
   border-bottom: 1px solid var(--border);
 }
 .masthead-grid{
@@ -207,15 +210,15 @@ a{ color: inherit; }
 }
 .brandmark em{
   font-style: normal;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   letter-spacing: 0.12em;
   color: var(--meta-ink);
 }
 
 .mh-title h1{
   font-size: clamp(3rem, 12.5vw, 8.5rem);
-  line-height: 0.92;
-  letter-spacing: 0.012em;   /* 벌린다. L'Oréal H1 이 +0.03em 이었다 */
+  line-height: 0.88;
+  letter-spacing: 0.006em;
 }
 .mh-title h1 i{
   display: block;
@@ -224,7 +227,7 @@ a{ color: inherit; }
 }
 .mh-sub{
   margin-top: 1.4rem;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   letter-spacing: 0.02em;
   color: var(--meta-ink);
 }
@@ -246,7 +249,7 @@ a{ color: inherit; }
   align-items: center;
   gap: 0.6rem;
   min-height: 44px;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -260,10 +263,7 @@ a{ color: inherit; }
   50%{ transform: translateY(4px); }
 }
 
-/* ---------- 챕터 공통 ---------- */
 .chapter{
-  /* VOLDOG 실측: 패딩을 위쪽에만 쏠아 준다 (400/0, 160/0, 144/0).
-     아래를 0 에 가깝게 두면 다음 섹션의 상단 패딩이 간격을 만들어 중복이 사라진다. */
   padding-block: clamp(4rem, 10vw, 8.5rem) clamp(1.25rem, 2.5vw, 2rem);
   background: var(--plate);
   color: var(--chapter-ink);
@@ -290,10 +290,10 @@ a{ color: inherit; }
   font-family: var(--heading-font);
   font-size: clamp(2.6rem, 5vw, 4.2rem);
   line-height: 0.8;
-  color: var(--secondary);
+  color: #B69AA0;
 }
 .ch-head h2{
-  font-size: clamp(1.75rem, 4.2vw, 3rem);
+  font-size: clamp(1.9rem, 5vw, 3.6rem);
   line-height: 1.12;
 }
 .ch-head .eyebrow{ margin-bottom: 0.5rem; }
@@ -348,7 +348,7 @@ blockquote cite{
   display: block;
   margin-top: 0.85rem;
   font-family: var(--body-font);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-style: normal;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -367,7 +367,7 @@ figcaption{
   margin-top: 1rem;
   padding-top: 0.85rem;
   border-top: 1px solid var(--border);
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   line-height: 1.7;
   color: var(--meta-ink);
 }
@@ -389,7 +389,7 @@ figcaption{
 }
 .mini-cta p{
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   color: var(--meta-ink);
 }
 .link-cta{
@@ -398,16 +398,15 @@ figcaption{
   gap: 0.55rem;
   min-height: 44px;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   letter-spacing: 0.01em;
   text-decoration: none;
   border-bottom: 2px solid var(--primary);
   cursor: pointer;
 }
 .link-cta svg{ width: 18px; height: 18px; flex: none; }
-.link-cta:hover{ border-bottom-color: var(--accent); }
+.link-cta:hover{ border-bottom-color: #2A1219; }
 
-/* ---------- 시그니처: 빼기 원장 ---------- */
 .ledger{
   border-top: 6px solid var(--foreground);
   padding-top: 1.1rem;
@@ -437,7 +436,7 @@ figcaption{
 .ledger-word{
   position: relative;
   display: inline-block;
-  font-size: clamp(1.75rem, 4.6vw, 3.4rem);
+  font-size: clamp(1.5rem, 4.6vw, 3.4rem);
   line-height: 1.1;
   white-space: nowrap;
   letter-spacing: -0.02em;
@@ -452,7 +451,6 @@ figcaption{
   height: 0.44em;
   transform: translateY(-50%);
   pointer-events: none;
-  /* 글자 폭에 상관없이 왼쪽에서 오른쪽으로 그어진다 */
   clip-path: inset(0 100% 0 0);
   transition: clip-path 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -504,12 +502,11 @@ figcaption{
   color: var(--accent-ink);
   margin-bottom: 0.35rem;
 }
-.notes dd{ margin: 0; font-size: 0.95rem; line-height: 1.75; }
+.notes dd{ margin: 0; font-size: 0.94rem; line-height: 1.75; }
 @media (min-width: 700px){
   .notes{ grid-template-columns: 1fr 1fr; }
 }
 
-/* ---------- 제품 ---------- */
 .cards{
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -528,32 +525,28 @@ figcaption{
   display: flex;
   flex-direction: column;
 }
-.card:nth-child(2){ border-top-color: var(--accent); }
-.card:nth-child(3){ border-top-color: var(--secondary); }
 
-/* ---------- 사진 ----------
-   레퍼런스 4곳 모두 비율을 미리 고정해서 쓴다. 선언해 두면 로딩 중 레이아웃이 안 흔들린다.
-   실제 파일이 1600x904 / 1200x1604 이므로 16:9 와 3:4 로 정확히 맞는다. */
 .band{
-  /* 위쪽 figure 규칙이 padding 과 border 를 주고 있다. 여기서 되돌린다.
-     안 되돌리면 이미지가 28px 씩 안으로 밀려 비율이 어긋난다. */
   margin: 0;
   padding: 0;
   border: 0;
-  /* Vero·Neue Montreal 실측: 풀블리드 밴드는 2.1~2.3 이다.
-     16:9(=810px) 는 장식 띠로 너무 높아 스크롤을 잡아먹는다. */
-  aspect-ratio: 21 / 9;
+  position: relative;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--muted);
 }
-.band img{ width: 100%; height: 100%; object-fit: cover; object-position: center 52%; display: block; }
+@media (max-width: 700px){
+  .band{ aspect-ratio: 4 / 5; }
+}
+.band img{ width: 100%; height: 100%; object-fit: cover; object-position: center 38%; display: block; }
 .band figcaption{
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);
 }
 .card-fig{
+  position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--muted);
+  background: linear-gradient(158deg, #EDE6E0 0%, #E0D5CD 100%);
   margin: calc(-1 * clamp(1.25rem, 2.4vw, 1.9rem)) calc(-1 * clamp(1.25rem, 2.4vw, 1.9rem)) clamp(1rem, 2vw, 1.4rem);
 }
 .card-fig img{
@@ -561,8 +554,20 @@ figcaption{
   transition: transform .4s ease;
 }
 .card:hover .card-fig img{ transform: scale(1.03); }
+.card-fig .cut-b{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: none;
+  transition: opacity .45s ease;
+}
+.card:hover .card-fig .cut-b{ opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce){
   .card-fig img, .card:hover .card-fig img{ transition: none; transform: none; }
+  .card-fig .cut-b{ display: none; }
 }
 
 .plate{
@@ -574,7 +579,7 @@ figcaption{
   border-bottom: 1px solid var(--border);
 }
 .plate-num{
-  font-size: clamp(3.2rem, 7vw, 4.6rem);
+  font-size: clamp(2.3rem, 4.2vw, 3.1rem);
   line-height: 0.85;
   color: var(--foreground);
 }
@@ -588,7 +593,7 @@ figcaption{
   margin-left: auto;
   align-self: flex-end;
   font-family: var(--body-font);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -600,12 +605,12 @@ figcaption{
   line-height: 1.3;
   margin-bottom: 0.6rem;
 }
-.card p{ font-size: 0.95rem; }
+.card p{ font-size: 0.94rem; }
 .spec{
   list-style: none;
   margin: 0 0 1.4rem;
   padding: 0;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   line-height: 1.7;
 }
 .spec li{
@@ -618,9 +623,8 @@ figcaption{
 .spec li svg{ width: 15px; height: 15px; flex: none; margin-top: 0.42em; }
 .card .link-cta{ margin-top: auto; align-self: flex-start; }
 
-/* ---------- 절정 CTA ---------- */
 .climax{
-  background: var(--foreground);
+  background: #3A1520;
   color: #FFFFFF;
   padding-block: clamp(4rem, 10vw, 8.5rem);
   position: relative;
@@ -629,9 +633,7 @@ figcaption{
 .climax-veil{
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(70% 60% at 12% 8%, rgba(236,72,153,0.34) 0%, rgba(236,72,153,0) 62%),
-    radial-gradient(60% 70% at 92% 88%, rgba(139,92,246,0.36) 0%, rgba(139,92,246,0) 60%);
+  background: radial-gradient(72% 62% at 12% 8%, rgba(168,50,84,0.30) 0%, rgba(168,50,84,0) 62%);
   pointer-events: none;
 }
 .climax .wrap{ position: relative; }
@@ -645,7 +647,7 @@ figcaption{
 .climax p{
   max-width: 25em;
   margin-top: 1.5rem;
-  color: #FBE3EF;
+  color: #E8D9DC;
 }
 .btnrow{
   display: flex;
@@ -670,18 +672,17 @@ figcaption{
 }
 .btn svg{ width: 20px; height: 20px; flex: none; }
 .btn-solid{ background: var(--primary); color: var(--on-primary); }
-.btn-solid:hover{ background: var(--accent); }
-.btn-ghost{ border-color: #FBCFE8; color: #FFFFFF; }
+.btn-solid:hover{ background: #8A2E48; }
+.btn-ghost{ border-color: #CDBBBF; color: #FFFFFF; }
 .btn-ghost:hover{ background: rgba(255,255,255,0.12); }
 .climax .fine{
   margin-top: 2rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   line-height: 1.75;
-  color: #F5C9DE;
+  color: #D8C6CA;
   max-width: 26em;
 }
 
-/* ---------- 푸터 ---------- */
 footer{
   background: var(--background);
   padding-block: clamp(2.5rem, 5vw, 4rem);
@@ -707,13 +708,13 @@ footer{
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   text-decoration: none;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
 }
 .foot-note{
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   line-height: 1.8;
   color: var(--meta-ink);
 }
@@ -722,11 +723,10 @@ footer{
   margin-top: 2rem;
   padding-top: 1.1rem;
   border-top: 1px solid var(--border);
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   color: var(--meta-ink);
 }
 
-/* ---------- 등장 연출 ---------- */
 .reveal{
   opacity: 0;
   transform: translateY(22px);
@@ -753,8 +753,6 @@ footer{
 }
 </style>
 <style>
-/* 레퍼런스 페이지의 미리보기 카드(iframe) 안에서는 스크롤 애니메이션이 풀리지 않는다.
-   틀 안에 들어갔을 때는 처음부터 다 보이게 둔다. 안 그러면 카드가 반쯤 빈 채로 보인다. */
 html.in-frame .reveal{opacity:1 !important;transform:none !important}
 </style>
 <script>if(window.self!==window.top){document.documentElement.className+=' in-frame';}</script>
@@ -808,13 +806,13 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
   </div>
 </header>
 
-<figure class="band">
-  <img src="../img/nuam-hero.jpg" width="1600" height="904" loading="eager" decoding="async"
-       alt="라벤더에서 연분홍으로 번지는 배경에 놓인 누암 배리어 세럼 스포이드 유리병.">
-  <figcaption>누암 배리어 세럼 30ml</figcaption>
-</figure>
-
 <main>
+
+  <figure class="band">
+    <img src="../img/nuam-hero.jpg" width="1600" height="904" loading="eager" decoding="async"
+         alt="라벤더에서 연분홍으로 번지는 배경에 놓인 누암 배리어 세럼 스포이드 유리병.">
+    <figcaption>누암 배리어 세럼 30ml</figcaption>
+  </figure>
 
   <section class="chapter ch1" id="ch1" aria-labelledby="ch1-title">
     <div class="wrap">
@@ -844,21 +842,21 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
         <div class="spread-aside reveal reveal-d2">
           <figure class="para" data-para="0.05">
             <svg viewBox="0 0 480 300" role="img" aria-label="계절이 바뀔 때마다 자극이 반복되어 올라가는 주기를 그린 개념도">
-              <line x1="16" y1="232" x2="464" y2="232" stroke="#FBCFE8" stroke-width="2"/>
-              <line x1="16" y1="40" x2="16" y2="232" stroke="#FBCFE8" stroke-width="2"/>
+              <line x1="16" y1="232" x2="464" y2="232" stroke="#D6C8C2" stroke-width="2"/>
+              <line x1="16" y1="40" x2="16" y2="232" stroke="#D6C8C2" stroke-width="2"/>
               <path d="M16 232 Q44 232 60 108 Q76 232 120 232 Q152 232 180 104 Q208 232 240 232 Q272 232 300 100 Q328 232 360 232 Q392 232 420 96 Q448 232 464 232"
-                    fill="none" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="60" cy="108" r="6" fill="#EC4899"/>
-              <circle cx="180" cy="104" r="6" fill="#EC4899"/>
-              <circle cx="300" cy="100" r="6" fill="#EC4899"/>
-              <circle cx="420" cy="96" r="6" fill="#EC4899"/>
-              <g class="fig-label" fill="#831843">
+                    fill="none" stroke="#2A1219" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="60" cy="108" r="6" fill="#A83254"/>
+              <circle cx="180" cy="104" r="6" fill="#A83254"/>
+              <circle cx="300" cy="100" r="6" fill="#A83254"/>
+              <circle cx="420" cy="96" r="6" fill="#A83254"/>
+              <g class="fig-label" fill="#2A1219">
                 <text x="60" y="258" text-anchor="middle">봄</text>
                 <text x="180" y="258" text-anchor="middle">여름</text>
                 <text x="300" y="258" text-anchor="middle">가을</text>
                 <text x="420" y="258" text-anchor="middle">겨울</text>
               </g>
-              <g class="fig-label" fill="#64748B">
+              <g class="fig-label" fill="#6E6058">
                 <text x="16" y="30">민감해졌다고 느낀 정도</text>
                 <text x="16" y="288">계절이 바뀌는 시기</text>
               </g>
@@ -999,8 +997,9 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
 
         <article class="card reveal reveal-d1">
           <div class="card-fig">
-            <img src="../img/nuam-cut-lineup.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+            <img src="../img/nuam-cut-lineup.jpg" width="1200" height="1604" loading="eager" decoding="sync" fetchpriority="high"
                  alt="토너·세럼·크림 세 병이 연한 라일락 배경의 선반에 나란히 놓여 있다.">
+            <img class="cut-b" src="../img/nuam-cut-drop.jpg" width="1200" height="1604" loading="lazy" decoding="async" alt="" aria-hidden="true">
           </div>
           <div class="plate">
             <span class="plate-num">200</span>
@@ -1027,8 +1026,9 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
 
         <article class="card reveal reveal-d2">
           <div class="card-fig">
-            <img src="../img/nuam-cut-drop.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+            <img src="../img/nuam-cut-drop.jpg" width="1200" height="1604" loading="eager" decoding="sync"
                  alt="유리 스포이드 끝에서 세럼 한 방울이 떨어지는 순간의 매크로 컷.">
+            <img class="cut-b" src="../img/nuam-cut-texture.jpg" width="1200" height="1604" loading="lazy" decoding="async" alt="" aria-hidden="true">
           </div>
           <div class="plate">
             <span class="plate-num">30</span>
@@ -1055,8 +1055,9 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
 
         <article class="card reveal reveal-d3">
           <div class="card-fig">
-            <img src="../img/nuam-cut-texture.jpg" width="1200" height="1604" loading="lazy" decoding="async"
+            <img src="../img/nuam-cut-texture.jpg" width="1200" height="1604" loading="eager" decoding="sync"
                  alt="손등에 얇게 펴 바른 세럼이 빛을 받아 윤이 나는 클로즈업.">
+            <img class="cut-b" src="../img/nuam-hero.jpg" width="1600" height="904" loading="lazy" decoding="async" alt="" aria-hidden="true">
           </div>
           <div class="plate">
             <span class="plate-num">50</span>
@@ -1186,7 +1187,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     rows.forEach(function(el){ ledgerIO.observe(el); });
   }
 
-  /* 진행 바 + 챕터 표시 + 가벼운 시차 */
   var bar = document.getElementById('topbar');
   var links = Array.prototype.slice.call(document.querySelectorAll('#rail a'));
   var targets = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });

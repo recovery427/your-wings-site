@@ -31,7 +31,6 @@
   --bounce: cubic-bezier(.34,1.56,.64,1);
   --clay-grad: linear-gradient(150deg, #FFFFFF 0%, #F4FDF6 55%, #E8F6EC 100%);
 
-  /* 작은 글자용 파생 톤 — 파스텔 그라디언트 위에서도 4.5:1 확보 */
   --ink-muted: #55606B;
   --ink-gold: #8C5A07;
   --ink-green: #116534;
@@ -67,17 +66,14 @@ a{ color: var(--primary); }
   padding: 0 20px;
 }
 
-/* ---------- 사진 ----------
-   여기서는 .band 가 이미 섹션 클래스로 쓰이고 있어 .photo 로 이름을 나눈다.
-   비율은 실제 파일(1600x904 / 1200x1604)에 맞춰 미리 박아 둔다. */
 .photo{
   margin:0;padding:0;border:0;
   aspect-ratio:16/9;overflow:hidden;background:var(--muted);
-  border-radius:26px;   /* 클레이 톤: 큰 면은 크게 굴린다 */
+  border-radius:26px;   
 }
 .photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-/* 풀블리드 띠는 2.3 으로. 16:9 는 화면을 다 먹는다. */
+
 .photo--full{border-radius:0;aspect-ratio:21/9}
 .photo--full img{object-position:center 54%}
 .photorow{
@@ -91,7 +87,6 @@ a{ color: var(--primary); }
 }
 .photo--wide{aspect-ratio:3/2;border-radius:24px;margin-top:clamp(22px,3vw,32px)}
 
-/* VOLDOG 실측: 위쪽에만 쏠아 준다. 아래를 비우면 다음 섹션 상단이 간격을 만들어 중복이 없다. */
 .band{ padding: clamp(48px,6.5vw,84px) 0 clamp(10px,1.6vw,20px); }
 .band--tight{ padding: clamp(34px,4.5vw,56px) 0 clamp(8px,1.2vw,14px); }
 .band--pad{ background: linear-gradient(180deg, rgba(232,246,236,0) 0%, rgba(214,243,224,.55) 100%); }
@@ -102,7 +97,6 @@ a{ color: var(--primary); }
   border-radius: 8px;
 }
 
-/* ---------- clay primitives ---------- */
 .clay{
   background: var(--clay-grad);
   border: var(--border-width) solid var(--border);
@@ -167,7 +161,6 @@ a{ color: var(--primary); }
 .lede{ font-size: 17px; color: #1B5E35; }
 .note{ font-size: 13px; color: var(--ink-muted); }
 
-/* ---------- header ---------- */
 .topbar{
   position: relative;
   z-index: 3;
@@ -199,7 +192,6 @@ a{ color: var(--primary); }
   place-items: center;
 }
 
-/* ---------- hero ---------- */
 .hero{ padding: 28px 0 8px; }
 .hero__grid{
   display: grid;
@@ -229,7 +221,6 @@ a{ color: var(--primary); }
 }
 .hero__price b{ color: var(--foreground); font-size: 16px; }
 
-/* tray of cubes */
 .tray{
   padding: 22px;
   background: linear-gradient(155deg,#FFFFFF 0%, #EAF8EF 60%, #DCF3E4 100%);
@@ -245,7 +236,6 @@ a{ color: var(--primary); }
   text-align: center;
 }
 
-/* ---------- stat trio ---------- */
 .trio{
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -278,7 +268,6 @@ a{ color: var(--primary); }
   color: var(--ink-muted);
 }
 
-/* ---------- section head ---------- */
 .head{ max-width: 640px; margin-bottom: 28px; }
 .head h2{
   font-size: clamp(23px, 3.3vw, 31px);
@@ -286,7 +275,6 @@ a{ color: var(--primary); }
   margin: 10px 0 10px;
 }
 
-/* ---------- ingredient cards ---------- */
 .ing{
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -328,7 +316,6 @@ a{ color: var(--primary); }
 .process h3{ font-size: 19px; margin-bottom: 8px; }
 .process p{ font-size: 15px; }
 
-/* ---------- in / out grid ---------- */
 .split{
   display: grid;
   grid-template-columns: repeat(2, minmax(0,1fr));
@@ -372,7 +359,6 @@ a{ color: var(--primary); }
   background: linear-gradient(150deg,#FFFFFF,#E8F0F1);
 }
 
-/* ---------- signature: real size ---------- */
 .real{
   display: grid;
   grid-template-columns: minmax(0,336px) minmax(0,1fr);
@@ -502,7 +488,6 @@ a{ color: var(--primary); }
 .feed h3{ font-size: 15px; margin-bottom: 6px; }
 .feed p{ font-size: 15px; }
 
-/* ---------- Q&A ---------- */
 .filters{
   display: flex;
   flex-wrap: wrap;
@@ -585,7 +570,6 @@ a{ color: var(--primary); }
   to{ opacity: 1; transform: none; }
 }
 
-/* ---------- buy ---------- */
 .buy{
   display: grid;
   grid-template-columns: minmax(0,1fr) minmax(0,.85fr);
@@ -648,7 +632,6 @@ a{ color: var(--primary); }
 }
 .foot p + p{ margin-top: 8px; }
 
-/* ---------- responsive ---------- */
 @media (max-width: 1000px){
   .hero__grid{ grid-template-columns: 1fr; gap: 26px; }
   .real{ grid-template-columns: 1fr; }
@@ -687,8 +670,7 @@ a{ color: var(--primary); }
 }
 </style>
 <style>
-/* 레퍼런스 페이지의 미리보기 카드(iframe) 안에서는 스크롤 애니메이션이 풀리지 않는다.
-   틀 안에 들어갔을 때는 처음부터 다 보이게 둔다. 안 그러면 카드가 반쯤 빈 채로 보인다. */
+
 html.in-frame .reveal{opacity:1 !important;transform:none !important}
 </style>
 <script>if(window.self!==window.top){document.documentElement.className+=' in-frame';}</script>
@@ -1052,7 +1034,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }catch(e){ reduce = false; }
 
-  /* 질문 주제 고르기 */
   var buttons = Array.prototype.slice.call(document.querySelectorAll('.fbtn'));
   var cards = Array.prototype.slice.call(document.querySelectorAll('.qa__card'));
   var empty = document.getElementById('qa-empty');
@@ -1066,7 +1047,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
         shown++;
         if (!reduce){
           card.style.animation = 'none';
-          /* 강제 리플로 후 재생 */
+          
           void card.offsetWidth;
           card.style.animation = '';
         }

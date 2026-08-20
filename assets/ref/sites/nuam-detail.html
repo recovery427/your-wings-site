@@ -30,7 +30,7 @@
   --elevation-4: 0 20px 40px rgba(0,0,0,0.15);
   --blur-amount: 8px;
 
-  --ink-2: #475569;          /* 회색 위 본문용 (대비 확보) */
+  --ink-2: #475569;          
   --grey-1: #EEECF3;
   --grey-2: #E2DFE9;
   --grey-line: #D9D5E2;
@@ -46,7 +46,7 @@ body{
   font-weight:300;
   color:var(--foreground);
   background:var(--background);
-  /* 실측 반영: 글자를 키우고 행간을 조인다 (16/1.75 -> 17/1.5) */
+  
   line-height:1.5;
   font-size:17px;
   overflow-x:hidden;
@@ -64,10 +64,9 @@ a{color:inherit}
   text-transform:uppercase;color:var(--ink-2);
 }
 .lede{font-weight:300;font-size:19px;line-height:1.5;color:var(--ink-2);max-width:25em}
-/* VOLDOG 실측: 위쪽에만 쏠아 준다. 아래를 비우면 다음 섹션 상단이 간격을 만들어 중복이 없다. */
+
 .sec{padding:clamp(64px,9vw,116px) 0 clamp(18px,2.5vw,32px);position:relative}
 
-/* ── 1. HERO (problem state) ─────────────────────────────── */
 .hero{
   position:relative;overflow:hidden;
   background:linear-gradient(168deg,#F4F2F7 0%,#EAE7F0 58%,#E4E1EB 100%);
@@ -99,7 +98,6 @@ a{color:inherit}
 .scrollcue{margin-top:34px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2)}
 .scrollcue svg{flex:none}
 
-/* 히어로 시각물: 무채색 아이소메트릭 층 + 겹치는 카드 */
 .stack-vis{position:relative;padding:8px 0 0}
 .stack-vis svg{display:block;width:100%;height:auto}
 .pricecard{
@@ -117,7 +115,6 @@ a{color:inherit}
   box-shadow:var(--elevation-3);font-size:12px;color:var(--ink-2);max-width:44%
 }
 
-/* ── 2. TRANSFORMATION ───────────────────────────────────── */
 .xsec{background:var(--background);padding-top:88px}
 .xhead{max-width:27em;margin-bottom:44px}
 .xhead h2{font-size:clamp(25px,3.5vw,40px);color:var(--foreground)}
@@ -222,7 +219,6 @@ a{color:inherit}
 .btn.ghost{background:var(--card);color:var(--foreground);border:1px solid var(--foreground);box-shadow:var(--elevation-1)}
 .btnrow{display:grid;gap:10px;margin-top:18px}
 
-/* ── 3. HOW IT WORKS ─────────────────────────────────────── */
 .how{background:linear-gradient(180deg,#FDF2F8 0%,#F7F1FA 100%)}
 .how h2{font-size:clamp(25px,3.5vw,40px);color:var(--foreground);margin-bottom:14px}
 .howgrid{display:grid;grid-template-columns:.92fr 1.08fr;gap:48px;align-items:center;margin-top:46px}
@@ -237,10 +233,7 @@ a{color:inherit}
 .ing .n{font-family:var(--font-h);font-weight:900;font-size:11px;letter-spacing:.16em;color:var(--muted-foreground)}
 .ing h3{font-size:19px;margin:4px 0 7px;color:var(--foreground)}
 .ing p{font-size:14px;color:var(--ink-2)}
-/* ---------- 사진 ----------
-   비율을 미리 선언한다. 실제 파일이 1600x904 / 1200x1604 이므로 16:9 · 3:4 로 정확히 맞는다.
-   figure 에 padding/border 를 주는 전역 규칙이 나중에 생겨도 어긋나지 않게 여기서 0 으로 박아 둔다. */
-/* Vero 실측: 풀블리드 밴드 비율이 2.09. 16:9 는 장식 띠로 너무 높다. */
+
 .band{margin:0;padding:0;border:0;aspect-ratio:21/9;overflow:hidden;background:var(--muted)}
 .band img{width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block}
 .band figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
@@ -270,7 +263,6 @@ a{color:inherit}
 .step h4{font-size:17px;margin:14px 0 8px;color:var(--foreground)}
 .step p{font-size:14px;color:var(--ink-2)}
 
-/* ── 4. RESULTS + CTA ────────────────────────────────────── */
 .res{background:var(--background)}
 .res h2{font-size:clamp(25px,3.5vw,40px);color:var(--foreground)}
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
@@ -307,7 +299,6 @@ a{color:inherit}
 .guar{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:13px;color:var(--ink-2)}
 .guar svg{flex:none;margin-top:2px}
 
-/* 하단 고정 구매 바 */
 .buybar{
   position:fixed;left:0;right:0;bottom:0;z-index:40;
   background:rgba(253,242,248,.86);backdrop-filter:blur(var(--blur-amount));
@@ -362,8 +353,7 @@ footer .concept{font-size:12px;color:#9C93AC;margin-top:22px}
 }
 </style>
 <style>
-/* 레퍼런스 페이지의 미리보기 카드(iframe) 안에서는 스크롤 애니메이션이 풀리지 않는다.
-   틀 안에 들어갔을 때는 처음부터 다 보이게 둔다. 안 그러면 카드가 반쯤 빈 채로 보인다. */
+
 html.in-frame .reveal{opacity:1 !important;transform:none !important}
 </style>
 <script>if(window.self!==window.top){document.documentElement.className+=' in-frame';}</script>
@@ -702,7 +692,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
   "use strict";
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── 시그니처: 루틴 레이어 접기 슬라이더 ── */
   var xform = document.getElementById('xform');
   var track = document.getElementById('track');
   var stepCount = document.getElementById('stepCount');
@@ -754,7 +743,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     track.addEventListener('pointerdown', function(e){
       dragging = true; interacted = true;
       if (track.setPointerCapture && e.pointerId !== undefined) {
-        try { track.setPointerCapture(e.pointerId); } catch (err) { /* 무시 */ }
+        try { track.setPointerCapture(e.pointerId); } catch (err) {  }
       }
       fromX(e.clientX);
       e.preventDefault();
@@ -776,7 +765,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
   }
   apply(0);
 
-  /* 처음 화면에 들어올 때 한 번만 살짝 열어 보여 준다 */
   var teased = false;
   if (xform && 'IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
@@ -785,7 +773,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
         teased = true;
         io.disconnect();
         if (reduce) return;
-        /* 살짝 열었다가 다시 닫아, 손잡이를 움직일 수 있다는 것만 알린다 */
+        
         var t0 = 0, DUR = 1500, PEAK = 0.3;
         var run = function(ts){
           if (!t0) t0 = ts;
@@ -801,7 +789,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     io.observe(xform);
   }
 
-  /* ── 결과 숫자 카운트 ── */
   var nums = [].slice.call(document.querySelectorAll('[data-count]'));
   function fill(el){
     var target = parseInt(el.getAttribute('data-count'), 10) || 0;
@@ -817,7 +804,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
       if (e < 1) requestAnimationFrame(run); else done = true;
     };
     requestAnimationFrame(run);
-    /* rAF 가 멈춰도 숫자는 반드시 최종값으로 남는다 */
+    
     window.setTimeout(function(){ done = true; el.innerHTML = target + suffix; }, 1100);
   }
   if ('IntersectionObserver' in window){
@@ -831,7 +818,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     nums.forEach(fill);
   }
 
-  /* ── 하단 구매 바 ── */
   var bar = document.getElementById('buybar');
   var sentinel = document.getElementById('afterHero');
   var finalSec = document.getElementById('final');
@@ -856,7 +842,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     }
   }
 
-  /* ── 히어로 층 패럴랙스 (아주 얕게) ── */
   var vis = document.getElementById('heroVis');
   if (vis && !reduce){
     var queued = false;
@@ -871,7 +856,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     }, { passive: true });
   }
 
-  /* ── 담기 버튼 (콘셉트 페이지) ── */
   [].slice.call(document.querySelectorAll('[data-buy]')).forEach(function(b){
     b.addEventListener('click', function(){
       var old = b.textContent;

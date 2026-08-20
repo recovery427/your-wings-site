@@ -23,7 +23,6 @@
   --destructive: #DC2626;
   --ring: #0D9488;
 
-  /* 장식 전용 — 본문 텍스트에 쓰지 않는다 */
   --deco-lime: #CCFF00;
   --deco-cyan: #00FFFF;
   --deco-pink: #FF006E;
@@ -49,7 +48,7 @@ body{
   font-family:var(--body);
   font-weight:500;
   font-size:17px;
-  /* 실측 반영: 1.75 -> 1.55 로 조인다 */
+  
   line-height:1.55;
   letter-spacing:-0.01em;
   word-break:keep-all;
@@ -73,7 +72,6 @@ a{color:inherit}
   padding:0 clamp(18px, 4.5vw, 56px);
 }
 
-/* ---------- 상단 진행 레일 ---------- */
 .rail{
   position:sticky; top:0; z-index:40;
   background:var(--card);
@@ -123,7 +121,6 @@ body[data-stage="1"] .rail-bar b{width:34%; background:var(--destructive)}
 body[data-stage="2"] .rail-bar b{width:67%; background:var(--accent)}
 body[data-stage="3"] .rail-bar b{width:100%; background:var(--primary)}
 
-/* ---------- 히어로 ---------- */
 .hero{padding:clamp(40px,7vw,88px) 0 clamp(40px,6vw,72px)}
 .hero-grid{
   display:grid; gap:var(--block-gap);
@@ -159,7 +156,6 @@ h1 em{font-style:normal; color:var(--primary)}
 .points li:nth-child(3) svg{color:var(--primary)}
 .points li:hover{transform:translateX(6px); box-shadow:-8px 0 0 var(--deco-lime)}
 
-/* 히어로 시각물 — 타이포 자체를 도장처럼 */
 .stamp{
   position:relative; overflow:clip;
   border:4px solid var(--foreground);
@@ -194,7 +190,6 @@ h1 em{font-style:normal; color:var(--primary)}
 }
 .hero-cta{margin-top:30px; display:flex; flex-wrap:wrap; gap:14px}
 
-/* 버튼 */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
   min-height:52px; padding:14px 26px;
@@ -214,7 +209,6 @@ h1 em{font-style:normal; color:var(--primary)}
 .btn-alt{background:var(--primary); color:var(--on-primary)}
 .btn-alt:hover{background:var(--foreground)}
 
-/* ---------- 퍼널 ---------- */
 .funnel{padding:clamp(30px,4vw,52px) 0 clamp(48px,6vw,80px)}
 .funnel-grid{display:block}
 .steps{display:grid; gap:var(--block-gap); min-width:0}
@@ -237,7 +231,7 @@ h1 em{font-style:normal; color:var(--primary)}
   display:flex; align-items:center; gap:16px;
   padding:14px 18px;
 }
-/* CIAO 실측: 큰 수치는 line-height 0.80 으로 눌러 붙인다. 블록형 밀도가 여기서 나온다. */
+
 .step-strip .num{font-size:38px; line-height:.8; letter-spacing:-0.04em}
 .step-strip .tag{
   font-family:var(--head); font-size:20px; letter-spacing:.06em;
@@ -247,9 +241,6 @@ h1 em{font-style:normal; color:var(--primary)}
 .step-body p{max-width:26em}
 .step-body p + p{margin-top:16px}
 
-/* ---------- 사진 ----------
-   CIAO 실측: 좌우 여백 없는 풀블리드 밴드를 단계 구분자로 반복한다.
-   비율은 실제 파일(1600x904 / 1200x1604)에 맞춰 미리 박아 둔다. */
 .photo{margin:0;padding:0;border:0;overflow:hidden;background:var(--muted);aspect-ratio:21/9}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block}
 .step-photo img{object-position:center 50%}
@@ -271,7 +262,6 @@ h1 em{font-style:normal; color:var(--primary)}
 .fn{font-size:14px; color:var(--muted-foreground); margin-top:18px}
 sup{font-size:12px; font-weight:700}
 
-/* ---------- 시그니처 격자 패널 ---------- */
 .panel{
   position:sticky; top:calc(var(--rail-h) + 12px);
   align-self:start;
@@ -333,7 +323,6 @@ body[data-stage="3"] .chip{background:var(--primary)}
 .readout b i{font-style:normal; font-size:.42em; color:var(--muted-foreground)}
 .readout p{font-size:14.5px; line-height:1.55; margin-top:4px}
 
-/* ---------- CTA ---------- */
 .cta{
   padding:clamp(44px,6vw,84px) 0 clamp(48px,6vw,80px);
   background:var(--foreground); color:var(--background);
@@ -369,7 +358,6 @@ body[data-stage="3"] .chip{background:var(--primary)}
 }
 .said:not(:empty){border-left:7px solid var(--primary); padding-left:12px}
 
-/* ---------- 푸터 ---------- */
 footer{padding:34px 0 46px; font-size:14px; color:var(--muted-foreground)}
 footer .fw{font-family:var(--head); font-size:19px; color:var(--foreground); letter-spacing:-0.03em}
 footer p + p{margin-top:8px}
@@ -382,7 +370,6 @@ footer p + p{margin-top:8px}
 }
 .skip:focus{top:12px}
 
-/* ---------- 반응형 ---------- */
 @media (min-width:700px){
   .points{grid-template-columns:repeat(3,minmax(0,1fr))}
   .points li{flex-direction:column; align-items:flex-start; gap:12px}
@@ -433,8 +420,7 @@ footer p + p{margin-top:8px}
 }
 </style>
 <style>
-/* 레퍼런스 페이지의 미리보기 카드(iframe) 안에서는 스크롤 애니메이션이 풀리지 않는다.
-   틀 안에 들어갔을 때는 처음부터 다 보이게 둔다. 안 그러면 카드가 반쯤 빈 채로 보인다. */
+
 html.in-frame .reveal{opacity:1 !important;transform:none !important}
 </style>
 <script>if(window.self!==window.top){document.documentElement.className+=' in-frame';}</script>
@@ -606,7 +592,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 시그니처 격자 만들기 */
   var grid = document.getElementById('grid');
   var CELLS = 36, cells = [];
   for (var i = 0; i < CELLS; i++){
@@ -617,7 +602,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     cells.push(c);
   }
 
-  /* 단계별로 비워지는 칸 수: 0 -> 36, 1 -> 36, 2 -> 18, 3 -> 0 */
   var REMAIN = [36, 36, 18, 0];
   var CAPS = [
     '스크롤을 내리면 단계에 따라 칸이 비워집니다.',
@@ -639,7 +623,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     document.body.setAttribute('data-stage', String(s));
     var remain = REMAIN[s];
     for (var i = 0; i < CELLS; i++){
-      /* 흩어진 순서로 비운다 */
+      
       var order = (i * 7 + 3) % CELLS;
       if (order >= remain) cells[i].classList.add('clean');
       else cells[i].classList.remove('clean');
@@ -666,7 +650,6 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
     render(3);
   }
 
-  /* 담기 버튼 — 저장하지 않고 안내만 */
   var said = document.getElementById('said');
   function say(t){ said.textContent = t; }
   document.getElementById('buy').addEventListener('click', function(){
