@@ -106,6 +106,8 @@
   window.addEventListener('resize', later);
   window.addEventListener('beforeprint', showAll);
   setTimeout(sweep, 2400);
+
+  setTimeout(showAll, 8000);
 })();
 
 (function () {

@@ -108,6 +108,8 @@ h3 { font-size: var(--t-h3); font-weight: 700; }
 
 .h2--quiet { font-size: clamp(1.35rem, 2.2vw, 1.75rem); letter-spacing: -.025em; }
 
+.h2--peak { font-size: clamp(2.5rem, 4.8vw, 4.4rem); line-height: 1.02; letter-spacing: -.04em; }
+
 p { margin: 0 0 14px; }
 .lead { font-size: clamp(1.0625rem, 1.5vw, 1.2rem); line-height: 1.62; color: var(--ink-2); }
 .muted { color: var(--muted); }
@@ -192,6 +194,7 @@ p { margin: 0 0 14px; }
 
 .nav-toggle {
   display: none;
+  min-height: 44px;   
   background: none;
   border: 1.5px solid var(--line-strong);
   border-radius: var(--radius-sm);
@@ -431,11 +434,12 @@ p { margin: 0 0 14px; }
   border-radius: 999px;
   background: var(--ink);
   color: #fff;
-  font-size: 1rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
   font-weight: 700;
   letter-spacing: -.01em;
 }
-.price-unit--month { background: var(--warm); }
+
+.price-unit--month { background: var(--accent-dark); }
 .pkg-compose {
   font-size: .9375rem;
   font-weight: 600;

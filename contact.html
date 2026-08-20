@@ -14,6 +14,7 @@
 <meta property="og:image" content="assets/ref/img/odok-hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
 /* 이 페이지에서만 필요한 규칙. 공용 assets/styles.css 로 옮길 후보이며,
@@ -30,6 +31,95 @@
 .steps { list-style: none; margin: 0; padding: 0; }
 .gcap { margin-top: 8px; font-size: .8125rem; line-height: 1.5; color: var(--muted); }
 .mailout { text-underline-offset: 3px; font-weight: 700; }
+
+/* 본문 글자 크기를 4단계(13 · 15 · 16 · 19.2)로 줄인다. */
+main .req                      { font-size: .8125rem; }
+main .small, main .hint, main .pricenote,
+main .field .hint, main .bleed figcaption { font-size: .9375rem; }
+main .fset > legend,
+main details.qa summary        { font-size: 1rem; }
+main .hero-body                { font-size: clamp(1.0625rem, 1.5vw, 1.2rem); }
+
+/* ── 2차 수정 ─────────────────────────────────────────────
+   폼을 지면 위로 올리고, 그 옆에 증거(세로 영상)를 붙여 둔다. ── */
+.form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 720px) minmax(240px, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.form-aside { position: sticky; top: 96px; }
+.form-aside-media { margin: 0; background: #0e1116; }
+.form-aside-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.form-aside .facts { margin: 14px 0 0; padding: 0; list-style: none; }
+.form-aside .facts li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 9px 0; border-bottom: 1px solid var(--line);
+  font-size: .9375rem;
+}
+.form-aside .facts li:last-child { border-bottom: 0; }
+.form-aside .facts b { font-weight: 800; }
+.form-aside-play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
+  display: none; padding: 12px 20px; border: 0; border-radius: 999px;
+  background: rgba(14, 17, 22, .82); color: #fff; font: inherit; font-weight: 700; cursor: pointer;
+}
+.form-aside-media.is-paused .form-aside-play { display: block; }
+
+/* 폰·태블릿에서는 세로로 길게 쌓지 않고, 영상을 눕혀 폼 바로 위에 올린다.
+   증거는 폼과 같은 화면에 두되 첫 입력칸을 아래로 밀지 않는다. */
+@media (max-width: 980px) {
+  .form-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .form-aside {
+    position: static; order: -1; max-width: 560px;
+    display: grid; grid-template-columns: 126px minmax(0, 1fr);
+    column-gap: 16px; align-items: start;
+  }
+  .form-aside-media { grid-column: 1; grid-row: 1 / 4; }
+  .form-aside .gcap { margin-top: 0; }
+  .form-aside .facts { margin-top: 8px; }
+  .form-aside .facts li { padding: 7px 0; }
+}
+@media (max-width: 420px) {
+  .form-aside { grid-template-columns: 104px minmax(0, 1fr); }
+  .form-aside .facts li { font-size: .875rem; }
+}
+
+/* 폼 검증 피드백 — 틀린 칸은 짧게 흔들리고, 결과 알림은 위에서 내려온다. */
+@keyframes yw-shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  45%      { transform: translateX(5px); }
+  70%      { transform: translateX(-3px); }
+}
+@keyframes yw-drop {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.form [aria-invalid="true"] { animation: yw-shake .3s var(--ease) both; }
+.form .consent:has(input[aria-invalid="true"]) { animation: yw-shake .3s var(--ease) both; }
+.form-status--error,
+.form-status--ok,
+.form-status--info { animation: yw-drop .34s var(--ease) both; }
+.field-error { animation: yw-drop .26s var(--ease) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .form [aria-invalid="true"],
+  .form .consent:has(input[aria-invalid="true"]),
+  .form-status--error, .form-status--ok, .form-status--info,
+  .field-error { animation: none; }
+}
+
+/* 폰에서는 로고·카드뉴스를 옆으로 민다. 8장을 세로로 쌓으면 1,800px 이 그냥 늘어난다. */
+@media (max-width: 560px) {
+  .m-strip {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 0 var(--pad) 10px; margin: 0 calc(var(--pad) * -1);
+    scrollbar-width: thin; -webkit-overflow-scrolling: touch;
+  }
+  .m-strip > * { flex: 0 0 62%; scroll-snap-align: start; }
+  .m-strip:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+}
 </style>
 <noscript><style>
 /* 자바스크립트가 꺼져 있으면 토글 버튼이 동작하지 않는다. 메뉴를 처음부터 펼쳐 둔다. */
@@ -88,136 +178,14 @@
     <figcaption>상담이 끝나면 결국 이런 것이 남습니다 — 가상 브랜드 NUAM 브랜드 컷 · 실제 고객사 작업물이 아닙니다.</figcaption>
   </figure>
 
-  <section class="section">
-    <div class="wrap">
-      <h2 class="reveal">문의는 대화가 아니라 결과물로 끝납니다</h2>
-      <p class="lead reveal">아래는 your wings 가 가상 브랜드를 직접 세우고 만든 작업물입니다. 문의를 보내주시면 이 정도 형태의 결과물을 받으시게 됩니다.</p>
-
-      <h3 class="mt-32 reveal">로고</h3>
-      <div class="grid grid--4">
-        <figure class="reveal">
-          <div class="media media--4x3"><img src="assets/ref/logo/logo-nuam.jpg" alt="가상 브랜드 NUAM 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">NUAM · 스킨케어</figcaption>
-        </figure>
-        <figure class="reveal reveal-d1">
-          <div class="media media--4x3"><img src="assets/ref/logo/logo-odok.jpg" alt="가상 브랜드 오독 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">오독 · 반려동물 간식</figcaption>
-        </figure>
-        <figure class="reveal reveal-d2">
-          <div class="media media--4x3"><img src="assets/ref/logo/logo-ppodeuk.jpg" alt="가상 브랜드 뽀득 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">뽀득 · 주방 세정</figcaption>
-        </figure>
-        <figure class="reveal reveal-d3">
-          <div class="media media--4x3"><img src="assets/ref/logo/logo-mintab.jpg" alt="가상 브랜드 MINTAB 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">MINTAB · 구강 관리</figcaption>
-        </figure>
-      </div>
-
-      <h3 class="mt-32 reveal">카드뉴스 · 상세페이지 컷</h3>
-      <div class="grid grid--4">
-        <figure class="reveal">
-          <div class="media media--4x5"><img src="assets/ref/cards/odok-01.jpg" alt="가상 브랜드 오독 카드뉴스 표지" width="1080" height="1350" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">오독 · 카드뉴스 표지</figcaption>
-        </figure>
-        <figure class="reveal reveal-d1">
-          <div class="media media--4x5"><img src="assets/ref/cards/odok-04.jpg" alt="가상 브랜드 오독 카드뉴스 본문 장" width="1080" height="1350" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">오독 · 카드뉴스 본문</figcaption>
-        </figure>
-        <figure class="reveal reveal-d2">
-          <div class="media media--4x5"><img src="assets/ref/cards/ppodeuk-01.jpg" alt="가상 브랜드 뽀득 카드뉴스 표지" width="1080" height="1350" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">뽀득 · 카드뉴스 표지</figcaption>
-        </figure>
-        <figure class="reveal reveal-d3">
-          <div class="media media--4x5"><img src="assets/ref/cards/ppodeuk-02.jpg" alt="가상 브랜드 뽀득 카드뉴스 본문 장" width="1080" height="1350" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">뽀득 · 카드뉴스 본문</figcaption>
-        </figure>
-      </div>
-
-      <p class="small muted mt-24 reveal">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다. 더 많은 작업물은 <a href="reference.html">레퍼런스</a>에서 보실 수 있습니다.</p>
-    </div>
-  </section>
-
-  <section class="section section--soft">
-    <div class="wrap">
-      <h2 class="reveal">비용은 이렇게 안내드립니다</h2>
-      <p class="lead reveal">프로젝트 120만 원부터 · 채널 운영 월 200만 원부터 · 프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
-
-      <div class="table-wrap table-wrap--cards reveal">
-        <table class="plain">
-          <caption class="sr-only">패키지별 시작 금액과 과금 단위</caption>
-          <thead>
-            <tr><th scope="col">패키지</th><th scope="col">시작 금액</th><th scope="col">단위</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>① 브랜드 시작</td><td><strong>250만 원부터</strong></td><td>프로젝트 1회</td></tr>
-            <tr><td>② 온라인 매출</td><td><strong>120만 원부터</strong></td><td>프로젝트 1회</td></tr>
-            <tr><td>③ 채널 성장</td><td><strong>월 200만 원부터</strong></td><td><strong>월 단위 운영</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="unit-note reveal">①②는 프로젝트 1회 비용, ③은 매달 운영하는 비용입니다.</p>
-
-      <details class="qa reveal">
-        <summary>결제는 언제, 얼마씩 나눠서 하나요?</summary>
-        <div class="a">
-          <div class="table-wrap table-wrap--cards">
-            <table class="plain">
-              <caption class="sr-only">총액 구간별 결제 방식</caption>
-              <thead>
-                <tr><th scope="col">총액</th><th scope="col">결제 방식</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>초안 단계</td><td>초안 제작비 10만 원 선불 · 계약이 진행되면 총 견적에서 전액 차감</td></tr>
-                <tr><td>100만 원 이하</td><td>전액 선불</td></tr>
-                <tr><td>100만 원 초과 300만 원 이하</td><td>착수 50% + 납품 50%</td></tr>
-                <tr><td>300만 원 초과</td><td>착수 30% + 중도 40% + 납품 30%</td></tr>
-                <tr><td>월 단위 계약</td><td>매월 선불</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="small muted mt-24 mb-0">광고비, 인플루언서 섭외비, PPL 비용, 폰트 라이선스, 도메인·호스팅, 인쇄비는 대행료와 별도이며 견적서에서 줄을 나눠 표기합니다. 실비에는 이윤을 붙이지 않고 실제 지출액 그대로 청구합니다.</p>
-        </div>
-      </details>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="split-media split-media--flip">
-        <figure class="reveal">
-          <div class="media media--4x5"><img src="assets/ref/img/ppodeuk-cut-lineup.jpg" alt="가상 브랜드 뽀득의 제품 라인업을 정리해 촬영한 컷" width="1200" height="1604" loading="lazy" decoding="async"></div>
-          <figcaption class="gcap">가상 브랜드 뽀득 제품 라인업 컷 · 실제 고객사 작업물이 아닙니다.</figcaption>
-        </figure>
-        <div class="reveal reveal-d1">
-          <h2>보내주시면 이렇게 진행됩니다</h2>
-          <ol class="steps">
-            <li class="step">
-              <h3>읽습니다</h3>
-              <p>보내주신 내용을 사람이 직접 읽습니다. 자동 응답으로 대신하지 않습니다.</p>
-            </li>
-            <li class="step">
-              <h3>정리해 회신합니다</h3>
-              <p>필요한 작업의 우선순위, 예상 범위, 일정과 견적 범위를 정리해 안내드립니다. 상담만 받으셔도 괜찮습니다.</p>
-            </li>
-            <li class="step">
-              <h3>첫 결과물을 드립니다</h3>
-              <p>작업 범위가 정해지고 자료가 준비되면, 주말과 공휴일을 포함한 달력 기준 3일 안에 첫 결과물을 드립니다. 시안은 3개입니다.</p>
-            </li>
-            <li class="step">
-              <h3>고쳐 나갑니다</h3>
-              <p>수정은 2회 포함입니다. 3회차부터는 회당 제작비의 10%이며, 범위를 넘는 요청도 비용을 먼저 말씀드린 뒤 진행합니다.</p>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section section--soft" id="form">
     <div class="wrap">
-      <h2 class="reveal">무료 상담 요청</h2>
+      <p class="eyebrow reveal">여기서 시작합니다</p>
+      <h2 class="h2--peak reveal">무료 상담 요청</h2>
       <p class="lead reveal">아는 내용까지만 적어주세요. 남은 부분은 상담에서 함께 확인합니다. 꼭 필요한 것은 이름과 연락받을 곳, 그리고 개인정보 수집 동의 — 이 셋뿐입니다.</p>
 
+      <div class="form-layout">
+      <div>
       <noscript>
         <p class="form-status form-status--info">자바스크립트가 꺼져 있어도 아래 폼은 그대로 전송됩니다. 다만 잘못 적은 칸을 미리 알려드리지 못하니, 확실하게 보내시려면 <a href="mailto:recovery427@gmail.com?subject=your%20wings%20%EB%AC%B8%EC%9D%98">recovery427@gmail.com</a> 으로 직접 보내주셔도 됩니다.</p>
       </noscript>
@@ -330,6 +298,156 @@
 
         <p class="small muted mb-0">버튼이 눌리지 않거나 전송이 실패하면, 적으신 내용을 그대로 복사해 <a class="mailout" href="mailto:recovery427@gmail.com?subject=your%20wings%20%EB%AC%B8%EC%9D%98">recovery427@gmail.com</a> 으로 보내주세요. 같은 사람이 같은 속도로 확인합니다.</p>
       </form>
+      </div>
+
+      <aside class="form-aside reveal reveal-d1">
+        <figure class="media media--9x16 form-aside-media" id="aside-media">
+          <video id="aside-video" autoplay muted loop playsinline preload="metadata"
+                 poster="assets/ref/video/live-nuam-serum.jpg" aria-label="가상 브랜드 NUAM 세럼 세로 광고 영상">
+            <source src="assets/ref/video/live-nuam-serum.mp4" type="video/mp4">
+          </video>
+          <button class="form-aside-play" type="button" aria-controls="aside-video">영상 재생</button>
+        </figure>
+        <p class="gcap">보내주시면 이런 것을 받으십니다 — 가상 브랜드 NUAM 세로 광고. 기획·연출·편집까지 your wings가 직접 만들었습니다. 실제 고객사 작업물이 아닙니다.</p>
+        <ul class="facts">
+          <li><span>첫 결과물</span><b>3일</b></li>
+          <li><span>시안</span><b>3개</b></li>
+          <li><span>수정</span><b>2회 포함</b></li>
+          <li><span>초안 제작비</span><b>10만 원</b></li>
+        </ul>
+        <p class="xsmall muted mb-0">기간은 주말·공휴일을 포함한 달력 기준입니다. 초안 제작비는 계약이 진행되면 총 견적에서 전액 차감됩니다.</p>
+      </aside>
+      </div>
+    </div>
+  </section>
+
+  <figure class="bleed bleed--cine reveal">
+    <img src="assets/ref/img/odok-hero.jpg" alt="가상 브랜드 오독의 수제간식 제품컷 — 도마 위 큐브 간식과 크래프트 파우치" width="1600" height="904" loading="lazy" decoding="async">
+    <figcaption>문의 한 통에서 시작해 여기까지 갑니다 — 가상 브랜드 ‘오독’ · 실제 고객사 작업물이 아닙니다.</figcaption>
+  </figure>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal">비용은 이렇게 안내드립니다</h2>
+      <p class="lead reveal">프로젝트 120만 원부터 · 채널 운영 월 200만 원부터 · 프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
+
+      <div class="table-wrap table-wrap--cards reveal">
+        <table class="plain">
+          <caption class="sr-only">패키지별 시작 금액과 과금 단위</caption>
+          <thead>
+            <tr><th scope="col">패키지</th><th scope="col">시작 금액</th><th scope="col">단위</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>① 브랜드 시작</td><td><strong>250만 원부터</strong></td><td>프로젝트 1회</td></tr>
+            <tr><td>② 온라인 매출</td><td><strong>120만 원부터</strong></td><td>프로젝트 1회</td></tr>
+            <tr><td>③ 채널 성장</td><td><strong>월 200만 원부터</strong></td><td><strong>월 단위 운영</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="unit-note reveal">①②는 프로젝트 1회 비용, ③은 매달 운영하는 비용입니다.</p>
+
+      <details class="qa reveal">
+        <summary>결제는 언제, 얼마씩 나눠서 하나요?</summary>
+        <div class="a">
+          <div class="table-wrap table-wrap--cards">
+            <table class="plain">
+              <caption class="sr-only">총액 구간별 결제 방식</caption>
+              <thead>
+                <tr><th scope="col">총액</th><th scope="col">결제 방식</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>초안 단계</td><td>초안 제작비 10만 원 선불 · 계약이 진행되면 총 견적에서 전액 차감</td></tr>
+                <tr><td>100만 원 이하</td><td>전액 선불</td></tr>
+                <tr><td>100만 원 초과 300만 원 이하</td><td>착수 50% + 납품 50%</td></tr>
+                <tr><td>300만 원 초과</td><td>착수 30% + 중도 40% + 납품 30%</td></tr>
+                <tr><td>월 단위 계약</td><td>매월 선불</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small muted mt-24 mb-0">광고비, 인플루언서 섭외비, PPL 비용, 폰트 라이선스, 도메인·호스팅, 인쇄비는 대행료와 별도이며 견적서에서 줄을 나눠 표기합니다. 실비에는 이윤을 붙이지 않고 실제 지출액 그대로 청구합니다.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="split-media split-media--flip">
+        <figure class="reveal">
+          <div class="media media--4x5"><img src="assets/ref/img/ppodeuk-cut-lineup.jpg" alt="가상 브랜드 뽀득의 제품 라인업을 정리해 촬영한 컷" width="1200" height="1604" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">가상 브랜드 뽀득 제품 라인업 컷 · 실제 고객사 작업물이 아닙니다.</figcaption>
+        </figure>
+        <div class="reveal reveal-d1">
+          <h2>보내주시면 이렇게 진행됩니다</h2>
+          <ol class="steps">
+            <li class="step">
+              <h3>읽습니다</h3>
+              <p>보내주신 내용을 사람이 직접 읽습니다. 자동 응답으로 대신하지 않습니다.</p>
+            </li>
+            <li class="step">
+              <h3>정리해 회신합니다</h3>
+              <p>필요한 작업의 우선순위, 예상 범위, 일정과 견적 범위를 정리해 안내드립니다. 상담만 받으셔도 괜찮습니다.</p>
+            </li>
+            <li class="step">
+              <h3>첫 결과물을 드립니다</h3>
+              <p>작업 범위가 정해지고 자료가 준비되면, 주말과 공휴일을 포함한 달력 기준 3일 안에 첫 결과물을 드립니다. 시안은 3개입니다.</p>
+            </li>
+            <li class="step">
+              <h3>고쳐 나갑니다</h3>
+              <p>수정은 2회 포함입니다. 3회차부터는 회당 제작비의 10%이며, 범위를 넘는 요청도 비용을 먼저 말씀드린 뒤 진행합니다.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal">문의는 대화가 아니라 결과물로 끝납니다</h2>
+      <p class="lead reveal">아래는 your wings 가 가상 브랜드를 직접 세우고 만든 작업물입니다. 문의를 보내주시면 이 정도 형태의 결과물을 받으시게 됩니다.</p>
+
+      <h3 class="mt-32 reveal">로고</h3>
+      <div class="grid grid--4 m-strip">
+        <figure class="reveal">
+          <div class="media media--4x3"><img src="assets/ref/logo/logo-nuam.jpg" alt="가상 브랜드 NUAM 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">NUAM · 스킨케어</figcaption>
+        </figure>
+        <figure class="reveal reveal-d1">
+          <div class="media media--4x3"><img src="assets/ref/logo/logo-odok.jpg" alt="가상 브랜드 오독 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">오독 · 반려동물 간식</figcaption>
+        </figure>
+        <figure class="reveal reveal-d2">
+          <div class="media media--4x3"><img src="assets/ref/logo/logo-ppodeuk.jpg" alt="가상 브랜드 뽀득 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">뽀득 · 주방 세정</figcaption>
+        </figure>
+        <figure class="reveal reveal-d3">
+          <div class="media media--4x3"><img src="assets/ref/logo/logo-mintab.jpg" alt="가상 브랜드 MINTAB 로고 시안" width="1400" height="1050" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">MINTAB · 구강 관리</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="mt-32 reveal">카드뉴스 · 상세페이지 컷</h3>
+      <div class="grid grid--4 m-strip">
+        <figure class="reveal">
+          <div class="media media--4x5"><img src="assets/ref/cards/odok-01.jpg" alt="가상 브랜드 오독 카드뉴스 표지" width="1080" height="1350" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">오독 · 카드뉴스 표지</figcaption>
+        </figure>
+        <figure class="reveal reveal-d1">
+          <div class="media media--4x5"><img src="assets/ref/cards/odok-04.jpg" alt="가상 브랜드 오독 카드뉴스 본문 장" width="1080" height="1350" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">오독 · 카드뉴스 본문</figcaption>
+        </figure>
+        <figure class="reveal reveal-d2">
+          <div class="media media--4x5"><img src="assets/ref/cards/ppodeuk-01.jpg" alt="가상 브랜드 뽀득 카드뉴스 표지" width="1080" height="1350" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">뽀득 · 카드뉴스 표지</figcaption>
+        </figure>
+        <figure class="reveal reveal-d3">
+          <div class="media media--4x5"><img src="assets/ref/cards/ppodeuk-02.jpg" alt="가상 브랜드 뽀득 카드뉴스 본문 장" width="1080" height="1350" loading="lazy" decoding="async"></div>
+          <figcaption class="gcap">뽀득 · 카드뉴스 본문</figcaption>
+        </figure>
+      </div>
+
+      <p class="small muted mt-24 reveal">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다. 더 많은 작업물은 <a href="reference.html">레퍼런스</a>에서 보실 수 있습니다.</p>
     </div>
   </section>
 
@@ -359,6 +477,23 @@
 </footer>
 
 <script src="assets/main.js"></script>
+<script>
+/* 폼 옆 세로 영상 — '동작 줄이기'를 켠 사용자에게는 자동으로 틀지 않는다. */
+(function () {
+  var fig = document.getElementById('aside-media');
+  var v = document.getElementById('aside-video');
+  if (!fig || !v) return;
+  var btn = fig.querySelector('.form-aside-play');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function pausedUI() { fig.classList.add('is-paused'); }
+  if (reduce) { v.removeAttribute('autoplay'); v.pause(); pausedUI(); }
+  v.addEventListener('pause', pausedUI);
+  v.addEventListener('playing', function () { fig.classList.remove('is-paused'); });
+  if (btn) btn.addEventListener('click', function () { v.play(); });
+  setTimeout(function () { if (v.paused) pausedUI(); }, 2000);
+})();
+</script>
 <script src="assets/form.js"></script>
 </body>
 </html>

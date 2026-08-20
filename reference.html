@@ -22,6 +22,7 @@
 <meta name="theme-color" content="#0e1116">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
 
 <style>
@@ -197,11 +198,23 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* ---------- 6. 소리 버튼 : 터치 타깃 44px ---------- */
+/* ---------- 5-1. 본문 글자 크기 : 12 · 13 · 15 · 17 네 단계 ---------- */
+.ref-page .refcard-badge { font-size: .75rem; }              /* 11 → 12 */
+.ref-page .bleed figcaption,
+.ref-page .small          { font-size: .9375rem; }           /* 14 → 15 */
+.ref-page .btn            { font-size: 1.0625rem; }          /* 16 → 17 */
+.ref-page .ref-close .lead,
+.ref-page .ref-lede       { font-size: 1.0625rem; }          /* 19.2 → 17 */
+
+/* ---------- 6. 소리 버튼 : 글자 없는 44×44 아이콘 ----------
+   '소리' 두 글자가 9:16 카드 안에서 줄바꿈되며 버튼 모양이 무너졌다.
+   말을 빼고 도형만 남긴다. 이름은 aria-label 이 맡는다. */
 .ref-page .refcard-sound {
   right: 10px; bottom: 10px;
-  min-width: 46px; min-height: 44px;
-  padding: 0 14px;
+  width: 44px; height: 44px;
+  min-width: 44px; min-height: 44px;
+  padding: 0;
+  border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   background: rgba(14, 17, 22, .82);
   opacity: .92;
@@ -209,6 +222,28 @@
 }
 .ref-page .refcard-sound:hover { opacity: 1; transform: translateY(-2px); }
 .ref-page .refcard-sound.is-on { background: var(--accent); }
+.ref-page .refcard-sound svg { display: block; pointer-events: none; }
+.ref-page .refcard-sound .s-on { display: none; }
+.ref-page .refcard-sound.is-on .s-on { display: block; }
+.ref-page .refcard-sound.is-on .s-off { display: none; }
+
+/* ---------- 6-1. 흰 액자 ----------
+   미리보기 iframe 은 저마다 제 배경색을 끌고 온다. 그대로 두면 지면 색이
+   전시물 수만큼 늘어난다. 흰 여백과 얇은 테두리로 전시물과 지면을 끊는다. */
+.ref-page .refcard-media--frame {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+}
+.ref-page .refcard-media--frame::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  border: 10px solid #fff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.ref-page .ref-leadframe::after { border-width: 14px; border-radius: 0; }
+.ref-page .refcard-media--frame .refcard-cover { z-index: 2; }
+.ref-page .ref-block--d .refcard-media--frame { border-color: rgba(255,255,255,.24); }
 
 /* 재생이 막혔을 때 카드 위에도 재생 단추를 띄운다 (히어로와 같은 규칙) */
 .ref-page .refcard-media .hero-play { padding: 9px 16px 9px 13px; font-size: .8125rem; }
@@ -502,7 +537,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-nuam-serum.mp4" poster="assets/ref/video/live-nuam-serum.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">실사 광고 · 10초</p>
           <p class="refcard-title">누암 배리어 세럼 — “저녁 세 단계를 한 겹으로 줄였습니다”</p>
@@ -512,7 +547,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-nuam-cream.mp4" poster="assets/ref/video/live-nuam-cream.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">실사 광고 · 10초</p>
           <p class="refcard-title">누암 배리어 크림 — “마지막 한 겹으로 수분이 날아가는 속도를 늦춥니다”</p>
@@ -522,7 +557,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-ppodeuk-soap.mp4" poster="assets/ref/video/live-ppodeuk-soap.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">실사 광고 · 10초</p>
           <p class="refcard-title">뽀득 주방세제 — “기름때는 바로, 헹굼은 두 번”</p>
@@ -532,7 +567,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-odok-treat.mp4" poster="assets/ref/video/live-odok-treat.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">실사 광고 · 10초</p>
           <p class="refcard-title">오독 닭가슴살 큐브 — “원료는 세 가지, 그게 전부입니다”</p>
@@ -547,7 +582,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-dishsoap.mp4" poster="assets/ref/video/talk-dishsoap.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">주방세제 — “한 번만 눌러도 기름때가 바로 지워집니다”</p>
@@ -557,7 +592,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-sunscreen.mp4" poster="assets/ref/video/talk-sunscreen.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">선크림 — “백탁 없이 그대로 스며듭니다”</p>
@@ -567,7 +602,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-lipbalm.mp4" poster="assets/ref/video/talk-lipbalm.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">립밤 — “한 번 바르면 반나절은 갑니다”</p>
@@ -577,7 +612,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-toothpaste.mp4" poster="assets/ref/video/talk-toothpaste.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">고체치약 — “하나만 씹으면 양치 끝입니다”</p>
@@ -587,7 +622,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-softener.mp4" poster="assets/ref/video/talk-softener.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">섬유유연제 — “사흘이 지나도 향이 그대로예요”</p>
@@ -602,7 +637,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-dog.mp4" poster="assets/ref/video/talk-dog.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">동물 캐릭터 · 10초</p>
           <p class="refcard-title">강아지 — “읽기 어려운 이름은 하나도 없어요”</p>
@@ -612,7 +647,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-cat.mp4" poster="assets/ref/video/talk-cat.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">동물 캐릭터 · 10초</p>
           <p class="refcard-title">고양이 — “저희는 원래 아무거나 안 먹거든요”</p>
@@ -622,7 +657,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/mukbang-chicken.mp4" poster="assets/ref/video/mukbang-chicken.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">ASMR 먹방 · 15초</p>
           <p class="refcard-title">양념치킨 — “이거 이번에 새로 나온 건데 진짜 맛있대요”</p>
@@ -631,7 +666,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/mukbang-malatang.mp4" poster="assets/ref/video/mukbang-malatang.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">ASMR 먹방 · 15초</p>
           <p class="refcard-title">마라탕 — “진짜 매운데 계속 땡기는 맛이에요”</p>
@@ -640,7 +675,7 @@
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/mukbang-cake.mp4" poster="assets/ref/video/mukbang-cake.jpg"
                    muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
+            <button class="refcard-sound" type="button" aria-label="소리 켜기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/><g class="s-off" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M16 9.6l4.4 4.8"/><path d="M20.4 9.6L16 14.4"/></g><g class="s-on" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"><path d="M15.8 9.2a4.2 4.2 0 0 1 0 5.6"/><path d="M18.4 7.2a7.6 7.6 0 0 1 0 9.6"/></g></svg></button>
           </div>
           <p class="refcard-cat">ASMR 먹방 · 15초</p>
           <p class="refcard-title">생크림 케이크 — “한 조각으로는 안 되겠는데요”</p>
@@ -648,6 +683,24 @@
       </div>
 
       <p class="ref-legal">위 결과물은 실제 고객 작업이 아니라 자사가 직접 만든 샘플입니다. 실제 고객사 작업물이 아닙니다.</p>
+    </div>
+  </section>
+
+  <section class="section section--ink ref-close" id="ref-close">
+    <div class="wrap">
+      <p class="eyebrow">여기까지 보셨다면</p>
+      <h2 class="h2--peak">다음 작업물은<br>당신의 브랜드였으면 합니다</h2>
+      <div class="lead maxw-60">
+        <p>위의 결과물은 고객사 없이 저희가 직접 브랜드를 세워 만든 것입니다. 이름을 짓고, 로고를 그리고, 화면과 영상을 만드는 순서를 그대로 당신의 브랜드에 옮깁니다.</p>
+        <p class="mb-0">작업 범위가 정해지고 자료가 준비되면 첫 결과물은 3일 안에 드립니다. 시안은 3개, 수정은 2회 포함입니다.</p>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn btn--on-ink" href="contact.html">지금 무료로 상담하기</a>
+        <a class="btn btn--ghost" href="index.html#packages">패키지와 가격 보기</a>
+      </div>
+
+      <p class="small muted mb-0">프로젝트 120만 원부터 · 채널 운영 월 200만 원부터 · 프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
     </div>
   </section>
 

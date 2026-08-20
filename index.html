@@ -14,7 +14,85 @@
 <meta property="og:image" content="assets/ref/img/nuam-hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
+<style>
+/* ── 2차 수정: 이 페이지에만 적용. 공용 styles.css 는 건드리지 않는다. ── */
+
+/* (1) 본문 글자 크기를 4단계(13 · 15 · 16 · 19.2)로 줄인다. */
+main .promise .idx,
+main .brandcard-cat            { font-size: .8125rem; }        /* 12 → 13 */
+main .small,
+main .pricenote,
+main figcaption,
+main .offer-alt                { font-size: .9375rem; }        /* 14 → 15 */
+main details.qa summary        { font-size: 1rem; }            /* 17 → 16 */
+main .bleed figcaption,
+main .reel figcaption          { font-size: .9375rem; }        /* 14 → 15 */
+main .hero-body,
+main .hero-sub                 { font-size: clamp(1.0625rem, 1.5vw, 1.2rem); } /* 17.6·21.6 → 19.2 */
+
+/* (2) 액센트는 파랑 하나. 주황은 '고지'(notice) 한 가지 뜻으로만 남긴다. */
+main .price-unit--month        { background: var(--accent-dark); }
+main .pkg-compose              { color: var(--ink-2); background: var(--bg-soft); font-weight: 600; }
+
+/* (3) 접어두기 — 지면을 3,000px 이상 줄인다. */
+.foldout                       { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 24px; }
+.foldout > summary {
+  list-style: none; cursor: pointer; padding: 18px 40px 18px 0; position: relative;
+  font-weight: 700; font-size: 1rem; color: var(--ink);
+}
+.foldout > summary::-webkit-details-marker { display: none; }
+.foldout > summary::after {
+  content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  font-size: 1.25rem; font-weight: 700; color: var(--accent); transition: transform .2s var(--ease);
+}
+.foldout[open] > summary::after { content: "−"; }
+.foldout > summary:hover { color: var(--accent); }
+.foldout-body                  { padding-bottom: 28px; }
+.foldout--ink                  { border-color: rgba(255,255,255,.18); margin-bottom: 20px; }
+.foldout--ink > summary        { color: #fff; }
+.foldout--ink > summary:hover  { color: #8fa6ff; }
+.foldout--ink > summary::after { color: #8fa6ff; }
+.promise-brief {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none;
+}
+.promise-brief li {
+  font-size: .9375rem; font-weight: 700; color: var(--accent);
+  background: var(--accent-soft); border-radius: 999px; padding: 7px 14px;
+}
+.faqgroup > summary { font-size: 1rem; }
+
+.strip-hint { display: none; }
+
+/* (3-b) 섹션 여백 — 편차는 남기고 총량만 줄인다(104/168/72 → 88/130/68). */
+main .section        { padding-block: clamp(52px, 6.4vw, 80px); }
+main .section--tall  { padding-block: clamp(60px, 9vw, 112px); }
+main .section--tight { padding-block: clamp(44px, 5vw, 62px); }
+main .mt-32          { margin-top: 26px; }
+main .section--flush-t { padding-top: 0; }
+
+/* (4) 폰에서는 카드를 옆으로 민다. 세로로 쌓으면 그만큼 페이지가 길어진다. */
+@media (max-width: 560px) {
+  .m-strip {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 0 var(--pad) 10px; margin: 0 calc(var(--pad) * -1);
+    scrollbar-width: thin; -webkit-overflow-scrolling: touch;
+  }
+  .m-strip > * { flex: 0 0 74%; scroll-snap-align: start; }
+  .m-strip:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .m-strip--pkg > * { flex: 0 0 85%; }
+  .strip-hint {
+    display: block; margin: 10px 0 0; font-size: .8125rem; color: var(--muted); font-weight: 600;
+  }
+  /* 세로 여백도 폰 기준으로 다시 잡는다. 데스크톱 리듬을 그대로 축소하면 스크롤만 길어진다. */
+  main .section { padding-top: 44px; padding-bottom: 44px; }
+  main .section--tall { padding-top: 52px; padding-bottom: 52px; }
+  main .section--tight { padding-top: 38px; padding-bottom: 38px; }
+  main .section--flush-t { padding-top: 0; }
+  main .mt-32 { margin-top: 22px; }
+}
+</style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}.stickycta{display:none !important}</style></noscript>
 </head>
 <body>
@@ -94,7 +172,7 @@
       <h2 class="reveal">지금 막힌 지점부터 풀어드립니다</h2>
       <p class="lead maxw-60 reveal">서비스 이름을 정해서 오시지 않아도 됩니다. 현재 상황을 들은 뒤 필요한 범위부터 함께 정리해 드립니다.</p>
 
-      <div class="grid grid--3 mt-32">
+      <div class="grid grid--3 m-strip m-strip--pkg mt-32">
 
         <article class="card pkg reveal reveal-d1">
           <div class="media media--16x9">
@@ -153,9 +231,20 @@
 
       </div>
 
+      <p class="strip-hint">← 옆으로 밀면 나머지 패키지가 나옵니다</p>
       <p class="unit-note">①②는 프로젝트 1회 비용, ③은 매달 운영하는 비용입니다.</p>
       <p class="small muted mt-24">프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
       <p class="xsmall muted">앱 디자인, 앱·웹 기획, 웹·앱 유지보수, 종합 광고대행 등 개별 의뢰도 가능합니다. 카드에 쓴 사진은 실제 고객사 작업물이 아니라, your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
+    </div>
+  </section>
+
+  <figure class="bleed bleed--cine reveal">
+    <img src="assets/ref/img/ppodeuk-hero.jpg" alt="가상 브랜드 뽀득의 주방세제 메인컷 — 물기 어린 싱크대 위에 놓인 용기와 거품" width="1600" height="904" loading="lazy" decoding="async">
+    <figcaption>가상 브랜드 ‘뽀득’ — 이름과 로고, 제품컷, 상세페이지, 카드뉴스까지 한 흐름으로 만들었습니다.</figcaption>
+  </figure>
+
+  <section class="section section--tight section--flush-t">
+    <div class="wrap">
 
       <div class="offer mt-32 reveal" id="report" style="scroll-margin-top:84px">
         <p class="eyebrow">무료 진단 리포트 · 매달 3건</p>
@@ -163,6 +252,9 @@
         <p>지금 쓰고 계신 홈페이지나 상세페이지, 채널 중 하나만 알려주세요.<br>
           어디를 어떻게 고치면 좋을지 <strong>개선점 5가지</strong>를 정리해 보내드립니다. 비용은 없습니다.</p>
 
+        <details class="foldout foldout--ink">
+          <summary>무엇을 드리는지, 왜 매달 3건인지</summary>
+          <div class="foldout-body">
         <div class="offer-terms">
           <div class="offer-term">
             <p class="t">무엇을 드리나요</p>
@@ -174,6 +266,9 @@
           </div>
         </div>
 
+          </div>
+        </details>
+
         <p class="offer-close">리포트를 보고 방향이 맞다 싶으면, 그때 초안을 요청하세요. 초안 제작은 10만 원만 받고 시작하고, 계약이 진행되면 총 견적에서 그대로 빠집니다.</p>
 
         <div class="btn-row">
@@ -183,14 +278,30 @@
         <p class="offer-alt">리포트만 받고 끝내셔도 괜찮습니다. 결정을 재촉하는 연락은 드리지 않습니다.</p>
       </div>
 
+      <div class="split-media mt-32">
+        <div class="media media--4x3 reveal">
+          <img src="assets/ref/img/nuam-cut-drop.jpg" alt="누암 세럼 드로퍼 끝에 맺힌 한 방울을 가까이 잡은 제품컷" width="1200" height="1604" loading="lazy" decoding="async">
+        </div>
+        <div class="reveal reveal-d1">
+          <p class="eyebrow">설명보다 결과물이 빠릅니다</p>
+          <h3>이 한 컷도, 상담 다음 날 나온 초안에서 시작했습니다</h3>
+          <p>제품 하나를 정하고, 어떤 장면이 필요한지 먼저 정리합니다. 그다음 컷을 만들고, 그 컷으로 판매 화면과 광고 소재를 이어 붙입니다. 회의를 여러 번 잡는 대신 보이는 것을 먼저 놓고 이야기합니다.</p>
+          <p><strong>그래서 가격을 보시기 전에, 만들어진 것부터 보여드립니다.</strong></p>
+          <p class="xsmall muted mb-0">사진: 가상 브랜드 ‘NUAM 누암’ 제품컷 · your wings 제작</p>
+        </div>
+      </div>
+
       <div class="mt-32 reveal" id="pricing" style="scroll-margin-top:84px">
         <p class="eyebrow">패키지가 부담스럽다면</p>
         <h3 class="h2--quiet">필요한 것 하나만도 맡기실 수 있습니다</h3>
-        <p class="lead maxw-60">로고 하나, 썸네일 하나만 필요하셔도 괜찮습니다. 아래는 단품으로 진행할 때의 시작 가격입니다. 여러 개가 한꺼번에 필요하시면 위의 패키지가 더 유리합니다.</p>
+        <p class="lead maxw-60">로고 하나, 썸네일 하나만 필요하셔도 괜찮습니다. <strong>썸네일 8만 원부터, 로고 35만 원부터</strong>이며, 여러 개가 한꺼번에 필요하시면 위의 패키지가 더 유리합니다.</p>
 
+        <details class="foldout">
+          <summary>디자인 · 콘텐츠 · 웹 단품 가격표 펼쳐 보기</summary>
+          <div class="foldout-body">
         <div class="grid grid--3 mt-24">
 
-          <div class="card pricelist reveal reveal-d1">
+          <div class="card pricelist">
             <p class="pricelist-tag">디자인</p>
             <ul>
               <li><span class="n">썸네일 <em>1건</em></span><span class="v">8만 원부터</span></li>
@@ -200,7 +311,7 @@
             </ul>
           </div>
 
-          <div class="card pricelist reveal reveal-d2">
+          <div class="card pricelist">
             <p class="pricelist-tag">콘텐츠</p>
             <ul>
               <li><span class="n">카드뉴스 <em>5장</em></span><span class="v">20만 원부터</span></li>
@@ -209,7 +320,7 @@
             </ul>
           </div>
 
-          <div class="card pricelist reveal reveal-d3">
+          <div class="card pricelist">
             <p class="pricelist-tag">웹</p>
             <ul>
               <li><span class="n">랜딩페이지 <em>1p</em></span><span class="v">80만 원부터</span></li>
@@ -220,7 +331,10 @@
 
         </div>
 
-        <p class="unit-note">표시된 금액은 가장 기본 구성 기준의 <strong>시작가</strong>입니다. 분량과 수정 횟수, 납기에 따라 견적이 달라집니다.</p>
+        <p class="unit-note mb-0">표시된 금액은 가장 기본 구성 기준의 <strong>시작가</strong>입니다. 분량과 수정 횟수, 납기에 따라 견적이 달라집니다.</p>
+          </div>
+        </details>
+
         <div class="btn-row">
           <a class="btn btn--primary" href="contact.html">단품 하나만 물어보기</a>
         </div>
@@ -234,7 +348,7 @@
       <h2 class="reveal">빠른 데에는, 분명한 방식이 있습니다</h2>
       <p class="lead maxw-60 reveal">속도는 확인을 생략하는 일이 아니라, 불필요한 기다림을 줄이는 일이라고 생각합니다.</p>
 
-      <div class="grid grid--3 mt-32">
+      <div class="grid grid--3 m-strip mt-32">
         <div class="card numcard reveal reveal-d1">
           <div class="n">1</div>
           <div>
@@ -267,26 +381,46 @@
         아래 두 가지는 저희가 먼저 걸어두는 조건입니다.
         </p>
 
+        <details class="foldout">
+          <summary>저희가 먼저 걸어두는 두 가지 조건 보기</summary>
+          <div class="foldout-body">
         <div class="grid grid--2 mt-24">
-          <div class="card reveal reveal-d1">
+          <div class="card">
             <h3>처음 이야기한 사람이 끝까지 맡습니다</h3>
             <p class="muted">상담한 사람과 작업하는 사람이 다르지 않습니다. 중간에 담당자가 바뀌지 않고, 진행 상황은 저희가 먼저 전달합니다.</p>
             <p class="muted mb-0">연락이 며칠씩 밀리거나, 말이 옮겨지는 과정에서 방향이 달라지는 일은 만들지 않겠습니다.</p>
           </div>
-          <div class="card reveal reveal-d2">
+          <div class="card">
             <h3>늦어지는 위험은 저희가 집니다</h3>
             <p class="muted">초안 일정, 시안 개수, 중단 시점을 견적서에 그대로 적어드립니다.</p>
             <p class="muted mb-0">지키지 못하면 저희 책임으로 처리합니다. 조건은 상담 전에 먼저 확인하실 수 있습니다.</p>
           </div>
         </div>
+          </div>
+        </details>
       </div>
 
-      <div id="guarantee" style="scroll-margin-top:84px">
-        <h3 class="h2--quiet mt-32 reveal">리스크는 저희가 지겠습니다</h3>
+      <div id="guarantee" class="split-media split-media--flip mt-32" style="scroll-margin-top:84px">
+        <div class="media media--4x3 reveal">
+          <img src="assets/ref/img/nuam-cut-texture.jpg" alt="누암 세럼을 손등에 펴 바른 질감 컷 — 결이 보이도록 가까이 잡았다" width="1200" height="1604" loading="lazy" decoding="async">
+        </div>
+        <div>
+        <h3 class="h2--quiet reveal">리스크는 저희가 지겠습니다</h3>
         <p class="lead reveal">말로만 드리는 약속이 아닙니다. 견적서에 그대로 적어 드리는 다섯 가지입니다.</p>
 
+        <ul class="promise-brief reveal">
+          <li>초안 3일</li>
+          <li>시안 3개</li>
+          <li>무료 진단 리포트 매달 3건</li>
+          <li>초안 보고 결정</li>
+          <li>수정 2회 포함</li>
+        </ul>
+
+        <details class="foldout">
+          <summary>다섯 가지 약속, 조건까지 그대로 펼쳐 보기</summary>
+          <div class="foldout-body">
         <div class="grid grid--5 mt-24">
-          <div class="promise reveal reveal-d1">
+          <div class="promise">
             <span class="idx">약속 1</span>
             <div>
               <h3>초안 3일</h3>
@@ -296,7 +430,7 @@
             </div>
           </div>
 
-          <div class="promise reveal reveal-d2">
+          <div class="promise">
             <span class="idx">약속 2</span>
             <div>
               <h3>시안은 3개</h3>
@@ -305,7 +439,7 @@
             </div>
           </div>
 
-          <div class="promise reveal reveal-d3">
+          <div class="promise">
             <span class="idx">약속 3</span>
             <div>
               <h3>무료 진단 리포트 <strong class="small">매달 3건</strong></h3>
@@ -315,7 +449,7 @@
             </div>
           </div>
 
-          <div class="promise reveal reveal-d1">
+          <div class="promise">
             <span class="idx">약속 4</span>
             <div>
               <h3>초안까지 보고 결정하세요</h3>
@@ -325,7 +459,7 @@
             </div>
           </div>
 
-          <div class="promise reveal reveal-d2">
+          <div class="promise">
             <span class="idx">약속 5</span>
             <div>
               <h3>수정 범위를 미리 적어둡니다</h3>
@@ -336,9 +470,13 @@
           </div>
         </div>
 
-        <p class="small muted mt-24">위 내용은 견적서에 그대로 기재해 드립니다. 기간은 모두 주말과 공휴일을 포함한 달력 기준입니다.</p>
-        <div class="btn-row">
+        <p class="small muted mt-24 mb-0">위 내용은 견적서에 그대로 기재해 드립니다. 기간은 모두 주말과 공휴일을 포함한 달력 기준입니다.</p>
+          </div>
+        </details>
+
+        <div class="btn-row mb-0">
           <a class="btn btn--primary" href="contact.html">무료 진단 리포트 받기</a>
+        </div>
         </div>
       </div>
     </div>
@@ -347,11 +485,11 @@
   <section class="section section--tall" id="proof">
     <div class="wrap">
       <p class="eyebrow reveal">말보다 먼저, 직접 만들어 봤습니다</p>
-      <h2 class="reveal">꾸며낸 실적 대신, 직접 만든 결과물로 보여드립니다</h2>
+      <h2 class="h2--peak reveal">꾸며낸 실적 대신,<br>직접 만든 결과물로 보여드립니다</h2>
       <p class="lead maxw-60 reveal">없는 고객사를 만들어내지 않겠습니다. 대신 성격이 전혀 다른 네 브랜드를 직접 세우고, 이름부터 로고와 콘텐츠, 광고 영상까지 실제 프로젝트와 같은 순서로 만들었습니다.</p>
       <p class="notice reveal">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
 
-      <div class="grid grid--4 mt-24">
+      <div class="grid grid--4 m-strip mt-24">
         <article class="card brandcard reveal reveal-d1">
           <div class="media media--4x3">
             <img src="assets/ref/logo/logo-nuam.jpg" alt="NUAM 누암 로고 규정판 — 물방울과 원이 겹치는 심벌과 최소 크기 규정" width="1400" height="1050" loading="lazy" decoding="async">
@@ -402,13 +540,13 @@
         <figcaption>
           <strong>네 브랜드의 광고 4편 · 38초</strong>
           기획, 촬영 연출, 모델, 카피, 편집까지 전부 your wings가 직접 만들었습니다.
-          <span class="reel-note">등장 인물과 장면은 AI로 제작했습니다. 모델 섭외 비용과 스튜디오 대관 없이 촬영합니다.</span>
+          <span class="reel-note">등장 인물과 장면은 AI로 제작했습니다. 모델 섭외 비용과 스튜디오 대관 없이 만듭니다.</span>
         </figcaption>
       </figure>
 
       <h3 class="mt-32 reveal">로고 다음으로 만든 것들입니다</h3>
 
-      <div class="grid grid--3">
+      <div class="grid grid--3 m-strip">
         <article class="card sample reveal reveal-d2">
           <div class="media media--4x3">
             <img src="assets/ref/img/ppodeuk-cut-foam.jpg" alt="뽀득 주방세제 상세페이지에 쓴 거품 클로즈업 컷" width="1200" height="1604" loading="lazy" decoding="async">
@@ -485,8 +623,9 @@
 
       <div class="grid grid--3 mt-32">
 
-        <div class="faq-group reveal reveal-d1">
-          <h3>그룹 1. 시작하기 전에</h3>
+        <details class="faq-group foldout faqgroup reveal reveal-d1">
+          <summary>그룹 1. 시작하기 전에</summary>
+          <div class="foldout-body">
           <details class="qa">
             <summary>무엇을 맡겨야 할지 정하지 못했는데 상담해도 되나요?</summary>
             <div class="a"><p>네. 사업 단계와 현재 고민을 들은 뒤, 먼저 필요한 작업부터 함께 정리해 드립니다. 불필요한 작업까지 권하지 않습니다.</p></div>
@@ -503,10 +642,12 @@
             <summary>AI로 만들면 품질이 떨어지거나 비슷해지지 않나요?</summary>
             <div class="a"><p>AI는 자료 정리, 아이디어 확장, 초안 제작처럼 시간을 줄일 수 있는 과정에 활용합니다. 브랜드 방향 설정, 선택, 검토와 최종 완성은 사람이 맡습니다.</p></div>
           </details>
-        </div>
+          </div>
+        </details>
 
-        <div class="faq-group reveal reveal-d2">
-          <h3>그룹 2. 비용과 결제</h3>
+        <details class="faq-group foldout faqgroup reveal reveal-d2">
+          <summary>그룹 2. 비용과 결제</summary>
+          <div class="foldout-body">
           <details class="qa">
             <summary>비용은 얼마인가요?</summary>
             <div class="a"><p>브랜드 시작 패키지는 <strong>250만 원부터</strong>, 온라인 매출 패키지는 <strong>120만 원부터</strong>이며 둘 다 프로젝트 1회 비용입니다. 채널 성장 패키지는 매달 운영하는 방식이라 <strong>월 200만 원부터</strong>입니다. 프로젝트 규모와 제작 범위에 따라 견적이 달라지며, 무료 상담 후 정확히 안내해 드립니다.</p></div>
@@ -548,10 +689,12 @@
               <p>이 둘을 한 줄에 묶어 적으면 총액은 커 보이고 무엇에 쓰였는지는 알 수 없습니다. 저희는 항목마다 나눠 적어 <strong>어디에 얼마가 나가는지 보이게</strong> 합니다. 실비는 저희가 이윤을 붙이지 않고 실제 지출액 그대로 청구합니다.</p>
             </div>
           </details>
-        </div>
+          </div>
+        </details>
 
-        <div class="faq-group reveal reveal-d3">
-          <h3>그룹 3. 진행과 신뢰</h3>
+        <details class="faq-group foldout faqgroup reveal reveal-d3">
+          <summary>그룹 3. 진행과 신뢰</summary>
+          <div class="foldout-body">
           <details class="qa">
             <summary>고객 사례나 포트폴리오를 볼 수 있나요?</summary>
             <div class="a"><p>아직 보여드릴 고객사 실적은 없습니다. 없는 실적을 만들어내지도 않겠습니다. 대신 가상 브랜드를 대상으로 직접 제작한 샘플 작업물과, 저희가 직접 만든 이 홈페이지를 공개합니다. 결과물로 판단해 주세요.</p></div>
@@ -564,7 +707,8 @@
             <summary>진행 상황은 어떻게 확인하나요?</summary>
             <div class="a"><p>주요 단계마다 현재 진행 상황과 확인이 필요한 내용을 공유합니다. 첫 결과물을 공유한 뒤 의견을 받아 수정하며, 수정 범위와 횟수는 시작 전 견적서에 명확히 적어드립니다.</p></div>
           </details>
-        </div>
+          </div>
+        </details>
 
       </div>
 
@@ -590,7 +734,7 @@
 
       <div class="btn-row">
         <a class="btn btn--on-ink" href="contact.html">지금 무료로 상담하기</a>
-        <a class="btn btn--warm" href="contact.html">내 상황 먼저 남기기</a>
+        <a class="btn btn--ghost" href="contact.html">내 상황 먼저 남기기</a>
       </div>
 
       <p class="mt-32"><strong>your wings — 당신의 사업에 날개를 달아 드립니다.</strong></p>
@@ -626,6 +770,15 @@
   </div>
 </footer>
 
+<script>
+/* 넓은 화면에서는 첫 FAQ 묶음을 펴 둔다. 폰에서는 접힌 채로 둬야 지면이 짧아진다.
+   details 의 open 은 CSS 로 조건을 걸 수 없어 여기서 한 번만 처리한다. */
+(function () {
+  var g = document.querySelector('.faqgroup');
+  if (!g) return;
+  if (window.matchMedia && window.matchMedia('(min-width: 900px)').matches) g.open = true;
+})();
+</script>
 <script src="assets/main.js"></script>
 </body>
 </html>

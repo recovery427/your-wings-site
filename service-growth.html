@@ -10,14 +10,152 @@
 <meta property="og:site_name" content="your wings">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="채널 성장 패키지 — your wings">
-<meta property="og:description" content="같은 계정에서도 형식은 계속 바뀌어야 합니다. 릴스·카드뉴스를 매달 정해진 편수로 채웁니다.">
+<meta property="og:description" content="채널은 한 번의 폭발이 아니라 매달의 리듬입니다. 릴스·카드뉴스를 매달 정해진 편수로 채웁니다.">
 <meta property="og:image" content="assets/video/showreel-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
-<noscript><style>.reveal{opacity:1 !important;transform:none !important}.stickycta{display:none !important}</style></noscript>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}.stickycta{display:none !important}.gw-play{display:none !important}</style></noscript>
+
+<style>
+/* ==================================================================
+   채널 성장 페이지 전용.
+   공용 assets/styles.css 는 7페이지가 함께 쓰므로 건드리지 않는다.
+   여기 규칙은 전부 .gp 안에서만 산다.
+   이 페이지의 형태는 하나로 정해져 있다 — '매달 반복되는 달력'.
+   ================================================================== */
+
+/* 프로그램이 시키는 스크롤(스킵 링크·검사 도구)이 부드러운 스크롤에 삼켜지면
+   화면에 들어온 적 없는 .reveal 이 영영 안 보인다. 이 세 페이지에는
+   페이지 안 앵커 이동이 없으므로 잃는 것이 없다. */
+html { scroll-behavior: auto; }
+
+/* ---------- 1. 히어로 : 영상 벽을 CTA 아래로 내리고 첫 화면을 비운다 ---------- */
+.gp .hero { padding-block: clamp(16px, 2vw, 28px) clamp(22px, 3vw, 40px); }
+/* 첫 화면 안에서 상담 버튼까지 끝내려면 표제가 세 줄을 넘으면 안 된다.
+   공용 --t-display(최대 105px)는 좁은 칸에서 네 줄이 된다. */
+.gp .hero h1 { font-size: clamp(2.4rem, 4.6vw, 4.6rem); max-width: 16ch; margin-bottom: 12px; }
+.gp .hero .pricenote { margin-top: 16px; padding-top: 13px; }
+.gp .hero .btn-row { margin-top: 18px; }
+.gp .price { margin: 12px 0 0; }
+.gp .hero-slogan { margin-top: 12px; font-size: 1rem; }
+.gp .pkg-compose { margin-top: 16px; }
+
+.gw-lede { display: grid; grid-template-columns: 1.3fr .7fr; gap: clamp(18px, 3vw, 46px); align-items: end; }
+.gw-cycle {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: #fff; padding: 16px 18px;
+}
+.gw-cycle p { margin: 0 0 6px; font-size: .75rem; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+.gw-cycle ul { list-style: none; margin: 0; padding: 0; }
+.gw-cycle li { display: flex; justify-content: space-between; gap: 12px;
+  padding: 7px 0; border-top: 1px solid var(--line); font-size: .875rem; }
+.gw-cycle li:first-of-type { border-top: 0; }
+.gw-cycle li span:last-child { font-weight: 800; }
+@media (max-width: 900px) { .gw-lede { grid-template-columns: minmax(0, 1fr); gap: 18px; } .gp .hero h1 { max-width: none; } }
+@media (max-width: 560px) { .gw-cycle { display: none; } }
+
+/* ---------- 2. 영상 벽 : 첫 화면 아래에서 시작한다 ---------- */
+.gw-wall .refcard-media { aspect-ratio: 9 / 16; }
+.gw-wall {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.4vw, 16px);
+}
+@media (max-width: 1000px) { .gw-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 720px) {
+  .gw-wall {
+    display: flex; grid-template-columns: none; overflow-x: auto;
+    scroll-snap-type: x proximity; gap: 12px; padding-bottom: 10px; scrollbar-width: thin;
+    -webkit-mask-image: linear-gradient(90deg, #000 0 93%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 0 93%, transparent 100%);
+  }
+  .gw-wall > .refcard { flex: 0 0 clamp(160px, 50vw, 220px); scroll-snap-align: start; }
+  .gw-wall:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+}
+
+/* ---------- 3. 영상 재생 UI : 브라우저 기본 컨트롤을 쓰지 않는다 ---------- */
+.gw-play {
+  position: absolute; left: 10px; bottom: 10px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 40px; padding: 0 14px 0 12px;
+  border: 0; border-radius: 999px;
+  background: rgba(14, 17, 22, .78);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: #fff; font: inherit; font-size: .8125rem; font-weight: 700; cursor: pointer;
+  transition: background .22s ease, transform .22s var(--ease);
+}
+.gw-play:hover { background: rgba(14, 17, 22, .92); transform: translateY(-2px); }
+.gw-play::before {
+  content: ""; width: 0; height: 0;
+  border-left: 11px solid #fff; border-top: 7px solid transparent; border-bottom: 7px solid transparent;
+}
+.gw-play[aria-pressed="true"]::before {
+  border: 0; width: 10px; height: 12px;
+  background: linear-gradient(90deg, #fff 0 3px, transparent 3px 7px, #fff 7px 10px);
+}
+.is-stuck > .gw-play { background: var(--warm); }
+.gw-vid { position: relative; }
+.gw-vid > video { width: 100%; height: 100%; object-fit: cover; display: block; background: #0b0d11; }
+/* 풀블리드 위에서는 캡션이 아래를 차지한다. 재생 단추는 위로 올린다. */
+.bleed .gw-play { left: var(--pad); top: 16px; bottom: auto; }
+
+/* ---------- 4. 발행 달력 : 이 페이지에만 있는 구간 ----------
+   매달 같은 리듬으로 나간다는 주장을 표로 세운다. 문단으로 쓰면 안 읽힌다. */
+.gw-rhythm { width: 100%; border-collapse: collapse; margin-top: clamp(24px, 3vw, 40px); text-align: left; }
+.gw-rhythm caption { caption-side: top; text-align: left; margin-bottom: 12px;
+  font-size: .875rem; color: var(--muted); }
+.gw-rhythm th, .gw-rhythm td { padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.gw-rhythm thead th {
+  font-size: .6875rem; font-weight: 800; letter-spacing: .1em; color: var(--muted);
+  border-bottom: 2px solid var(--ink); padding-bottom: 10px;
+}
+.gw-rhythm tbody th {
+  width: 15%; font-size: 1.0625rem; font-weight: 800; letter-spacing: -.02em; color: var(--ink);
+  white-space: nowrap;
+}
+.gw-rhythm td { font-size: .9375rem; line-height: 1.55; color: var(--ink-2); }
+.gw-rhythm td.gw-out { font-weight: 800; color: var(--accent); white-space: nowrap; width: 22%; }
+.gw-rhythm tbody.gw-first th, .gw-rhythm tbody.gw-first td { background: var(--warm-soft); }
+.gw-rhythm tbody.gw-first td.gw-out { color: var(--warm); }
+.gw-band {
+  display: inline-block; margin-top: 4px; padding: 3px 10px; border-radius: 999px;
+  font-size: .6875rem; font-weight: 800; letter-spacing: .06em;
+}
+.gw-band--once { background: var(--warm); color: #fff; }
+.gw-band--loop { background: var(--accent); color: #fff; }
+/* 표 바로 밑에 띠가 붙으면 표의 마지막 줄이 사진에 눌린다 */
+.gw-reelband { margin-top: clamp(30px, 3.6vw, 48px); }
+.gw-total { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 18px 0 0; padding: 16px 0 0;
+  border-top: 2px solid var(--ink); }
+.gw-total div { font-size: .875rem; color: var(--muted); }
+.gw-total b { display: block; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800;
+  letter-spacing: -.04em; color: var(--ink); line-height: 1.1; }
+@media (max-width: 760px) {
+  .gw-rhythm thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .gw-rhythm tbody th, .gw-rhythm td { display: block; width: auto; border-bottom: 0; padding: 2px 0; }
+  .gw-rhythm tbody th { padding-top: 16px; }
+  .gw-rhythm tr { display: block; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .gw-rhythm td.gw-out { width: auto; }
+  .gw-rhythm tbody.gw-first tr { background: var(--warm-soft); padding-inline: 14px; }
+}
+
+/* ---------- 5. 카드뉴스 : 두 세트를 어긋나게 놓는다 ---------- */
+.gw-set { margin-top: clamp(26px, 3.2vw, 40px); }
+.gw-set + .gw-set { margin-top: clamp(30px, 3.6vw, 46px); }
+.gw-sethead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 6px; }
+.gw-sethead h3 { margin: 0; }
+.gw-sethead span { font-size: .75rem; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+@media (min-width: 900px) { .gw-set--b { padding-left: clamp(40px, 8vw, 120px); } }
+
+/* ---------- 6. 마무리 ---------- */
+.gw-closeline { margin: 18px 0 0; font-size: .9375rem; line-height: 1.6; color: var(--muted); }
+.gw-closeline a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.gw-closeline a:hover { color: var(--accent-dark); }
+</style>
 </head>
-<body>
+<body class="gp">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 
 <header class="site-header">
@@ -39,64 +177,81 @@
 
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow">③ 채널 성장 패키지</p>
-      <h1>좋은 브랜드가, 알려지지 않은 채로 멈추지 않게</h1>
-      <p class="hero-body">한 번 알리는 광고보다 계속 발견되는 브랜드로. 채널에 맞는 콘텐츠를 만들고 확산 방법을 조합합니다.</p>
+      <div class="gw-lede">
+        <div>
+          <p class="eyebrow">③ 채널 성장 패키지</p>
+          <h1>좋은 브랜드가, 알려지지 않은 채로 멈추지 않게</h1>
+          <p class="hero-body">한 번 알리는 광고보다 계속 발견되는 브랜드로. 채널에 맞는 콘텐츠를 만들고 확산 방법을 조합합니다.</p>
 
-      <div class="refgrid refgrid--v mt-32">
+          <p class="pkg-compose">기본 구성(라이트) · 릴스 4편 + 카드뉴스 4건 · 매달 제작·발행</p>
+
+          <div class="price">
+            <strong class="price-main">월 200만 원부터</strong>
+            <span class="price-unit price-unit--month">월 단위 운영</span>
+          </div>
+          <p class="hero-slogan">이 패키지는 매달 운영하는 비용입니다. 한 번 만들고 끝나는 프로젝트가 아닙니다.</p>
+
+          <div class="btn-row">
+            <a class="btn btn--primary" href="contact.html">내 채널 성장 상담하기</a>
+            <a class="btn btn--ghost" href="index.html#report">무료 진단 리포트 먼저 받기</a>
+          </div>
+
+          <p class="pricenote">운영 범위에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
+        </div>
+
+        <div class="gw-cycle" aria-label="라이트 기준 매달 나가는 것">
+          <p>라이트 기준 · 매달</p>
+          <ul>
+            <li><span>릴스 (세로 9:16)</span><span>4편</span></li>
+            <li><span>카드뉴스 (1080×1350)</span><span>4건</span></li>
+            <li><span>발행</span><span>매달</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight section--flush-t">
+    <div class="wrap">
+      <p class="eyebrow">매달 나가는 것 · 옆으로 밀어 보세요</p>
+      <div class="gw-wall" tabindex="0" role="group" aria-label="사물 애니메이션 5편">
         <article class="refcard">
-          <div class="refcard-media">
-            <video src="assets/ref/video/talk-dishsoap.mp4" poster="assets/ref/video/talk-dishsoap.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-dishsoap.mp4" poster="assets/ref/video/talk-dishsoap.jpg" preload="none" playsinline width="540" height="960" aria-label="주방세제 사물 애니메이션 10초"></video>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">주방세제 — “한 번만 눌러도 기름때가 바로 지워집니다”</p>
         </article>
         <article class="refcard">
-          <div class="refcard-media">
-            <video src="assets/ref/video/talk-sunscreen.mp4" poster="assets/ref/video/talk-sunscreen.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-sunscreen.mp4" poster="assets/ref/video/talk-sunscreen.jpg" preload="none" playsinline width="540" height="960" aria-label="선크림 사물 애니메이션 10초"></video>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">선크림 — “백탁 없이 그대로 스며듭니다”</p>
         </article>
         <article class="refcard">
-          <div class="refcard-media">
-            <video src="assets/ref/video/talk-lipbalm.mp4" poster="assets/ref/video/talk-lipbalm.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-lipbalm.mp4" poster="assets/ref/video/talk-lipbalm.jpg" preload="none" playsinline width="540" height="960" aria-label="립밤 사물 애니메이션 10초"></video>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">립밤 — “한 번 바르면 반나절은 갑니다”</p>
         </article>
         <article class="refcard">
-          <div class="refcard-media">
-            <video src="assets/ref/video/talk-toothpaste.mp4" poster="assets/ref/video/talk-toothpaste.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-toothpaste.mp4" poster="assets/ref/video/talk-toothpaste.jpg" preload="none" playsinline width="540" height="960" aria-label="고체치약 사물 애니메이션 10초"></video>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">고체치약 — “하나만 씹으면 양치 끝입니다”</p>
         </article>
         <article class="refcard">
-          <div class="refcard-media">
-            <video src="assets/ref/video/talk-softener.mp4" poster="assets/ref/video/talk-softener.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-softener.mp4" poster="assets/ref/video/talk-softener.jpg" preload="none" playsinline width="540" height="960" aria-label="섬유유연제 사물 애니메이션 10초"></video>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
           <p class="refcard-title">섬유유연제 — “사흘이 지나도 향이 그대로예요”</p>
         </article>
       </div>
-
-      <p class="notice mt-24">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
-
-      <p class="pkg-compose mt-32">기본 구성(라이트) · 릴스 4편 + 카드뉴스 4건 · 매달 제작·발행</p>
-
-      <div class="price">
-        <strong class="price-main">월 200만 원부터</strong>
-        <span class="price-unit price-unit--month">월 단위 운영</span>
-      </div>
-      <p class="hero-slogan">이 패키지는 매달 운영하는 비용입니다. 한 번 만들고 끝나는 프로젝트가 아닙니다.</p>
-
-      <div class="btn-row">
-        <a class="btn btn--primary" href="contact.html">내 채널 성장 상담하기</a>
-        <a class="btn btn--ghost" href="index.html#report">무료 진단 리포트 먼저 받기</a>
-      </div>
-
-      <p class="pricenote">운영 범위에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
+      <p class="notice mt-24 mb-0">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
     </div>
   </section>
 
@@ -107,149 +262,190 @@
         <p>한 번 크게 알리는 것보다 꾸준히 발견되는 쪽이 오래 갑니다. 그러려면 채널마다 무슨 역할을 맡을지, 어떤 주제를 반복해서 다룰지가 먼저 정해져야 합니다.</p>
         <p>채널의 역할과 콘텐츠 주제를 정하고, 목표와 예산에 맞는 확산 방법을 조합합니다.</p>
       </div>
-      <p class="small muted maxw-60 reveal reveal-d2">팔로워 수나 조회 수를 약속드리지는 않습니다. 저희가 통제할 수 있는 것은 콘텐츠가 쌓이는 속도와 고객과 만나는 접점의 수이고, 그 부분을 책임집니다.</p>
+      <p class="small muted maxw-60 mb-0 reveal reveal-d2">팔로워 수나 조회 수를 약속드리지는 않습니다. 저희가 통제할 수 있는 것은 콘텐츠가 쌓이는 속도와 고객과 만나는 접점의 수이고, 그 부분을 책임집니다. 대상은 브랜드는 있지만 인지도가 부족한 사업자이고, 범위는 SNS/바이럴 · 콘텐츠 마케팅 · 인플루언서 · PPL입니다.</p>
+    </div>
+  </section>
 
-      <div class="pricelist maxw-60 mt-32 reveal reveal-d3">
-        <span class="pricelist-tag">라이트 기준 · 매달 나가는 것</span>
-        <ul>
-          <li><span class="n">릴스 <em>세로 9:16</em></span><span class="v">4편</span></li>
-          <li><span class="n">카드뉴스 <em>1080×1350</em></span><span class="v">4건</span></li>
-          <li><span class="n">발행 <em>정해진 일정에 맞춰</em></span><span class="v">매달</span></li>
-        </ul>
+  <figure class="bleed bleed--wide reveal">
+    <img src="assets/ref/img/ppodeuk-cut-foam.jpg" alt="거품이 이는 순간을 가까이 잡은 컷 — 숏폼 한 편의 첫 프레임" width="1200" height="1604" loading="lazy" decoding="async">
+    <figcaption>한 달 치를 한꺼번에 몰아 찍지 않습니다. 주차마다 소재를 새로 잡아야 형식이 바뀝니다.</figcaption>
+  </figure>
+
+  <section class="section section--tall section--soft">
+    <div class="wrap">
+      <p class="eyebrow">발행 리듬 · 라이트 기준</p>
+      <h2 class="h2--peak reveal">채널은 한 번의 폭발이 아니라, 매달의 리듬입니다</h2>
+      <p class="lead maxw-60 reveal reveal-d1">“언제 뭘 올려요?”가 정해지지 않으면 두 달째부터 발행이 밀립니다. 그래서 첫 달에 한 번만 하는 일과, 매달 같은 주차에 반복하는 일을 나눠 놓고 시작합니다.</p>
+
+      <table class="gw-rhythm reveal reveal-d2">
+        <caption>첫 달과 그다음 달의 주차별 진행. 발행 요일은 채널과 업종에 맞춰 상담에서 확정합니다.</caption>
+        <thead>
+          <tr><th scope="col">주차</th><th scope="col">하는 일</th><th scope="col">그 주에 나가는 것</th></tr>
+        </thead>
+        <tbody class="gw-first">
+          <tr>
+            <th scope="row">0주차</th>
+            <td>브랜드·채널 진단. 지금 어떤 채널이 있고 무엇이 부족한지부터 확인합니다. <span class="gw-band gw-band--once">첫 달에만</span></td>
+            <td class="gw-out">진단 정리본</td>
+          </tr>
+          <tr>
+            <th scope="row">0주차</th>
+            <td>콘텐츠 방향 설정. 채널마다 역할을 정하고 반복해서 다룰 주제를 잡습니다. <span class="gw-band gw-band--once">첫 달에만</span></td>
+            <td class="gw-out">주제 목록 · 발행 일정</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="row">1주차</th>
+            <td>이번 달 주제를 확정하고 촬영·생성 소재를 만듭니다. <span class="gw-band gw-band--loop">매달 반복</span></td>
+            <td class="gw-out">릴스 1편 · 카드뉴스 1건</td>
+          </tr>
+          <tr>
+            <th scope="row">2주차</th>
+            <td>형식을 바꿔 두 번째 묶음을 만듭니다. 같은 형식을 두 번 연속 쓰지 않습니다.</td>
+            <td class="gw-out">릴스 1편 · 카드뉴스 1건</td>
+          </tr>
+          <tr>
+            <th scope="row">3주차</th>
+            <td>반응이 붙은 형식을 한 번 더 밀고, 필요하면 인플루언서·PPL을 이 주에 겹칩니다.</td>
+            <td class="gw-out">릴스 1편 · 카드뉴스 1건</td>
+          </tr>
+          <tr>
+            <th scope="row">4주차</th>
+            <td>마지막 묶음을 발행하고, 무엇을 왜 만들었고 반응이 어땠는지 정리해 공유합니다.</td>
+            <td class="gw-out">릴스 1편 · 카드뉴스 1건 · 정리본</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="bleed bleed--cine gw-vid gw-reelband">
+      <video data-src="assets/video/showreel.mp4" poster="assets/video/showreel-poster.jpg" preload="none" playsinline width="1280" height="720" aria-label="your wings 제작 영상 모음 37초"></video>
+      <figcaption>제작 영상 모음 · 37초 — 표의 1~4주차가 실제로 어떤 편들로 채워지는지. 실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</figcaption>
+    </figure>
+
+    <div class="wrap">
+      <div class="gw-total">
+        <div><b>4편</b>릴스 · 세로 9:16</div>
+        <div><b>4건</b>카드뉴스 · 1080×1350</div>
+        <div><b>매달</b>같은 리듬으로 반복</div>
+        <div><b>3일</b>자료를 받은 날부터 첫 초안까지 (달력 기준)</div>
+      </div>
+
+      <div class="banner mt-32 reveal reveal-d3">
+        <h3>인플루언서 섭외비와 PPL 비용은 대행료와 별도입니다</h3>
+        <p>이 패키지는 외부에 지불되는 실비 비중이 가장 큽니다. 저희가 받는 대행료와 실비는 견적서에서 <strong>줄을 나눠</strong> 적어드립니다.</p>
+        <p class="mb-0">실비에는 이윤을 붙이지 않고 실제 지출액 그대로 청구합니다. 월 단위로 운영하는 계약은 매월 선불이며, 금액과 시점은 견적서에 함께 적어드립니다.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--soft">
+  <section class="section section--tight">
     <div class="wrap">
-      <p class="eyebrow">숏폼</p>
+      <p class="eyebrow">숏폼 · 옆으로 밀어 보세요</p>
       <h2 class="reveal">같은 계정에서도 형식은 계속 바뀌어야 합니다</h2>
-      <p class="lead maxw-60 reveal reveal-d1">한 가지 형식만 반복하면 먼저 지치는 쪽은 만드는 사람이 아니라 보는 사람입니다. 사물이 말하는 광고, 동물 캐릭터, 먹방까지 형식을 바꿔 가며 채웁니다.</p>
+      <p class="lead maxw-60 reveal reveal-d1">한 가지 형식만 반복하면 먼저 지치는 쪽은 만드는 사람이 아니라 보는 사람입니다. 사물이 말하는 광고, 동물 캐릭터, 먹방까지 형식을 바꿔 가며 채웁니다. 위 달력의 1~4주차가 서로 다른 형식으로 채워지는 이유입니다.</p>
 
-      <div class="grid grid--4 mt-32">
-        <div class="reveal">
-          <div class="media media--9x16">
-            <video src="assets/ref/video/talk-dog.mp4" poster="assets/ref/video/talk-dog.jpg" preload="none" controls playsinline width="540" height="960"></video>
+      <div class="gw-wall mt-32" tabindex="0" role="group" aria-label="형식이 다른 숏폼 4편">
+        <article class="refcard">
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-dog.mp4" poster="assets/ref/video/talk-dog.jpg" preload="none" playsinline width="540" height="960" aria-label="강아지 동물 캐릭터 숏폼 10초"></video>
           </div>
-          <p class="refcard-note mt-24 mb-0">동물 캐릭터 · 10초<br>강아지 — “읽기 어려운 이름은 하나도 없어요”</p>
-        </div>
-        <div class="reveal reveal-d1">
-          <div class="media media--9x16">
-            <video src="assets/ref/video/mukbang-chicken.mp4" poster="assets/ref/video/mukbang-chicken.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <p class="refcard-cat">동물 캐릭터 · 10초</p>
+          <p class="refcard-title">강아지 — “읽기 어려운 이름은 하나도 없어요”</p>
+        </article>
+        <article class="refcard">
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/talk-cat.mp4" poster="assets/ref/video/talk-cat.jpg" preload="none" playsinline width="540" height="960" aria-label="고양이 동물 캐릭터 숏폼 10초"></video>
           </div>
-          <p class="refcard-note mt-24 mb-0">ASMR 먹방 · 15초<br>양념치킨 — “이거 이번에 새로 나온 건데 진짜 맛있대요”</p>
-        </div>
-        <div class="reveal reveal-d2">
-          <div class="media media--9x16">
-            <video src="assets/ref/video/mukbang-malatang.mp4" poster="assets/ref/video/mukbang-malatang.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <p class="refcard-cat">동물 캐릭터 · 10초</p>
+          <p class="refcard-title">고양이 — “털에 안 남는 쪽으로 골랐어요”</p>
+        </article>
+        <article class="refcard">
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/mukbang-chicken.mp4" poster="assets/ref/video/mukbang-chicken.jpg" preload="none" playsinline width="540" height="960" aria-label="양념치킨 ASMR 먹방 15초"></video>
           </div>
-          <p class="refcard-note mt-24 mb-0">ASMR 먹방 · 15초<br>마라탕 — “진짜 매운데 계속 땡기는 맛이에요”</p>
-        </div>
-        <div class="reveal reveal-d3">
-          <div class="media media--9x16">
-            <video src="assets/ref/video/mukbang-cake.mp4" poster="assets/ref/video/mukbang-cake.jpg" preload="none" controls playsinline width="540" height="960"></video>
+          <p class="refcard-cat">ASMR 먹방 · 15초</p>
+          <p class="refcard-title">양념치킨 — “이거 이번에 새로 나온 건데 진짜 맛있대요”</p>
+        </article>
+        <article class="refcard">
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/mukbang-malatang.mp4" poster="assets/ref/video/mukbang-malatang.jpg" preload="none" playsinline width="540" height="960" aria-label="마라탕 ASMR 먹방 15초"></video>
           </div>
-          <p class="refcard-note mt-24 mb-0">ASMR 먹방 · 15초<br>생크림 케이크 — “한 조각으로는 안 되겠는데요”</p>
-        </div>
+          <p class="refcard-cat">ASMR 먹방 · 15초</p>
+          <p class="refcard-title">마라탕 — “진짜 매운데 계속 땡기는 맛이에요”</p>
+        </article>
+        <article class="refcard">
+          <div class="refcard-media gw-vid">
+            <video data-src="assets/ref/video/mukbang-cake.mp4" poster="assets/ref/video/mukbang-cake.jpg" preload="none" playsinline width="540" height="960" aria-label="생크림 케이크 ASMR 먹방 15초"></video>
+          </div>
+          <p class="refcard-cat">ASMR 먹방 · 15초</p>
+          <p class="refcard-title">생크림 케이크 — “한 조각으로는 안 되겠는데요”</p>
+        </article>
       </div>
 
       <div class="btn-row">
         <a class="btn btn--ghost" href="reference.html">레퍼런스에서 영상 14편 전체 보기</a>
+        <a class="btn btn--primary" href="contact.html">내 채널 성장 상담하기</a>
       </div>
     </div>
   </section>
 
-  <figure class="bleed bleed--cine reveal">
-    <video src="assets/video/showreel.mp4" poster="assets/video/showreel-poster.jpg" preload="none" controls playsinline width="1280" height="720"></video>
-    <figcaption>제작 영상 모음 · 37초 — 매달 나가는 편수만큼 형식도 바뀝니다. 실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</figcaption>
-  </figure>
-
-  <section class="section">
+  <section class="section section--flush-t section--tight">
     <div class="wrap">
       <p class="eyebrow">카드뉴스</p>
       <h2 class="reveal">저장되는 콘텐츠는 형식이 다릅니다</h2>
       <p class="lead maxw-60 reveal reveal-d1">영상이 발견을 맡는다면 카드뉴스는 저장을 맡습니다. 글자가 들어가는 작업은 AI 이미지 생성으로 만들지 않고 직접 조판합니다. 그래야 한글이 깨지지 않고, 수치나 문구를 나중에 고칠 수 있습니다.</p>
 
-      <h3 class="mt-32">오독 — 간식 뒷면 읽는 법</h3>
-      <p class="small muted">원료 이력과 급여량을 정보형으로 정리했습니다. 크림 지면에 사진을 위, 글을 아래로 받쳤습니다.</p>
-      <div class="cardstrip" tabindex="0" role="group" aria-label="오독 — 간식 뒷면 읽는 법 카드뉴스 6장">
-        <figure class="cardslide"><img src="assets/ref/cards/odok-01.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 1번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/odok-02.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 2번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/odok-03.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 3번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/odok-04.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 4번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/odok-05.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 5번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/odok-06.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 6번째 장"></figure>
-      </div>
-
-      <h3 class="mt-32">뽀득 — 설거지 순서 바꾸기</h3>
-      <p class="small muted">문제·방법·결과 3단계로 끊었습니다. 짙은 틸 지면에 큰 숫자를 왼쪽에 세운 스위스 그리드입니다.</p>
-      <div class="cardstrip" tabindex="0" role="group" aria-label="뽀득 — 설거지 순서 바꾸기 카드뉴스 5장">
-        <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-01.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 1번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-02.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 2번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-03.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 3번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-04.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 4번째 장"></figure>
-        <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-05.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 5번째 장"></figure>
-      </div>
-
-      <p class="notice mt-32">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
-
-      <div class="btn-row">
-        <a class="btn btn--ghost" href="reference.html">레퍼런스에서 카드뉴스 전체 보기</a>
-        <a class="btn btn--primary" href="contact.html">내 채널 성장 상담하기</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--soft">
-    <div class="wrap">
-      <div class="grid grid--2">
-        <div class="card reveal">
-          <h3>이런 분께 맞습니다</h3>
-          <p class="muted mb-0">브랜드는 있지만 인지도가 부족한 사업자</p>
+      <div class="gw-set">
+        <div class="gw-sethead">
+          <span>2주차 발행분</span>
+          <h3>오독 — 간식 뒷면 읽는 법</h3>
         </div>
-        <div class="card reveal reveal-d1">
-          <h3>제공 범위</h3>
-          <p class="muted mb-0">SNS/바이럴 · 콘텐츠 마케팅 · 인플루언서 · PPL</p>
+        <p class="small muted">원료 이력과 급여량을 정보형으로 정리했습니다. 크림 지면에 사진을 위, 글을 아래로 받쳤습니다.</p>
+        <div class="cardstrip" tabindex="0" role="group" aria-label="오독 — 간식 뒷면 읽는 법 카드뉴스 6장">
+          <figure class="cardslide"><img src="assets/ref/cards/odok-01.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 1번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/odok-02.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 2번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/odok-03.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 3번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/odok-04.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 4번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/odok-05.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 5번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/odok-06.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 6번째 장"></figure>
         </div>
       </div>
 
-      <div class="banner mt-32 reveal reveal-d2">
-        <h3>인플루언서 섭외비와 PPL 비용은 대행료와 별도입니다</h3>
-        <p>이 패키지는 외부에 지불되는 실비 비중이 가장 큽니다. 저희가 받는 대행료와 실비는 견적서에서 <strong>줄을 나눠</strong> 적어드립니다.</p>
-        <p class="mb-0">실비에는 이윤을 붙이지 않고 실제 지출액 그대로 청구합니다. 어디에 얼마가 나가는지 보이게 하는 것이 저희 방식입니다.</p>
+      <div class="gw-set gw-set--b">
+        <div class="gw-sethead">
+          <span>4주차 발행분</span>
+          <h3>뽀득 — 설거지 순서 바꾸기</h3>
+        </div>
+        <p class="small muted">문제·방법·결과 3단계로 끊었습니다. 짙은 틸 지면에 큰 숫자를 왼쪽에 세운 스위스 그리드입니다.</p>
+        <div class="cardstrip" tabindex="0" role="group" aria-label="뽀득 — 설거지 순서 바꾸기 카드뉴스 5장">
+          <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-01.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 1번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-02.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 2번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-03.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 3번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-04.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 4번째 장"></figure>
+          <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-05.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 5번째 장"></figure>
+        </div>
       </div>
+
+      <p class="notice mt-32 mb-0">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">진행 흐름</p>
-      <h2>채널 진단부터 과정 공유까지</h2>
-      <div class="steps mt-32 maxw-60">
-        <div class="step"><h3>브랜드·채널 진단</h3><p>지금 어떤 채널이 있고 무엇이 부족한지부터 확인합니다.</p></div>
-        <div class="step"><h3>콘텐츠 방향 설정</h3><p>채널마다 역할을 정하고 반복해서 다룰 주제를 잡습니다.</p></div>
-        <div class="step"><h3>제작·배포</h3><p>릴스와 카드뉴스를 매달 만들어 정해진 일정에 발행합니다.</p></div>
-        <div class="step"><h3>협업 실행</h3><p>필요한 경우 인플루언서와 PPL을 목표에 맞게 조합합니다.</p></div>
-        <div class="step"><h3>과정 공유</h3><p>무엇을 왜 만들었고 반응이 어땠는지 매달 정리해 공유합니다.</p></div>
-      </div>
-      <p class="small muted mt-32">작업 범위가 확정되고 자료를 받은 날부터 3일 안에 첫 초안을 드립니다. 주말과 공휴일을 포함한 달력 기준입니다.</p>
-    </div>
-  </section>
+  <figure class="bleed bleed--cine">
+    <img src="assets/ref/img/odok-hero.jpg" alt="도마 위의 큐브 간식과 크라프트 파우치를 넓게 잡은 장면" width="1600" height="904" loading="lazy" decoding="async">
+    <figcaption>한 달 치가 쌓이면 계정이 달라 보입니다. 다음 달 첫 주차부터 채워 드립니다.</figcaption>
+  </figure>
 
-  <section class="section section--soft">
+  <section class="section section--tight">
     <div class="wrap">
-      <h2>함께 적용되는 약속</h2>
-      <div class="grid grid--2 mt-24">
-        <div class="promise"><span class="idx">약속 1</span><div><h3>초안 3일</h3><p class="mb-0">늦어지면 초안 제작비 10만 원을 돌려드리고, 진행하시면 총 견적에서 10만 원을 더 빼드립니다.</p></div></div>
-        <div class="promise"><span class="idx">약속 3</span><div><h3>무료 진단 리포트</h3><p class="mb-0">의뢰 전이라도 지금 채널을 보고 개선점 5가지를 정리해 보내드립니다. 매달 3건까지.</p></div></div>
-        <div class="promise"><span class="idx">약속 4</span><div><h3>초안까지 보고 결정</h3><p class="mb-0">초안 제작비 10만 원으로 시작하고, 진행하시면 전체 견적에서 그대로 차감됩니다.</p></div></div>
-        <div class="promise"><span class="idx">약속 5</span><div><h3>수정 2회 포함</h3><p class="mb-0">3회차부터는 회당 제작비의 10%. 범위를 넘는 요청도 비용을 먼저 말씀드립니다.</p></div></div>
-      </div>
-      <p class="small muted mt-24">월 단위로 운영하는 계약은 매월 선불입니다. 금액과 시점은 견적서에 함께 적어드립니다.</p>
+      <h2>다음 달 첫 발행부터 시작해 보시겠습니까</h2>
+      <p class="lead maxw-60 mb-0">첫 달 0주차 진단부터 시작합니다. 자료를 받은 날부터 3일 안에 첫 초안을 드리고, 수정은 2회까지 포함입니다. 의뢰 전이라면 지금 채널을 보고 개선점 5가지를 먼저 정리해 보내드립니다 — 한 건씩 사람이 직접 살펴보고 쓰기 때문에 매달 3건까지입니다.</p>
       <div class="btn-row">
         <a class="btn btn--primary" href="contact.html">내 채널 성장 상담하기</a>
-        <a class="btn btn--ghost" href="index.html#guarantee">약속 전체 보기</a>
+        <a class="btn btn--ghost" href="index.html#report">무료 진단 리포트 먼저 받기</a>
       </div>
+      <p class="gw-closeline">리포트만 받고 끝내셔도 괜찮습니다. 결정을 재촉하는 연락은 드리지 않습니다. <a href="contact.html">약속과 월 단위 결제 조건은 문의 페이지에 정리해 두었습니다</a></p>
     </div>
   </section>
 
@@ -280,5 +476,78 @@
 </footer>
 
 <script src="assets/main.js"></script>
+<script>
+/* 영상 재생 UI — 브라우저 기본 controls 를 쓰지 않는다.
+   레퍼런스 페이지가 자체 UI 인데 이 페이지만 기본 컨트롤이면
+   같은 사이트에서 영상 UI 가 두 종류가 된다. 외부 요청 0 을 지키려고 페이지 안에서 끝낸다. */
+(function () {
+  'use strict';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.gw-vid'));
+  if (!boxes.length) return;
+
+  boxes.forEach(function (box) {
+    var v = box.querySelector('video');
+    if (!v) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'gw-play';
+    btn.setAttribute('aria-pressed', 'false');
+    btn.textContent = '재생';
+    box.appendChild(btn);
+
+    function label(text, pressed) {
+      btn.textContent = text;
+      btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    }
+    // 코덱 미지원·네트워크 실패는 여기로 온다. 단추를 없애지 않는다 — 다시 눌러 볼 수 있어야 한다.
+    function fail() {
+      box.classList.add('is-stuck');
+      label('다시 시도', false);
+    }
+    function play() {
+      box.classList.remove('is-stuck');
+      if (v.dataset.src && !v.getAttribute('src')) v.setAttribute('src', v.dataset.src);
+      var p;
+      try { p = v.play(); } catch (err) { retryMuted(); return; }
+      if (p && typeof p.catch === 'function') p.catch(retryMuted);
+    }
+    // 소리를 켠 채로는 거절되는 환경이 있다(iOS 저전력, 데이터 절약, 자동재생 차단).
+    // 음소거로 한 번 더 시도하고, 그것도 막히면 상태를 그대로 말해 준다.
+    function retryMuted() {
+      v.muted = true;
+      var p2;
+      try { p2 = v.play(); } catch (err) { fail(); return; }
+      if (p2 && typeof p2.catch === 'function') p2.catch(fail);
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (v.paused) play(); else v.pause();
+    });
+    v.addEventListener('click', function () { if (v.paused) play(); else v.pause(); });
+    v.addEventListener('playing', function () { label(v.muted ? '재생 중 · 소리 없음' : '일시정지', true); });
+    v.addEventListener('pause', function () {
+      // 재생이 막혀서 멈춘 것이면 '다시 시도' 를 덮어쓰지 않는다.
+      if (!v.ended && !box.classList.contains('is-stuck')) label('재생', false);
+    });
+    v.addEventListener('ended', function () { label('다시 재생', false); });
+    v.addEventListener('error', fail);
+  });
+
+  // '동작 줄이기'를 켠 사용자에게 자동으로 트는 일은 원래도 없다 — 전부 눌러야 나간다.
+  // 다만 화면 밖으로 나간 영상은 멈춘다. 소리가 따라다니면 안 된다.
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) return;
+      var v = en.target.querySelector('video');
+      if (v && !v.paused) v.pause();
+    });
+  }, { threshold: 0 });
+  boxes.forEach(function (b) { io.observe(b); });
+})();
+</script>
 </body>
 </html>

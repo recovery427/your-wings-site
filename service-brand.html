@@ -14,10 +14,168 @@
 <meta property="og:image" content="assets/ref/logo/logo-mintab.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}.stickycta{display:none !important}</style></noscript>
+
+<style>
+/* ==================================================================
+   브랜드 시작 페이지 전용.
+   공용 assets/styles.css 는 7페이지가 함께 쓰므로 건드리지 않는다.
+   여기 규칙은 전부 .bp 안에서만 산다.
+   이 페이지의 형태는 하나로 정해져 있다 — '규정판을 옆으로 훑는 방'.
+   ================================================================== */
+
+/* 프로그램이 시키는 스크롤(스킵 링크·검사 도구)이 부드러운 스크롤에 삼켜지면
+   화면에 들어온 적 없는 .reveal 이 영영 안 보인다. 이 세 페이지에는
+   페이지 안 앵커 이동이 없으므로 잃는 것이 없다. */
+html { scroll-behavior: auto; }
+
+/* ---------- 1. 히어로 : 첫 화면 안에서 상담 버튼까지 끝낸다 ---------- */
+.bp .hero { padding-block: clamp(16px, 2vw, 28px) clamp(26px, 3.4vw, 48px); }
+/* 첫 화면 안에서 상담 버튼까지 끝내려면 표제는 두 줄 안에 떨어져야 한다.
+   공용 --t-display(최대 105px)는 이 문장 26자에서 네 줄이 된다. */
+.bp .hero h1 { font-size: clamp(2.5rem, 5.6vw, 6.2rem); max-width: 21ch; margin-bottom: 14px; }
+.bp .hero .pricenote { margin-top: 16px; padding-top: 13px; }
+.bp .hero .btn-row { margin-top: 20px; }
+.bp .price { margin: 14px 0 0; }
+
+.bp-herogrid {
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap: clamp(20px, 2.8vw, 42px);
+  align-items: start;
+}
+.bp-heroplate { margin: 0; }
+.bp-heroframe {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.bp-heroframe > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bp-cap { margin: 10px 0 0; font-size: .8125rem; line-height: 1.5; color: var(--muted); }
+.bp-cap strong { color: var(--ink-2); font-weight: 700; }
+.bp-badge {
+  display: inline-block; margin-top: 6px; padding: 2px 8px;
+  border: 1px solid var(--line); border-radius: 999px;
+  font-size: .6875rem; font-weight: 700; color: var(--muted); background: #fff;
+}
+@media (max-width: 900px) {
+  .bp-herogrid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .bp-heroplate { order: 2; }
+  .bp .hero h1 { max-width: none; }
+}
+
+/* 사이트 세 곳 — 제목을 먼저 읽히고 화면을 뒤에 붙인다 */
+.bp-sitelist { list-style: none; margin: clamp(26px, 3.2vw, 42px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 26px); }
+.bp-sitelist > li { margin: 0; display: flex; }
+/* 제목 길이가 달라도 화면 컷의 윗선은 맞춘다 */
+.bp-sitelist a { display: flex; flex-direction: column; width: 100%; text-decoration: none; color: inherit; }
+.bp-sitelist h3 { margin: 0 0 4px; }
+.bp-sitelist .bp-shot {
+  aspect-ratio: 16 / 9; margin-top: auto; margin-block-start: auto;
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); background: var(--bg-soft);
+}
+.bp-sitelist .bp-cap { margin-bottom: 12px; }
+.bp-sitelist .bp-shot > img { width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .6s var(--ease); }
+.bp-sitelist a:hover .bp-shot { border-color: var(--accent); }
+.bp-sitelist a:hover .bp-shot > img { transform: scale(1.045); }
+@media (max-width: 780px) { .bp-sitelist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .bp-sitelist { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- 2. 규정판 방 : 이 페이지에만 있는 구간 ----------
+   가로로 크게 훑는다. 판을 격자에 가둬 축소하면 '규칙'이 안 읽힌다. */
+.bp-room { background: var(--bg-ink); color: #fff; }
+.bp-room h2, .bp-room h3 { color: #fff; }
+.bp-room .lead, .bp-room .muted { color: #a9b3c2; }
+.bp-room .eyebrow { color: #8fa6ff; }
+.bp-room .btn--ghost { color: #fff; border-color: rgba(255, 255, 255, .35); }
+.bp-room .btn--ghost:hover { border-color: #fff; background: rgba(255, 255, 255, .08); }
+
+.bp-scan {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-top: clamp(28px, 3.6vw, 48px);
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(14px, 1.8vw, 26px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 0 var(--pad) 16px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.bp-scan:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.bp-plate { flex: 0 0 auto; margin: 0; scroll-snap-align: center; }
+.bp-frame {
+  height: clamp(212px, 27vw, 392px);
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, .18);
+}
+.bp-frame > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bp-plate--band .bp-frame { aspect-ratio: 21 / 9; }
+.bp-plate--band .bp-frame > img { height: auto; transform: translateY(-13%); }
+.bp-plate--band.bp-plate--low .bp-frame > img { transform: translateY(-46%); }
+.bp-plate .bp-cap { color: #8b97a8; max-width: 42ch; }
+.bp-plate .bp-cap strong { color: #fff; }
+.bp-num {
+  display: inline-block; margin: 12px 0 0;
+  font-size: .6875rem; font-weight: 800; letter-spacing: .1em; color: #8fa6ff;
+}
+
+/* 규칙 목록 — 큰 숫자를 세워 판 옆에 붙인다 */
+.bp-spec { list-style: none; margin: clamp(26px, 3.2vw, 44px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+.bp-spec > li { border-top: 2px solid rgba(255, 255, 255, .22); padding-top: 14px; }
+.bp-spec b { display: block; font-size: clamp(1.6rem, 2.6vw, 2.3rem); font-weight: 800;
+  letter-spacing: -.04em; line-height: 1; color: #fff; margin-bottom: 10px; }
+.bp-spec p { margin: 0; font-size: .9375rem; line-height: 1.6; color: #a9b3c2; }
+.bp-spec p em { font-style: normal; color: #fff; font-weight: 700; }
+@media (max-width: 860px) { .bp-spec { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 460px) { .bp-spec { grid-template-columns: minmax(0, 1fr); } }
+
+/* 대상·범위·기한을 한 줄씩 — 카드로 만들면 다른 페이지와 같은 덩어리가 된다 */
+.bp-fit { margin: clamp(26px, 3.2vw, 40px) 0 0; padding: 0;
+  display: grid; grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: clamp(16px, 2.4vw, 34px); }
+.bp-fit dt { grid-column: 1; padding: 12px 0; border-top: 1px solid var(--line);
+  font-size: .875rem; font-weight: 800; letter-spacing: -.01em; color: var(--muted); white-space: nowrap; }
+.bp-fit dd { grid-column: 2; margin: 0; padding: 12px 0; border-top: 1px solid var(--line);
+  font-size: 1.0625rem; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
+@media (max-width: 560px) {
+  .bp-fit { grid-template-columns: minmax(0, 1fr); }
+  .bp-fit dt { padding-bottom: 0; }
+  .bp-fit dd { border-top: 0; padding-top: 2px; }
+}
+
+/* 마지막에 지키는 것 세 줄 */
+.bp-keep { list-style: none; margin: clamp(20px, 2.6vw, 32px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 26px); }
+.bp-keep > li { border-top: 2px solid var(--ink); padding-top: 12px;
+  font-size: .9375rem; line-height: 1.55; color: var(--ink-2); }
+.bp-keep b { display: block; font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 800;
+  letter-spacing: -.04em; line-height: 1.1; color: var(--ink); margin-bottom: 6px; }
+@media (max-width: 620px) { .bp-keep { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
+
+/* ---------- 3. 마무리 띠 ---------- */
+.bp-close { border-top: 1px solid var(--line); }
+.bp-closeline {
+  margin: 18px 0 0; font-size: .9375rem; line-height: 1.6; color: var(--muted);
+}
+.bp-closeline a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.bp-closeline a:hover { color: var(--accent-dark); }
+
+</style>
 </head>
-<body>
+<body class="bp">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 
 <header class="site-header">
@@ -42,11 +200,11 @@
       <p class="eyebrow">① 브랜드 시작 패키지</p>
       <h1>처음이라 막막한 사업, 시작에 필요한 것부터 한 번에</h1>
 
-      <div class="split-media mt-32">
+      <div class="bp-herogrid">
         <div>
           <p class="hero-body">로고 하나만 만들고 다시 업체를 찾지 마세요. 브랜드의 첫인상부터 고객이 찾아올 홈페이지까지 하나의 방향으로 준비합니다.</p>
 
-          <div class="price mt-24">
+          <div class="price">
             <strong class="price-main">250만 원부터</strong>
             <span class="price-unit">프로젝트 1회</span>
           </div>
@@ -59,36 +217,34 @@
           <p class="pricenote">프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
         </div>
 
-        <div>
-          <div class="media media--4x3">
+        <figure class="bp-heroplate">
+          <div class="bp-heroframe">
             <img src="assets/ref/logo/logo-nuam.jpg" alt="누암 NUAM 로고 규정판 — 마크 작도 그리드, 최소 크기, 보호 여백, 금지 사항" width="1400" height="1050" decoding="async">
           </div>
-          <p class="refcard-cat">로고 규정판 · 스킨케어</p>
-          <p class="refcard-title">누암 NUAM — 마크 작도와 사용 규칙을 한 판에</p>
-          <p class="refcard-badge">가상 브랜드 콘셉트</p>
-        </div>
+          <figcaption class="bp-cap">
+            <strong>누암 NUAM · 스킨케어</strong> — 마크 작도와 사용 규칙을 한 판에.
+            <span class="bp-badge">가상 브랜드 콘셉트</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--tight">
     <div class="wrap">
-      <div class="grid grid--2">
-        <div class="card reveal">
-          <h3>이런 분께 맞습니다</h3>
-          <p class="muted mb-0">이제 막 시작해서 무엇부터 해야 할지 모르는 사업자</p>
-        </div>
-        <div class="card reveal reveal-d1">
-          <h3>제공 범위</h3>
-          <p class="muted mb-0">로고 · 명함 · 웹디자인 · 웹개발</p>
-        </div>
-      </div>
-
-      <h2 class="mt-32 reveal">제작자를 따로 찾다 보면, 시작이 늦어집니다</h2>
+      <h2 class="reveal">제작자를 따로 찾다 보면, 시작이 늦어집니다</h2>
       <div class="lead maxw-60 reveal reveal-d1">
         <p>로고는 디자이너에게, 홈페이지는 개발자에게 따로 설명하고 계신가요? 같은 이야기를 반복할수록 일정은 길어지고, 각각 따로 만들어진 결과물은 서로 다른 인상을 줍니다.</p>
         <p>브랜드의 방향을 먼저 정한 뒤 로고와 명함, 웹사이트에 같은 인상을 연결합니다. 개별 제작물이 아니라 <strong>사업을 시작할 수 있는 상태</strong>를 만들어 드립니다.</p>
       </div>
+      <dl class="bp-fit reveal reveal-d2">
+        <dt>이런 분께 맞습니다</dt>
+        <dd>이제 막 시작해서 무엇부터 해야 할지 모르는 사업자</dd>
+        <dt>제공 범위</dt>
+        <dd>로고 · 명함 · 웹디자인 · 웹개발</dd>
+        <dt>첫 초안까지</dt>
+        <dd>자료를 받은 날부터 3일 (주말·공휴일 포함 달력 기준)</dd>
+      </dl>
     </div>
   </section>
 
@@ -97,93 +253,131 @@
     <figcaption>시작 앞에서 멈춰 있는 시간이 가장 비쌉니다. 방향을 먼저 정하면 그다음 결정이 빨라집니다.</figcaption>
   </figure>
 
-  <section class="section section--ink">
+  <section class="section section--tall bp-room">
     <div class="wrap">
-      <p class="eyebrow">로고 · 브랜드 시스템</p>
-      <h2 class="reveal">로고는 그림 한 장이 아니라, 지켜야 할 규칙입니다</h2>
-      <p class="lead maxw-60 reveal reveal-d1">마크 파일만 받으면 명함에서 한 번, 홈페이지에서 또 한 번 다르게 쓰입니다. 최소 크기와 보호 여백, 단색으로 쓸 때의 규칙, 하지 말아야 할 것까지 한 판에 적어 드립니다. 그래야 다음 인쇄물을 저희 없이 만드셔도 같은 인상이 남습니다.</p>
+      <p class="eyebrow">로고 규정판 · 옆으로 밀어 보세요</p>
+      <h2 class="h2--peak reveal">로고는 그림 한 장이 아니라, 지켜야 할 규칙입니다</h2>
+      <p class="lead maxw-60 reveal reveal-d1">마크 파일만 받으면 명함에서 한 번, 홈페이지에서 또 한 번 다르게 쓰입니다. 저희가 드리는 건 판 한 장입니다. 최소 크기와 보호 여백, 단색으로 쓸 때의 형태, 하지 말아야 할 것까지 그 안에 적혀 있습니다. 그래야 다음 인쇄물을 저희 없이 만드셔도 같은 인상이 남습니다.</p>
+    </div>
 
-      <div class="split-media mt-32 reveal">
-        <div class="media media--4x3">
-          <img src="assets/ref/logo/logo-mintab.jpg" alt="민탭 MINTAB 로고 규정판 — 딥 티일 단색, 알약 원에 잎 모양을 파낸 마크" width="1400" height="1050" loading="lazy" decoding="async">
+    <div class="bp-scan" tabindex="0" role="group" aria-label="로고 규정판 6장 — 옆으로 밀어서 보기">
+      <figure class="bp-plate">
+        <div class="bp-frame">
+          <img src="assets/ref/logo/logo-mintab.jpg" alt="민탭 MINTAB 로고 규정판 전체 — 딥 티일 단색, 알약 원에 잎을 파낸 마크" width="1400" height="1050" loading="lazy" decoding="async">
         </div>
-        <div>
-          <p class="eyebrow">민탭 MINTAB · 고체치약</p>
-          <h3>색 하나, 도형 하나로 끝낸 규정판</h3>
-          <p class="refcard-note muted">한 판에 이만큼이 적혀 있습니다.</p>
-          <p class="refcard-note muted"><strong>최소 크기</strong> — 인쇄와 화면에서 각각 몇 mm, 몇 px 아래로는 쓰지 않는지</p>
-          <p class="refcard-note muted"><strong>보호 여백</strong> — 마크 둘레에 아무것도 놓지 않는 거리</p>
-          <p class="refcard-note muted"><strong>단색 사용</strong> — 한 도장, 한 색으로 찍어야 할 때의 형태</p>
-          <p class="refcard-note muted mb-0"><strong>금지</strong> — 기울임, 그림자, 테두리 추가처럼 하지 말아야 할 것</p>
-        </div>
-      </div>
+        <p class="bp-num">판 01 · 전체</p>
+        <figcaption class="bp-cap"><strong>민탭 MINTAB · 고체치약</strong> — 색 하나, 도형 하나로 끝낸 판. 잉크가 한 통뿐인 인쇄에서도 형태가 무너지지 않습니다.</figcaption>
+      </figure>
 
-      <div class="grid grid--2 mt-32">
-        <article class="reveal">
-          <div class="media media--4x3">
-            <img src="assets/ref/logo/logo-odok.jpg" alt="오독 로고 규정판 — 한 줄로 그린 강아지 마크와 한글 워드마크" width="1400" height="1050" loading="lazy" decoding="async">
-          </div>
-          <p class="eyebrow mt-24">로고 규정판 · 반려동물 수제간식</p>
-          <h3>오독 — 한글이 먼저 읽히는 워드마크</h3>
-          <p class="refcard-note muted mb-0">꼬리가 하트로 감기는 한 줄 마크. 한글을 주 워드마크로 두고 영문은 서브라인으로 내렸습니다.</p>
-        </article>
-        <article class="reveal reveal-d2">
-          <div class="media media--4x3">
-            <img src="assets/ref/logo/logo-ppodeuk.jpg" alt="뽀득 로고 규정판 — 둥근 사각 안에 물방울을 넣은 마크" width="1400" height="1050" loading="lazy" decoding="async">
-          </div>
-          <p class="eyebrow mt-24">로고 규정판 · 생활용품</p>
-          <h3>뽀득 — 품목이 늘어나도 흔들리지 않게</h3>
-          <p class="refcard-note muted mb-0">둥근 사각 안에 물방울. 주방·세탁·유아까지 한 라인으로 묶이도록 구조를 먼저 잡았습니다.</p>
-        </article>
-      </div>
+      <figure class="bp-plate bp-plate--band">
+        <div class="bp-frame">
+          <img src="assets/ref/logo/logo-mintab.jpg" alt="민탭 규정판 윗단 확대 — 마크와 워드마크의 정렬 기준선" width="1400" height="1050" loading="lazy" decoding="async">
+        </div>
+        <p class="bp-num">판 01 · 윗단 확대</p>
+        <figcaption class="bp-cap"><strong>정렬</strong> — 마크와 글자가 어느 선에 맞춰 서는지. 이 줄이 없으면 매번 눈대중으로 붙게 됩니다.</figcaption>
+      </figure>
+
+      <figure class="bp-plate">
+        <div class="bp-frame">
+          <img src="assets/ref/logo/logo-nuam.jpg" alt="누암 NUAM 로고 규정판 전체 — 작도 그리드와 사용 규칙" width="1400" height="1050" loading="lazy" decoding="async">
+        </div>
+        <p class="bp-num">판 02 · 전체</p>
+        <figcaption class="bp-cap"><strong>누암 NUAM · 스킨케어</strong> — 얇은 획을 쓰는 마크라 최소 크기를 먼저 못 박았습니다.</figcaption>
+      </figure>
+
+      <figure class="bp-plate">
+        <div class="bp-frame">
+          <img src="assets/ref/logo/logo-odok.jpg" alt="오독 로고 규정판 전체 — 한 줄로 그린 강아지 마크와 한글 워드마크" width="1400" height="1050" loading="lazy" decoding="async">
+        </div>
+        <p class="bp-num">판 03 · 전체</p>
+        <figcaption class="bp-cap"><strong>오독 · 반려동물 수제간식</strong> — 꼬리가 하트로 감기는 한 줄 마크. 한글을 주 워드마크로 두고 영문을 서브라인으로 내렸습니다.</figcaption>
+      </figure>
+
+      <figure class="bp-plate">
+        <div class="bp-frame">
+          <img src="assets/ref/logo/logo-ppodeuk.jpg" alt="뽀득 로고 규정판 전체 — 둥근 사각 안에 물방울을 넣은 마크" width="1400" height="1050" loading="lazy" decoding="async">
+        </div>
+        <p class="bp-num">판 04 · 전체</p>
+        <figcaption class="bp-cap"><strong>뽀득 · 생활용품</strong> — 주방·세탁·유아까지 품목이 늘어나도 한 라인으로 묶이도록 구조를 먼저 잡았습니다.</figcaption>
+      </figure>
+
+      <figure class="bp-plate bp-plate--band bp-plate--low">
+        <div class="bp-frame">
+          <img src="assets/ref/logo/logo-ppodeuk.jpg" alt="뽀득 규정판 아랫단 확대 — 하지 말아야 할 사용 예시 줄" width="1400" height="1050" loading="lazy" decoding="async">
+        </div>
+        <p class="bp-num">판 04 · 아랫단 확대</p>
+        <figcaption class="bp-cap"><strong>금지</strong> — 기울임, 그림자, 테두리 추가. 안 되는 것을 그림으로 남겨야 나중에 설명이 필요 없습니다.</figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap">
+      <ol class="bp-spec reveal">
+        <li><b>01</b><p><em>최소 크기</em><br>인쇄와 화면에서 각각 몇 mm, 몇 px 아래로는 쓰지 않는지 적습니다.</p></li>
+        <li><b>02</b><p><em>보호 여백</em><br>마크 둘레에 아무것도 놓지 않는 거리를 마크 자신의 비율로 정합니다.</p></li>
+        <li><b>03</b><p><em>단색 사용</em><br>한 도장, 한 색으로 찍어야 할 때의 형태를 따로 그려 둡니다.</p></li>
+        <li><b>04</b><p><em>금지 사항</em><br>기울임·그림자·테두리처럼 하지 말아야 할 것을 예시로 남깁니다.</p></li>
+      </ol>
 
       <p class="notice mt-32">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
 
       <div class="btn-row">
-        <a class="btn btn--ghost" href="reference.html">레퍼런스에서 로고 4판 전체 보기</a>
         <a class="btn btn--on-ink" href="contact.html">내 브랜드 시작 상담하기</a>
+        <a class="btn btn--ghost" href="reference.html">레퍼런스에서 로고 4판 전체 보기</a>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--flush-b">
     <div class="wrap">
       <p class="eyebrow">웹디자인 · 웹개발</p>
       <h2 class="reveal">브랜드는 결국 화면에서 완성됩니다</h2>
       <p class="lead maxw-60 reveal reveal-d1">규칙을 정해 두면 홈페이지는 처음부터 다시 시작하지 않습니다. 아래 세 곳은 전부 실제로 열리는 페이지입니다. 눌러서 직접 확인해 보세요.</p>
 
-      <div class="grid grid--3 mt-32">
-        <a class="card reveal" href="assets/ref/sites/nuam-home.html" target="_blank" rel="noopener">
-          <div class="media media--16x9">
-            <img src="assets/ref/img/nuam-hero.jpg" alt="누암 NUAM 홈페이지 키 비주얼 — 분홍 지면 위의 세럼 보틀" width="1600" height="904" loading="lazy" decoding="async">
-          </div>
-          <p class="refcard-cat mt-24">브랜드 홈페이지 · 스킨케어</p>
-          <h3>누암 NUAM</h3>
-          <p class="refcard-note mb-0">잡지 조판, 스크롤 스토리텔링</p>
-        </a>
-        <a class="card reveal reveal-d1" href="assets/ref/sites/odok-home.html" target="_blank" rel="noopener">
-          <div class="media media--16x9">
-            <img src="assets/ref/img/odok-hero.jpg" alt="오독 홈페이지 키 비주얼 — 도마 위의 큐브 간식과 크라프트 파우치" width="1600" height="904" loading="lazy" decoding="async">
-          </div>
-          <p class="refcard-cat mt-24">브랜드 홈페이지 · 반려동물 간식</p>
-          <h3>오독</h3>
-          <p class="refcard-note mb-0">벤토 그리드, 원료 이력 공개</p>
-        </a>
-        <a class="card reveal reveal-d2" href="assets/ref/sites/ppodeuk-home.html" target="_blank" rel="noopener">
-          <div class="media media--16x9">
-            <img src="assets/ref/img/ppodeuk-hero.jpg" alt="뽀득 홈페이지 키 비주얼 — 싱크대 위의 주방세제 보틀" width="1600" height="904" loading="lazy" decoding="async">
-          </div>
-          <p class="refcard-cat mt-24">브랜드 홈페이지 · 생활용품</p>
-          <h3>뽀득</h3>
-          <p class="refcard-note mb-0">스위스 그리드, 전 성분 공개</p>
-        </a>
+      <ul class="bp-sitelist">
+        <li class="reveal">
+          <a href="assets/ref/sites/nuam-home.html" target="_blank" rel="noopener">
+            <p class="bp-num">브랜드 홈페이지 · 스킨케어</p>
+            <h3>누암 NUAM — 잡지 조판, 스크롤 스토리텔링</h3>
+            <p class="bp-cap">분홍 지면 하나로 밀고, 문단마다 사진이 자리를 바꿉니다.</p>
+            <div class="bp-shot">
+              <img src="assets/ref/img/nuam-hero.jpg" alt="누암 NUAM 홈페이지 키 비주얼 — 분홍 지면 위의 세럼 보틀" width="1600" height="904" loading="lazy" decoding="async">
+            </div>
+          </a>
+        </li>
+        <li class="reveal reveal-d1">
+          <a href="assets/ref/sites/odok-home.html" target="_blank" rel="noopener">
+            <p class="bp-num">브랜드 홈페이지 · 반려동물 간식</p>
+            <h3>오독 — 벤토 그리드, 원료 이력 공개</h3>
+            <p class="bp-cap">칸을 크게 나눠 원료와 공정을 한 화면에서 훑게 했습니다.</p>
+            <div class="bp-shot">
+              <img src="assets/ref/img/odok-hero.jpg" alt="오독 홈페이지 키 비주얼 — 도마 위의 큐브 간식과 크라프트 파우치" width="1600" height="904" loading="lazy" decoding="async">
+            </div>
+          </a>
+        </li>
+        <li class="reveal reveal-d2">
+          <a href="assets/ref/sites/ppodeuk-home.html" target="_blank" rel="noopener">
+            <p class="bp-num">브랜드 홈페이지 · 생활용품</p>
+            <h3>뽀득 — 스위스 그리드, 전 성분 공개</h3>
+            <p class="bp-cap">품목이 늘어나도 줄이 흐트러지지 않도록 격자를 먼저 고정했습니다.</p>
+            <div class="bp-shot">
+              <img src="assets/ref/img/ppodeuk-hero.jpg" alt="뽀득 홈페이지 키 비주얼 — 싱크대 위의 주방세제 보틀" width="1600" height="904" loading="lazy" decoding="async">
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <div class="split-media mt-32 reveal">
+        <div class="media media--4x3">
+          <img src="assets/ref/img/ppodeuk-cut-lineup.jpg" alt="뽀득 세 가지 용기와 리필 파우치를 세운 라인업" width="1200" height="1604" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <h3>규칙은 화면 밖에서도 그대로 씁니다</h3>
+          <p class="lead">같은 판을 들고 있으면 명함도, 패키지 라벨도, 나중에 늘어나는 품목도 같은 인상으로 붙습니다. 저희가 만들지 않은 인쇄물까지 브랜드 안에 들어오게 하는 것이 규정판의 목적입니다.</p>
+          <p class="bp-cap mb-0">폰트 라이선스, 도메인·호스팅, 명함 인쇄비는 대행료와 별도이며 견적서에 줄을 나눠 적어드립니다. 실비에는 이윤을 붙이지 않습니다.</p>
+        </div>
       </div>
 
       <p class="notice mt-32">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
-
-      <div class="btn-row">
-        <a class="btn btn--ghost" href="reference.html">레퍼런스에서 홈페이지 전체 보기</a>
-      </div>
     </div>
   </section>
 
@@ -198,24 +392,28 @@
         <div class="step"><h3>웹 제작</h3><p>확정된 디자인을 실제로 동작하는 웹사이트로 만듭니다.</p></div>
         <div class="step"><h3>최종 전달</h3><p>수정을 반영해 결과물과 원본 파일을 전달합니다.</p></div>
       </div>
-      <p class="small muted mt-32">작업 범위가 확정되고 자료를 받은 날부터 3일 안에 첫 초안을 드립니다. 주말과 공휴일을 포함한 달력 기준입니다.</p>
+      <p class="small muted mt-32 mb-0">작업 범위가 확정되고 자료를 받은 날부터 3일 안에 첫 초안을 드립니다. 주말과 공휴일을 포함한 달력 기준입니다.</p>
     </div>
   </section>
 
-  <section class="section">
+  <figure class="bleed bleed--cine">
+    <img src="assets/video/showreel-poster.jpg" alt="your wings가 만든 브랜드 지면과 영상 작업물을 이어 붙인 장면" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption>여기까지가 브랜드 하나를 시작할 수 있는 상태입니다. 다음은 그 브랜드로 파는 일입니다.</figcaption>
+  </figure>
+
+  <section class="section section--tight bp-close">
     <div class="wrap">
-      <h2>함께 적용되는 약속</h2>
-      <div class="grid grid--2 mt-24">
-        <div class="promise"><span class="idx">약속 1</span><div><h3>초안 3일</h3><p class="mb-0">늦어지면 초안 제작비 10만 원을 돌려드리고, 진행하시면 총 견적에서 10만 원을 더 빼드립니다.</p></div></div>
-        <div class="promise"><span class="idx">약속 2</span><div><h3>시안은 3개</h3><p class="mb-0">로고와 주요 디자인은 방향이 다른 시안 3개를 함께 드립니다.</p></div></div>
-        <div class="promise"><span class="idx">약속 4</span><div><h3>초안까지 보고 결정</h3><p class="mb-0">초안 제작비 10만 원으로 시작하고, 진행하시면 전체 견적에서 그대로 차감됩니다.</p></div></div>
-        <div class="promise"><span class="idx">약속 5</span><div><h3>수정 2회 포함</h3><p class="mb-0">3회차부터는 회당 제작비의 10%. 범위를 넘는 요청도 비용을 먼저 말씀드립니다.</p></div></div>
-      </div>
-      <p class="small muted mt-24">폰트 라이선스, 도메인·호스팅, 명함 인쇄비는 대행료와 별도이며 견적서에 줄을 나눠 적어드립니다.</p>
+      <h2>시작에 필요한 것부터, 한 번에 준비해 드립니다</h2>
+      <ul class="bp-keep">
+        <li><b>3일</b>자료를 받은 날부터 첫 초안까지 (달력 기준)</li>
+        <li><b>시안 3개</b>로고와 주요 디자인은 방향이 다른 셋을 함께</li>
+        <li><b>수정 2회</b>포함. 3회차부터는 회당 제작비의 10%</li>
+      </ul>
       <div class="btn-row">
         <a class="btn btn--primary" href="contact.html">내 브랜드 시작 상담하기</a>
-        <a class="btn btn--ghost" href="index.html#guarantee">약속 전체 보기</a>
+        <a class="btn btn--ghost" href="index.html#report">무료 진단 리포트 먼저 받기</a>
       </div>
+      <p class="bp-closeline">초안 제작비 10만 원은 계약이 진행되면 총 견적에서 전액 차감됩니다. <a href="contact.html">약속·결제 조건·인쇄 실비 표기는 문의 페이지에서 함께 안내드립니다</a></p>
     </div>
   </section>
 

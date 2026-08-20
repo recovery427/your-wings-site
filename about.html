@@ -14,6 +14,7 @@
 <meta property="og:image" content="assets/ref/logo/logo-nuam.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
 /* ==================================================================
@@ -94,6 +95,41 @@
 @media (max-width: 900px) { .ab-work .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .ab-work .grid--3 { grid-template-columns: minmax(0, 1fr); } }
 
+/* --- 본문 글자 크기를 네 단계(13 · 15 · 16 · 19.2)로 줄인다 --- */
+main .pricenote, main figcaption, main .ab-cap, main .small,
+main .bleed figcaption          { font-size: .9375rem; }               /* 14 → 15 */
+main .hero-body, main .hero-sub { font-size: clamp(1.0625rem, 1.5vw, 1.2rem); }        /* 17.6·21.6 → 19.2 */
+
+/* --- 히어로 릴: 5.4MB 를 자동으로 내려받지 않는다 ---
+   preload="none" + 포스터 한 장(42KB). 눌렀을 때만 영상을 가져온다.
+   외부 요청 0 은 그대로다. 파일은 전부 이 저장소 안에 있다. */
+.ab-reel { margin: clamp(22px, 5vw, 34px) calc(50% - 50vw) 0; background: #06110c; }
+.ab-reel video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-reel-play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  z-index: 2; display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 24px 14px 20px; border: 0; border-radius: 999px;
+  background: rgba(11, 26, 19, .78); color: #fff; cursor: pointer;
+  font: inherit; font-size: .9375rem; font-weight: 700;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: background-color .2s ease, transform .2s var(--ease);
+}
+.ab-reel-play::before {
+  content: ""; width: 0; height: 0;
+  border-left: 13px solid #79d2a5; border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+}
+.ab-reel-play:hover { background: rgba(11, 26, 19, .92); transform: translate(-50%, -50%) scale(1.04); }
+.ab-reel-play b { font-weight: 500; color: #a7e3c5; }
+.ab-reel.is-playing .ab-reel-play { display: none; }
+.ab-reel.is-playing figcaption { opacity: 0; pointer-events: none; }
+.ab-reel figcaption { transition: opacity .25s ease; }
+
+/* 히어로 알약: 폰에서는 패키지 이름만 남긴다. 두 줄로 깨지느니 짧게. */
+@media (max-width: 620px) {
+  .ab-scope-more { display: none; }
+  .ab-scope a { font-size: .875rem; padding: 7px 13px; }
+}
+
 /* --- 표: 좁은 화면에서 잘리지 않게 줄을 카드로 바꾼다 --- */
 @media (max-width: 660px) {
   .ab-facts { overflow: visible; }
@@ -147,10 +183,15 @@
       <h1 class="reveal reveal-d1">온라인에 우리만의 숲을 만듭니다</h1>
       <p class="hero-sub reveal reveal-d1">로고 · 웹사이트 · 상세페이지 · 영상광고 · SNS 콘텐츠까지, 브랜드가 온라인에 자리 잡는 데 필요한 것을 한 곳에서 만드는 종합 마케팅·광고 대행사입니다.</p>
 
+      <div class="btn-row reveal reveal-d1">
+        <a class="btn btn--primary" href="contact.html">지금 무료로 상담하기</a>
+        <a class="btn btn--ghost" href="reference.html">만든 것 먼저 보기</a>
+      </div>
+
       <ul class="ab-scope reveal reveal-d2">
-        <li><a href="service-brand.html">브랜드 시작 — 로고 · 명함 · 웹디자인 · 웹개발</a></li>
-        <li><a href="service-sales.html">온라인 매출 — 상세페이지 · 썸네일 · 영상광고 · 디지털 마케팅</a></li>
-        <li><a href="service-growth.html">채널 성장 — SNS/바이럴 · 콘텐츠 · 인플루언서 · PPL</a></li>
+        <li><a href="service-brand.html">브랜드 시작<span class="ab-scope-more"> — 로고 · 명함 · 웹디자인 · 웹개발</span></a></li>
+        <li><a href="service-sales.html">온라인 매출<span class="ab-scope-more"> — 상세페이지 · 썸네일 · 영상광고 · 디지털 마케팅</span></a></li>
+        <li><a href="service-growth.html">채널 성장<span class="ab-scope-more"> — SNS/바이럴 · 콘텐츠 · 인플루언서 · PPL</span></a></li>
       </ul>
 
       <p class="hero-body reveal reveal-d2">프로젝트 포레스트는 좋은 아이디어가 온라인에 뿌리내리고, 콘텐츠와 고객을 만나 자라나는 곳입니다. your wings는 그 숲에 심는 첫 번째 나무입니다.</p>
@@ -160,12 +201,16 @@
         <a href="reference.html"><strong>레퍼런스에서 전부 보실 수 있습니다 →</strong></a>
       </p>
 
-      <figure class="hero-media media--flat mt-24" aria-hidden="true">
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+      <figure class="bleed bleed--cine media--flat ab-reel" style="max-width:none">
+        <video id="ab-reel-video" preload="none" muted loop playsinline
                poster="assets/video/showreel-poster.jpg">
           <source src="assets/video/showreel.mp4" type="video/mp4">
+          이 브라우저는 영상 재생을 지원하지 않습니다.
         </video>
-        <span class="hero-scrim"></span>
+        <button class="ab-reel-play" type="button" aria-controls="ab-reel-video">
+          네 브랜드의 광고 4편 재생 <b>38초</b>
+        </button>
+        <figcaption>기획, 연출, 모델, 카피, 편집까지 your wings가 직접 만들었습니다. 등장 인물과 장면은 AI로 제작했습니다.</figcaption>
       </figure>
     </div>
   </section>
@@ -191,7 +236,7 @@
   <section class="section section--ink ab-work ab-trunks">
     <div class="wrap">
       <p class="eyebrow reveal">우리가 만든 것</p>
-      <h2 class="reveal">실적 대신, 만든 것을 보여드립니다</h2>
+      <h2 class="h2--peak reveal">실적 대신,<br>만든 것을 보여드립니다</h2>
       <p class="lead maxw-60 reveal reveal-d1">브랜드 이름·타깃·가격까지 우리가 직접 정하고, 로고에서 홈페이지까지 한 줄로 만들었습니다. 의뢰가 들어오면 똑같은 방식으로 진행합니다.</p>
 
       <p class="notice reveal reveal-d1">실제 고객사 작업물이 아닙니다. your wings가 가상 브랜드를 설정해 직접 제작한 샘플입니다.</p>
@@ -348,6 +393,25 @@
   </div>
 </footer>
 
+<script>
+/* 히어로 릴 — 누를 때 비로소 영상을 내려받는다. */
+(function () {
+  var fig = document.querySelector('.ab-reel');
+  if (!fig) return;
+  var v = fig.querySelector('video');
+  var btn = fig.querySelector('.ab-reel-play');
+  if (!v || !btn) return;
+
+  btn.addEventListener('click', function () {
+    v.setAttribute('controls', '');
+    fig.classList.add('is-playing');
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { fig.classList.remove('is-playing'); });
+    v.focus({ preventScroll: true });
+  });
+  v.addEventListener('ended', function () { fig.classList.remove('is-playing'); });
+})();
+</script>
 <script src="assets/main.js"></script>
 </body>
 </html>
