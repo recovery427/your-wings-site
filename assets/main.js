@@ -107,3 +107,44 @@
   window.addEventListener('beforeprint', showAll);
   setTimeout(sweep, 2400);
 })();
+
+(function () {
+  if (document.querySelector('.stickycta')) return;
+  if (document.body.classList.contains('no-stickycta')) return;
+
+  var MAIL = 'recovery427@gmail.com';
+  var onContact = /contact\.html$/.test(location.pathname) ||
+                  !!document.querySelector('form.form');
+
+  var bar = document.createElement('div');
+  bar.className = 'stickycta';
+  bar.innerHTML =
+    '<a class="btn btn--primary" href="' + (onContact ? '#form' : 'contact.html') + '">' +
+      (onContact ? '문의 남기기' : '무료로 상담 요청하기') + '</a>' +
+    '<a class="stickycta-alt" href="mailto:' + MAIL + '" aria-label="이메일로 문의하기">메일</a>';
+  document.body.appendChild(bar);
+  document.body.classList.add('has-stickycta');
+
+  var form = document.querySelector('form.form');
+  var foot = document.querySelector('.site-footer');
+  var ticking = false;
+
+  function overlaps(el) {
+    if (!el) return false;
+    var r = el.getBoundingClientRect();
+    return r.top < window.innerHeight && r.bottom > window.innerHeight - 140;
+  }
+
+  function frame() {
+    ticking = false;
+    var past = window.pageYOffset > window.innerHeight * 1.5;
+    var hide = overlaps(form) || overlaps(foot);
+    bar.classList.toggle('is-on', past && !hide);
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(frame); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  frame();
+})();
