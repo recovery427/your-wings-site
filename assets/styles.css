@@ -132,7 +132,11 @@ p { margin: 0 0 14px; }
 }
 .brand span { font-size: .75rem; font-weight: 600; color: var(--muted); letter-spacing: 0; }
 
-@media (max-width: 560px) {
+.site-header .brand,
+.site-header .nav a,
+.site-header .nav .btn { white-space: nowrap; }
+
+@media (max-width: 1279px) {
   .brand span { display: none; }
 }
 
@@ -157,7 +161,7 @@ p { margin: 0 0 14px; }
   cursor: pointer;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   .nav-toggle { display: block; }
   .nav {
     display: none;
