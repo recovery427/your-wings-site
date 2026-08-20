@@ -4,9 +4,271 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>레퍼런스 — your wings가 만드는 것들</title>
-<meta name="description" content="영상 광고, 사물 애니메이션, 로고, 카드뉴스, 상세페이지, 홈페이지. your wings가 실제로 만든 결과물을 한 화면에서 보세요.">
+<meta name="description" content="영상 광고, 사물 애니메이션, 로고, 카드뉴스, 상세페이지, 홈페이지. your wings가 직접 만든 결과물을 스크린샷이 아니라 실제로 돌아가는 페이지로 보여드립니다.">
+
+<link rel="canonical" href="reference.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="your wings">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="레퍼런스 — your wings가 만드는 것들">
+<meta property="og:description" content="스크린샷이 아닙니다. 홈페이지와 상세페이지가 이 화면 안에서 실제로 돌아갑니다. 로고·카드뉴스·광고 영상까지 한자리에서 보세요.">
+<meta property="og:image" content="assets/video/showreel-poster.jpg">
+<meta property="og:image:alt" content="your wings 제작 영상 모음 쇼릴 첫 장면">
+<meta property="og:url" content="reference.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="레퍼런스 — your wings가 만드는 것들">
+<meta name="twitter:description" content="스크린샷이 아닙니다. 실제 페이지가 이 화면 안에서 그대로 돌아갑니다.">
+<meta name="twitter:image" content="assets/video/showreel-poster.jpg">
+<meta name="theme-color" content="#0e1116">
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/styles.css">
+
+<style>
+/* ==================================================================
+   레퍼런스 페이지 전용 보정.
+   공용 assets/styles.css 는 7페이지가 함께 쓰므로 건드리지 않는다.
+   여기 있는 규칙은 전부 .ref-page 안에서만 산다.
+   ================================================================== */
+
+/* ---------- 1. 히어로 : 16:9 풀블리드 쇼릴 ---------- */
+.ref-page .ref-hero--reel { padding-block: 0 clamp(16px, 2.4vw, 26px); }
+.ref-page .ref-stage { position: relative; }
+.ref-page .ref-reel {
+  margin-bottom: 0;
+  max-height: calc(100svh - 66px);
+  background: #0b0d11;
+}
+.ref-page .ref-reel > video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ref-page .ref-reel-veil {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(14,17,22,.30) 0%, rgba(14,17,22,0) 22%,
+                            rgba(14,17,22,.12) 40%, rgba(14,17,22,.46) 54%,
+                            rgba(14,17,22,.84) 68%, rgba(14,17,22,.97) 100%);
+}
+.ref-page .ref-hero-copy {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding-bottom: clamp(78px, 9vh, 122px);
+}
+/* 영상 프레임이 어떤 밝기로 지나가든 글 뒤쪽 밝기를 고정한다.
+   veil 만으로는 프레임에 따라 4.5:1 을 못 넘기는 구간이 생긴다. */
+.ref-page .ref-hero-copy::before {
+  content: ""; position: absolute; z-index: -1;
+  inset: -40px 0 0 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(14,17,22,0) 0%, rgba(14,17,22,.62) 22%,
+                                      rgba(14,17,22,.86) 58%, rgba(14,17,22,.94) 100%);
+}
+.ref-page .ref-hero-copy h1 { text-shadow: 0 2px 22px rgba(0,0,0,.45); }
+/* 공용 #8fa6ff 는 영상 위에서 4.5:1 을 못 넘긴다. 이 페이지에서만 한 단계 밝힌다. */
+.ref-page .ref-hero-copy .eyebrow { color: #cbd6ff; }
+.ref-page .ref-hero-copy .ref-lede { margin-bottom: 10px; color: #e6ebf3; }
+.ref-page .ref-herofact {
+  margin: 0; max-width: 58ch;
+  font-size: clamp(.8125rem, 1.3vw, .9375rem); font-weight: 600; color: #b9c6dc;
+}
+.ref-page .ref-herofact strong { color: #fff; }
+.ref-page .ref-reel .hero-play { z-index: 3; }
+
+@media (max-width: 860px) {
+  .ref-page .ref-hero-copy { position: static; padding: clamp(20px, 4vw, 28px) 0 0; }
+  .ref-page .ref-hero-copy::before { display: none; }
+  .ref-page .ref-hero-copy h1 { text-shadow: none; }
+  .ref-page .ref-reel { max-height: none; }
+}
+
+/* 탭 줄 — 히어로와 같은 어두운 지면 위에 앉힌다 */
+.ref-page .ref-tabwrap { padding-top: clamp(18px, 2.6vw, 26px); }
+.ref-page .ref-tab {
+  transition: background .22s ease, color .22s ease, border-color .22s ease, transform .22s var(--ease);
+}
+.ref-page .ref-tab:hover { transform: translateY(-1px); }
+.ref-page .ref-tab.is-on:hover { transform: translateY(-1px); }
+
+/* ---------- 2. 섹션 리듬 : 다섯 블록의 형태를 서로 다르게 ---------- */
+.ref-page .ref-block--a { padding-block: clamp(44px, 6vw, 84px) clamp(30px, 4vw, 56px); }
+.ref-page .ref-block--b { padding-block: clamp(34px, 4.4vw, 62px) 0; }
+.ref-page .ref-block--c {
+  padding-block: clamp(44px, 6vw, 78px) 0;
+  background: var(--bg-soft);
+}
+.ref-page .ref-block--d {
+  padding-block: clamp(46px, 6.4vw, 88px) 0;
+  background: var(--bg-ink); color: #fff;
+  border-top-color: rgba(255,255,255,.14);
+}
+.ref-page .ref-block--d .ref-h2,
+.ref-page .ref-block--d .ref-h3 { color: #fff; }
+.ref-page .ref-block--d .ref-note { color: #a9b3c2; }
+.ref-page .ref-block--d .cardslide { background: #171b22; border-color: rgba(255,255,255,.16); }
+.ref-page .ref-block--e { padding-block: clamp(46px, 6.4vw, 88px) clamp(40px, 5vw, 72px); }
+
+.ref-page .ref-h2 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); letter-spacing: -.02em; }
+.ref-page .ref-h3 { margin-top: clamp(34px, 4vw, 54px); }
+.ref-page .ref-block .bleed { margin-top: clamp(26px, 3.4vw, 44px); }
+.ref-page .ref-block--b .bleed,
+.ref-page .ref-block--c .bleed,
+.ref-page .ref-block--d .bleed { margin-bottom: 0; }
+.ref-page .bleed figcaption {
+  line-height: 1.5;
+  padding-top: 60px;
+  background: linear-gradient(180deg, rgba(14,17,22,0) 0%, rgba(14,17,22,.58) 46%, rgba(14,17,22,.93) 100%);
+}
+.ref-page .ref-band-up > img { object-position: 50% 24%; }
+
+/* 실물 크기 미리보기 띠 — 축소 없이 1440px 그대로 돌아간다 */
+.ref-page .ref-leadframe { background: #fff; }
+.ref-page .ref-leadframe > figcaption { z-index: 2; }
+.ref-page .ref-leadframe .refcard-cover { z-index: 3; }
+
+/* ---------- 3. 카드 반응 ---------- */
+.ref-page .refcard { transition: transform .34s var(--ease); }
+.ref-page .refcard:hover { transform: translateY(-4px); }
+.ref-page .refcard-media { transition: box-shadow .34s ease, border-color .34s ease; }
+.ref-page .refcard:hover .refcard-media { box-shadow: 0 16px 38px rgba(14,17,22,.18); }
+.ref-page .refcard-media > img { transition: transform .6s var(--ease); }
+.ref-page .refcard:hover .refcard-media > img { transform: scale(1.04); }
+.ref-page .ref-block--d .refcard-title { color: #dfe5ee; }
+
+/* 표지 링크 — 상시 노출을 그만두고 손이 닿을 때만 나온다.
+   글자는 반투명 그라디언트 위가 아니라 불투명 알약 위에 얹어 대비를 고정한다. */
+.ref-page .refcard-cover {
+  opacity: 0;
+  background: linear-gradient(180deg, rgba(14,17,22,0) 40%, rgba(14,17,22,.55) 100%);
+  transition: opacity .26s ease;
+}
+.ref-page .refcard-cover > span {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 34px; padding: 0 14px;
+  border-radius: 999px;
+  background: #0e1116; color: #fff;
+  font-size: .75rem; font-weight: 700; letter-spacing: -.01em;
+}
+.ref-page .refcard-cover > span::after { content: "↗"; font-weight: 700; }
+.ref-page .refcard-media--frame:hover .refcard-cover,
+.ref-page .refcard-cover:hover,
+.ref-page .refcard-cover:focus-visible,
+.ref-page .refcard-media--frame:focus-within .refcard-cover { opacity: 1; }
+
+/* ---------- 4. 그리드 : 자식 수에 칸수를 맞춰 고아 행을 없앤다 ---------- */
+.ref-page .refgrid--h { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ref-page .refgrid--s { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ref-page .refgrid--v4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ref-page .refgrid--v5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+@media (max-width: 1100px) and (min-width: 701px) {
+  /* 3장이 2+1 로 떨어질 때 마지막 한 장을 통째로 넓혀 빈칸을 없앤다 */
+  .ref-page .refgrid--h { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ref-page .refgrid--h > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 1000px) {
+  .ref-page .refgrid--s { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .ref-page .refgrid--h { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 세로 영상 줄은 좁은 화면에서 '줄여서 담기'가 아니라 옆으로 미는 줄로 다시 짠다.
+   9:16 을 격자에 억지로 넣으면 어느 칸수에서도 고아 행이 남는다. */
+@media (max-width: 900px) {
+  .ref-page .refgrid--v {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(90deg, #000 0 93%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 0 93%, transparent 100%);
+  }
+  .ref-page .refgrid--v > .refcard {
+    flex: 0 0 clamp(184px, 56vw, 260px);
+    scroll-snap-align: start;
+  }
+  .ref-page .refgrid--v:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+}
+
+/* ---------- 5. 탭 전환 페이드 ---------- */
+.ref-page .ref-block.is-swap { animation: refSwapIn .42s var(--ease) both; }
+@keyframes refSwapIn {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- 6. 소리 버튼 : 터치 타깃 44px ---------- */
+.ref-page .refcard-sound {
+  right: 10px; bottom: 10px;
+  min-width: 46px; min-height: 44px;
+  padding: 0 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(14, 17, 22, .82);
+  opacity: .92;
+  transition: opacity .2s ease, background .25s ease, transform .25s var(--ease);
+}
+.ref-page .refcard-sound:hover { opacity: 1; transform: translateY(-2px); }
+.ref-page .refcard-sound.is-on { background: var(--accent); }
+
+/* 재생이 막혔을 때 카드 위에도 재생 단추를 띄운다 (히어로와 같은 규칙) */
+.ref-page .refcard-media .hero-play { padding: 9px 16px 9px 13px; font-size: .8125rem; }
+.ref-page .refcard-media.is-blocked .hero-play { display: inline-flex; }
+
+/* ---------- 7. 자사 사이트 카드 (미리보기 없이 말로 증명한다) ---------- */
+.ref-page .refcard-self {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 10px;
+  width: 100%;                      /* 폭을 못 박아야 max-height 가 폭을 되계산하지 않는다 */
+  aspect-ratio: 16 / 9;
+  min-height: min-content;          /* 글이 길어지면 상자가 늘어난다. 잘리지 않는다 */
+  max-height: 240px;                /* 한 줄을 통째로 차지할 때 빈 검정이 되지 않게 */
+  padding: clamp(16px, 2vw, 24px);
+  border-radius: 12px;
+  background: var(--bg-ink); color: #fff;
+  text-decoration: none;
+  transition: background .3s ease;
+}
+.ref-page .refcard-self:hover { background: #171d28; }
+.ref-page .refcard-self b { font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.4; letter-spacing: -.02em; }
+.ref-page .refcard-self span { font-size: .8125rem; line-height: 1.55; color: #b9c6dc; }
+.ref-page .refcard-self em { font-style: normal; font-weight: 700; color: #8fa6ff; font-size: .8125rem; }
+/* 한 줄을 통째로 차지하는 구간에서는 16:9 가 빈 검정 벽이 된다. 높이를 글에 맞춘다. */
+@media (max-width: 1100px) and (min-width: 701px) {
+  .ref-page .refcard-self { aspect-ratio: auto; max-height: none; min-height: 176px; }
+}
+
+/* ---------- 8. 하단 고정 문의바 : 기본은 한 줄, 누르면 펴진다 ---------- */
+.ref-page.ref-page { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
+.ref-page .quickbar { padding: 10px var(--pad) calc(10px + env(safe-area-inset-bottom)); }
+.ref-page .quickbar-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+}
+.ref-page .quickbar-line {
+  margin: 0; flex: 1 1 auto; min-width: 0;
+  font-size: .875rem; color: var(--ink-2); line-height: 1.35;
+}
+.ref-page .quickbar-line strong { color: var(--ink); }
+.ref-page .quickbar-toggle { flex: 0 0 auto; }
+.ref-page .quickform { margin-top: 12px; }
+.ref-page .quickform-lead { font-size: .8125rem; }
+@media (max-width: 560px) {
+  .ref-page .quickbar-line { font-size: .75rem; }
+  .ref-page .quickbar-line .q-long { display: none; }
+}
+
+/* ---------- 9. 잔손질 ---------- */
+.ref-page .ref-lede { max-width: 56ch; }
+.ref-page .refcard-title { font-size: .9375rem; }
+.ref-page .ref-note { font-size: .9375rem; line-height: 1.6; }
+.ref-page .ref-legal {
+  margin: clamp(18px, 2.4vw, 28px) 0 0;
+  font-size: .8125rem; color: var(--muted);
+}
+.ref-page .ref-block--d .ref-legal { color: #8b94a3; }
+@media (prefers-reduced-motion: reduce) {
+  .ref-page .ref-block.is-swap { animation: none; }
+}
+</style>
 </head>
 <body class="ref-page">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -28,99 +290,116 @@
 
 <main id="main">
 
-  <section class="ref-hero">
-    <div class="wrap">
-      <p class="eyebrow">레퍼런스</p>
-      <h1>우리가 만드는 것들</h1>
-      <p class="ref-lede">
-        아래는 전부 your wings가 직접 기획하고 만든 결과물입니다.
-        가상 브랜드 세 개를 세우고 홈페이지와 상세페이지를 통째로 만들었습니다.
-        실제 의뢰도 같은 방식으로 진행합니다.
-      </p>
+  <section class="ref-hero ref-hero--reel">
+    <div class="ref-stage">
+      <figure class="bleed bleed--cine hero-media media--flat ref-reel">
+        <video class="ref-reelvid" preload="none" muted loop playsinline autoplay
+               poster="assets/video/showreel-poster.jpg"
+               data-src="assets/video/showreel.mp4"></video>
+        <span class="ref-reel-veil"></span>
+        <button class="hero-play" type="button">쇼릴 재생 · 37초</button>
+      </figure>
+      <div class="ref-hero-copy">
+        <div class="wrap">
+          <p class="eyebrow">레퍼런스</p>
+          <h1>우리가 만드는 것들</h1>
+          <p class="ref-lede">
+            가상 브랜드 네 곳을 세우고 홈페이지·상세페이지·로고·카드뉴스·광고 영상을 통째로 만들었습니다.
+            실제 의뢰도 같은 방식으로 진행합니다.
+          </p>
+          <p class="ref-herofact">
+            아래 미리보기는 스크린샷이 아닙니다. <strong>실제 페이지가 이 화면 안에서 그대로 돌아갑니다.</strong>
+            가상 브랜드 작업물이며 실제 고객사 작업물이 아닙니다.
+          </p>
+        </div>
+      </div>
+    </div>
 
+    <div class="wrap ref-tabwrap">
       <div class="ref-tabs" role="tablist" aria-label="레퍼런스 분류">
-        <button class="ref-tab is-on" type="button" role="tab" aria-selected="true" data-cat="all">전체</button>
-        <button class="ref-tab" type="button" role="tab" aria-selected="false" data-cat="web">홈페이지</button>
-        <button class="ref-tab" type="button" role="tab" aria-selected="false" data-cat="detail">상세페이지</button>
-        <button class="ref-tab" type="button" role="tab" aria-selected="false" data-cat="design">디자인</button>
-        <button class="ref-tab" type="button" role="tab" aria-selected="false" data-cat="card">카드뉴스</button>
-        <button class="ref-tab" type="button" role="tab" aria-selected="false" data-cat="film">영상</button>
+        <button class="ref-tab is-on" type="button" role="tab" id="tab-all" aria-selected="true" tabindex="0" data-cat="all"
+                aria-controls="panel-web panel-detail panel-design panel-card panel-film">전체</button>
+        <button class="ref-tab" type="button" role="tab" id="tab-web" aria-selected="false" tabindex="-1" data-cat="web" aria-controls="panel-web">홈페이지</button>
+        <button class="ref-tab" type="button" role="tab" id="tab-detail" aria-selected="false" tabindex="-1" data-cat="detail" aria-controls="panel-detail">상세페이지</button>
+        <button class="ref-tab" type="button" role="tab" id="tab-design" aria-selected="false" tabindex="-1" data-cat="design" aria-controls="panel-design">디자인</button>
+        <button class="ref-tab" type="button" role="tab" id="tab-card" aria-selected="false" tabindex="-1" data-cat="card" aria-controls="panel-card">카드뉴스</button>
+        <button class="ref-tab" type="button" role="tab" id="tab-film" aria-selected="false" tabindex="-1" data-cat="film" aria-controls="panel-film">영상</button>
       </div>
     </div>
   </section>
 
-  
-  <section class="ref-block" data-cat="web">
+  <section class="ref-block ref-block--a" data-cat="web" id="panel-web" role="tabpanel" aria-labelledby="tab-web">
     <div class="wrap">
-      <h2 class="ref-h2">홈페이지</h2>
-      <p class="ref-note">아래 카드는 스크린샷이 아니라 실제 페이지를 그대로 축소한 것입니다. 눌러서 바로 열어 보실 수 있습니다.</p>
-      <div class="refgrid refgrid--h">
-        <article class="refcard">
+      <h2 class="ref-h2 reveal">홈페이지</h2>
+      <p class="ref-note reveal reveal-d1">아래 미리보기는 스크린샷이 아니라 실제 페이지를 그대로 축소한 것입니다. 눌러서 바로 열어 보실 수 있습니다.</p>
+    </div>
+
+    <figure class="bleed bleed--cine refcard-media--frame ref-leadframe reveal">
+      <figcaption>누암 NUAM 홈페이지 — 1440px 원본 그대로. 축소한 그림이 아니라 이 자리에서 실제로 돌아가고 있는 페이지입니다.</figcaption>
+      <iframe data-src="assets/ref/sites/nuam-home.html" title="누암 NUAM 홈페이지 실물 크기 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+      <a class="refcard-cover" href="assets/ref/sites/nuam-home.html" target="_blank" rel="noopener" aria-label="누암 NUAM 홈페이지 새 창으로 열기"><span>페이지 열기</span></a>
+    </figure>
+
+    <div class="wrap">
+      <div class="refgrid refgrid--h" style="margin-top:clamp(26px,3.4vw,44px)">
+        <article class="refcard reveal">
           <div class="refcard-media refcard-media--frame">
-            <iframe src="index.html" title="your wings — 기획부터 배포까지 자체 제작 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="index.html" target="_blank" rel="noopener">페이지 열기</a>
-          </div>
-          <p class="refcard-cat">홈페이지 · 5페이지</p>
-          <p class="refcard-title">your wings — 기획부터 배포까지 자체 제작</p>
-        </article>
-        <article class="refcard">
-          <div class="refcard-media refcard-media--frame">
-            <iframe src="assets/ref/sites/nuam-home.html" title="누암 NUAM — 잡지 조판, 스크롤 스토리텔링 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="assets/ref/sites/nuam-home.html" target="_blank" rel="noopener">페이지 열기</a>
-          </div>
-          <p class="refcard-cat">브랜드 홈페이지 · 스킨케어</p>
-          <p class="refcard-title">누암 NUAM — 잡지 조판, 스크롤 스토리텔링</p>
-          <p class="refcard-badge">가상 브랜드 콘셉트</p>
-        </article>
-        <article class="refcard">
-          <div class="refcard-media refcard-media--frame">
-            <iframe src="assets/ref/sites/odok-home.html" title="오독 — 벤토 그리드, 원료 이력 공개 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="assets/ref/sites/odok-home.html" target="_blank" rel="noopener">페이지 열기</a>
+            <iframe data-src="assets/ref/sites/odok-home.html" title="오독 홈페이지 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <a class="refcard-cover" href="assets/ref/sites/odok-home.html" target="_blank" rel="noopener" aria-label="오독 홈페이지 새 창으로 열기"><span>페이지 열기</span></a>
           </div>
           <p class="refcard-cat">브랜드 홈페이지 · 반려동물 간식</p>
           <p class="refcard-title">오독 — 벤토 그리드, 원료 이력 공개</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d1">
           <div class="refcard-media refcard-media--frame">
-            <iframe src="assets/ref/sites/ppodeuk-home.html" title="뽀득 — 스위스 그리드, 전 성분 공개 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="assets/ref/sites/ppodeuk-home.html" target="_blank" rel="noopener">페이지 열기</a>
+            <iframe data-src="assets/ref/sites/ppodeuk-home.html" title="뽀득 홈페이지 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <a class="refcard-cover" href="assets/ref/sites/ppodeuk-home.html" target="_blank" rel="noopener" aria-label="뽀득 홈페이지 새 창으로 열기"><span>페이지 열기</span></a>
           </div>
           <p class="refcard-cat">브랜드 홈페이지 · 생활용품</p>
           <p class="refcard-title">뽀득 — 스위스 그리드, 전 성분 공개</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
+        <article class="refcard reveal reveal-d2">
+          <a class="refcard-self" href="index.html">
+            <b>지금 보고 계신 이 사이트</b>
+            <span>7페이지 전부 기획·카피·디자인·개발을 외주 없이 직접 했습니다. 이 칸에만 미리보기가 없는 이유는 하나입니다 — 이미 보고 계시니까요.</span>
+            <em>메인 페이지로 가기 ↗</em>
+          </a>
+          <p class="refcard-cat">자사 홈페이지 · 7페이지</p>
+          <p class="refcard-title">your wings — 기획부터 배포까지 자체 제작</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="ref-block" data-cat="detail">
+  <section class="ref-block ref-block--b" data-cat="detail" id="panel-detail" role="tabpanel" aria-labelledby="tab-detail">
     <div class="wrap">
-      <h2 class="ref-h2">상세페이지</h2>
-      <p class="ref-note">같은 회사가 만들었지만 레이아웃·타이포·전환 구조를 페이지마다 다르게 잡습니다. 업종과 파는 방식이 다르면 같은 틀을 쓰지 않습니다.</p>
+      <h2 class="ref-h2 reveal">상세페이지</h2>
+      <p class="ref-note reveal reveal-d1">같은 회사가 만들었지만 레이아웃·타이포·전환 구조를 페이지마다 다르게 잡습니다. 업종과 파는 방식이 다르면 같은 틀을 쓰지 않습니다.</p>
       <div class="refgrid refgrid--h">
-        <article class="refcard">
+        <article class="refcard reveal">
           <div class="refcard-media refcard-media--frame">
-            <iframe src="assets/ref/sites/nuam-detail.html" title="누암 배리어 세럼 — 전후 비교, 레이어 슬라이더 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="assets/ref/sites/nuam-detail.html" target="_blank" rel="noopener">페이지 열기</a>
+            <iframe data-src="assets/ref/sites/nuam-detail.html" title="누암 배리어 세럼 상세페이지 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <a class="refcard-cover" href="assets/ref/sites/nuam-detail.html" target="_blank" rel="noopener" aria-label="누암 배리어 세럼 상세페이지 새 창으로 열기"><span>페이지 열기</span></a>
           </div>
           <p class="refcard-cat">상세페이지 · 스킨케어 세럼</p>
           <p class="refcard-title">누암 배리어 세럼 — 전후 비교, 레이어 슬라이더</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d1">
           <div class="refcard-media refcard-media--frame">
-            <iframe src="assets/ref/sites/odok-detail.html" title="오독 닭가슴살 큐브 — 실물 크기 자, 질문 카드 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="assets/ref/sites/odok-detail.html" target="_blank" rel="noopener">페이지 열기</a>
+            <iframe data-src="assets/ref/sites/odok-detail.html" title="오독 닭가슴살 큐브 상세페이지 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <a class="refcard-cover" href="assets/ref/sites/odok-detail.html" target="_blank" rel="noopener" aria-label="오독 닭가슴살 큐브 상세페이지 새 창으로 열기"><span>페이지 열기</span></a>
           </div>
           <p class="refcard-cat">상세페이지 · 반려동물 간식</p>
           <p class="refcard-title">오독 닭가슴살 큐브 — 실물 크기 자, 질문 카드</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d2">
           <div class="refcard-media refcard-media--frame">
-            <iframe src="assets/ref/sites/ppodeuk-detail.html" title="뽀득 주방세제 — 3단계 퍼널, 기름때 격자 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <a class="refcard-cover" href="assets/ref/sites/ppodeuk-detail.html" target="_blank" rel="noopener">페이지 열기</a>
+            <iframe data-src="assets/ref/sites/ppodeuk-detail.html" title="뽀득 주방세제 상세페이지 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <a class="refcard-cover" href="assets/ref/sites/ppodeuk-detail.html" target="_blank" rel="noopener" aria-label="뽀득 주방세제 상세페이지 새 창으로 열기"><span>페이지 열기</span></a>
           </div>
           <p class="refcard-cat">상세페이지 · 주방세제</p>
           <p class="refcard-title">뽀득 주방세제 — 3단계 퍼널, 기름때 격자</p>
@@ -128,53 +407,63 @@
         </article>
       </div>
     </div>
+
+    <figure class="bleed bleed--wide reveal">
+      <img class="ref-band-up" src="assets/ref/img/nuam-hero.jpg" alt="누암 배리어 세럼 상세페이지 첫 화면에 쓴 제품 컷" width="1600" height="904" loading="lazy" decoding="async">
+      <figcaption>누암 배리어 세럼 상세페이지 첫 화면에 쓴 컷입니다. 모델 섭외도 촬영 스튜디오도 쓰지 않았습니다.</figcaption>
+    </figure>
   </section>
 
-  <section class="ref-block" data-cat="design">
+  <section class="ref-block ref-block--c" data-cat="design" id="panel-design" role="tabpanel" aria-labelledby="tab-design">
     <div class="wrap">
-      <h2 class="ref-h2">디자인</h2>
-      <p class="ref-note">로고는 그림 한 장이 아니라 규칙입니다. 그래서 브랜드마다 <b>보여줘야 할 것이 다릅니다</b> — 누암은 도면, 오독은 붙어 있는 모습, 뽀득은 얼마나 작아져도 읽히는가, 민탭은 색 하나. 네 판을 같은 틀에 넣지 않은 이유입니다.</p>
-      <div class="refgrid refgrid--b">
-        <article class="refcard">
-          <div class="refcard-media"><img src="assets/ref/logo/logo-nuam.jpg" alt="누암 NUAM — 스킨케어 로고 규정 도면" loading="lazy" width="1400" height="1050"></div>
-          <p class="refcard-cat">로고 규정 · 도면</p>
+      <h2 class="ref-h2 reveal">디자인</h2>
+      <p class="ref-note reveal reveal-d1">로고는 그림 한 장이 아니라 규칙입니다. 마크·워드마크·서브라인·팔레트를 한 판에 같이 정해서 어디에 놓여도 같은 인상이 나오게 만듭니다.</p>
+      <div class="refgrid refgrid--s">
+        <article class="refcard reveal">
+          <div class="refcard-media"><img src="assets/ref/logo/logo-nuam.jpg" alt="누암 NUAM — 스킨케어 로고 시안" loading="lazy" decoding="async" width="800" height="800"></div>
+          <p class="refcard-cat">로고 · 브랜드 시스템</p>
           <p class="refcard-title">누암 NUAM — 스킨케어</p>
-          <p class="refcard-note">물방울과 원이 겹치는 단선 마크를 격자 위에 올려 비율(2.4x · 1x)과 보호 여백을 고정했습니다. 팔레트 대신 금지 규칙을 적었습니다.</p>
+          <p class="refcard-note">물방울과 원이 겹치는 단선 마크. 무채색 4색 팔레트에 얇은 자간으로 벌린 워드마크.</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
-          <div class="refcard-media"><img src="assets/ref/logo/logo-odok.jpg" alt="오독 — 반려동물 수제간식 로고 적용 예시" loading="lazy" width="1400" height="1050"></div>
-          <p class="refcard-cat">로고 적용 · 라벨</p>
+        <article class="refcard reveal reveal-d1">
+          <div class="refcard-media"><img src="assets/ref/logo/logo-odok.jpg" alt="오독 — 반려동물 수제간식 로고 시안" loading="lazy" decoding="async" width="800" height="800"></div>
+          <p class="refcard-cat">로고 · 브랜드 시스템</p>
           <p class="refcard-title">오독 — 반려동물 수제간식</p>
-          <p class="refcard-note">규격표가 아니라 실제로 붙는 모습입니다. 지름 62mm 원형 라벨에서 강아지 마크의 선이 뭉치지 않는 굵기를 먼저 찾고 나머지를 거기서 늘렸습니다.</p>
+          <p class="refcard-note">꼬리가 하트로 감기는 한 줄 강아지 마크. 한글을 주 워드마크로 두고 영문은 서브라인.</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
-          <div class="refcard-media"><img src="assets/ref/logo/logo-ppodeuk.jpg" alt="뽀득 — 생활용품 로고 최소 크기 검증" loading="lazy" width="1400" height="1050"></div>
-          <p class="refcard-cat">로고 검증 · 최소 크기</p>
+        <article class="refcard reveal reveal-d2">
+          <div class="refcard-media"><img src="assets/ref/logo/logo-ppodeuk.jpg" alt="뽀득 — 생활용품 로고 시안" loading="lazy" decoding="async" width="800" height="800"></div>
+          <p class="refcard-cat">로고 · 브랜드 시스템</p>
           <p class="refcard-title">뽀득 — 생활용품</p>
-          <p class="refcard-note">150 · 88 · 48 · 26px로 줄여 가며 물방울이 언제까지 보이는지 확인했습니다. 결정에 쓴 격자선을 지우지 않고 그대로 뒀습니다.</p>
+          <p class="refcard-note">둥근 사각 안에 물방울. 주방·세탁·유아까지 한 라인으로 묶이는 구조.</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
-          <div class="refcard-media"><img src="assets/ref/logo/logo-mintab.jpg" alt="민탭 MINTAB — 고체치약 단색 로고" loading="lazy" width="1400" height="1050"></div>
-          <p class="refcard-cat">로고 · 단색 운용</p>
+        <article class="refcard reveal reveal-d3">
+          <div class="refcard-media"><img src="assets/ref/logo/logo-mintab.jpg" alt="민탭 MINTAB — 고체치약 로고 시안" loading="lazy" decoding="async" width="800" height="800"></div>
+          <p class="refcard-cat">로고 · 브랜드 시스템</p>
           <p class="refcard-title">민탭 MINTAB — 고체치약</p>
-          <p class="refcard-note">팔레트를 만들지 않았습니다. 딥 티일 한 색과 알약 원에서 파낸 잎 노치, 그 둘로 끝냅니다. 노치가 안 보일 만큼 작아지면 로고를 쓰지 않습니다.</p>
+          <p class="refcard-note">알약 원에 잎 노치를 파낸 단일 도형. 딥 티일 한 색으로 정리.</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
       </div>
     </div>
+
+    <figure class="bleed bleed--wide reveal">
+      <img src="assets/ref/img/ppodeuk-hero.jpg" alt="뽀득 홈페이지 첫 화면에 쓴 제품 컷" width="1600" height="904" loading="lazy" decoding="async">
+      <figcaption>뽀득 홈페이지 히어로. 로고에서 정한 색과 여백 규칙이 페이지로 그대로 넘어갑니다.</figcaption>
+    </figure>
   </section>
 
-  <section class="ref-block" data-cat="card">
+  <section class="ref-block ref-block--d" data-cat="card" id="panel-card" role="tabpanel" aria-labelledby="tab-card">
     <div class="wrap">
-      <h2 class="ref-h2">카드뉴스</h2>
-      <p class="ref-note">인스타그램 캐러셀 규격(1080×1350)입니다. 옆으로 밀어서 보세요. 글자가 들어가는 작업은 AI 이미지 생성으로 만들지 않고 직접 조판합니다 — 그래야 한글이 깨지지 않고, 수치나 문구를 나중에 고칠 수 있습니다.</p>
+      <h2 class="ref-h2 reveal">카드뉴스</h2>
+      <p class="ref-note reveal reveal-d1">인스타그램 캐러셀 규격(1080×1350)입니다. 옆으로 밀어서 보세요. 글자가 들어가는 작업은 AI 이미지 생성으로 만들지 않고 직접 조판합니다 — 그래야 한글이 깨지지 않고, 수치나 문구를 나중에 고칠 수 있습니다.</p>
 
-      <h3 class="ref-h3">오독 — 간식 뒷면 읽는 법</h3>
-      <p class="ref-note">원료 이력과 급여량을 정보형으로 정리했습니다. 크림 지면에 사진을 위, 글을 아래로 받쳤습니다.</p>
-      <div class="cardstrip" tabindex="0" role="group" aria-label="오독 — 간식 뒷면 읽는 법 카드뉴스 6장">
+      <h3 class="ref-h3 reveal">오독 — 간식 뒷면 읽는 법</h3>
+      <p class="ref-note reveal">원료 이력과 급여량을 정보형으로 정리했습니다. 크림 지면에 사진을 위, 글을 아래로 받쳤습니다.</p>
+      <div class="cardstrip reveal" tabindex="0" role="group" aria-label="오독 — 간식 뒷면 읽는 법 카드뉴스 6장">
           <figure class="cardslide"><img src="assets/ref/cards/odok-01.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 1번째 장"></figure>
           <figure class="cardslide"><img src="assets/ref/cards/odok-02.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 2번째 장"></figure>
           <figure class="cardslide"><img src="assets/ref/cards/odok-03.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 3번째 장"></figure>
@@ -183,9 +472,9 @@
           <figure class="cardslide"><img src="assets/ref/cards/odok-06.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="오독 — 간식 뒷면 읽는 법 카드뉴스 6번째 장"></figure>
       </div>
 
-      <h3 class="ref-h3">뽀득 — 설거지 순서 바꾸기</h3>
-      <p class="ref-note">문제·방법·결과 3단계로 끊었습니다. 짙은 틸 지면에 큰 숫자를 왼쪽에 세운 스위스 그리드입니다.</p>
-      <div class="cardstrip" tabindex="0" role="group" aria-label="뽀득 — 설거지 순서 바꾸기 카드뉴스 5장">
+      <h3 class="ref-h3 reveal">뽀득 — 설거지 순서 바꾸기</h3>
+      <p class="ref-note reveal">문제·방법·결과 3단계로 끊었습니다. 짙은 틸 지면에 큰 숫자를 왼쪽에 세운 스위스 그리드입니다.</p>
+      <div class="cardstrip reveal" tabindex="0" role="group" aria-label="뽀득 — 설거지 순서 바꾸기 카드뉴스 5장">
           <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-01.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 1번째 장"></figure>
           <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-02.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 2번째 장"></figure>
           <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-03.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 3번째 장"></figure>
@@ -193,17 +482,22 @@
           <figure class="cardslide"><img src="assets/ref/cards/ppodeuk-05.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="뽀득 — 설거지 순서 바꾸기 카드뉴스 5번째 장"></figure>
       </div>
     </div>
+
+    <figure class="bleed bleed--wide reveal">
+      <img src="assets/ref/img/odok-hero.jpg" alt="오독 홈페이지 첫 화면에 쓴 제품 컷" width="1600" height="904" loading="lazy" decoding="async">
+      <figcaption>오독 홈페이지 히어로. 카드뉴스와 같은 지면 색, 같은 조판 규칙을 씁니다.</figcaption>
+    </figure>
   </section>
 
-  <section class="ref-block" data-cat="film">
+  <section class="ref-block ref-block--e" data-cat="film" id="panel-film" role="tabpanel" aria-labelledby="tab-film">
     <div class="wrap">
-      <h2 class="ref-h2">영상</h2>
-      <p class="ref-note">제품이 직접 말하는 애니메이션과 동물 캐릭터 숏폼입니다. 소리를 켜면 대사가 들립니다. 한 번에 하나만 재생됩니다.</p>
+      <h2 class="ref-h2 reveal">영상</h2>
+      <p class="ref-note reveal reveal-d1">제품이 직접 말하는 애니메이션과 캐릭터 숏폼입니다. 보고 계신 화면 가운데 것부터 재생되고, 소리는 한 번에 하나만 켜집니다.</p>
 
-      <h3 class="ref-h3">실사 광고</h3>
-      <p class="ref-note">제품 컷을 첫 프레임으로 써서 이어 붙인 실사 광고입니다. 모델 섭외도 촬영 스튜디오도 쓰지 않았습니다.</p>
-      <div class="refgrid refgrid--v">
-        <article class="refcard">
+      <h3 class="ref-h3 reveal">실사 광고</h3>
+      <p class="ref-note reveal">제품 컷을 첫 프레임으로 써서 이어 붙인 실사 광고입니다. 모델 섭외도 촬영 스튜디오도 쓰지 않았습니다.</p>
+      <div class="refgrid refgrid--v refgrid--v4">
+        <article class="refcard reveal">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-nuam-serum.mp4" poster="assets/ref/video/live-nuam-serum.jpg"
                    muted loop playsinline preload="none"></video>
@@ -213,7 +507,7 @@
           <p class="refcard-title">누암 배리어 세럼 — “저녁 세 단계를 한 겹으로 줄였습니다”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d1">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-nuam-cream.mp4" poster="assets/ref/video/live-nuam-cream.jpg"
                    muted loop playsinline preload="none"></video>
@@ -223,7 +517,7 @@
           <p class="refcard-title">누암 배리어 크림 — “마지막 한 겹으로 수분이 날아가는 속도를 늦춥니다”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d2">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-ppodeuk-soap.mp4" poster="assets/ref/video/live-ppodeuk-soap.jpg"
                    muted loop playsinline preload="none"></video>
@@ -233,7 +527,7 @@
           <p class="refcard-title">뽀득 주방세제 — “기름때는 바로, 헹굼은 두 번”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d3">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/live-odok-treat.mp4" poster="assets/ref/video/live-odok-treat.jpg"
                    muted loop playsinline preload="none"></video>
@@ -245,9 +539,10 @@
         </article>
       </div>
 
-      <h3 class="ref-h3">사물이 직접 말합니다</h3>
-      <div class="refgrid refgrid--v">
-        <article class="refcard">
+      <h3 class="ref-h3 reveal">사물이 직접 말합니다</h3>
+      <p class="ref-note reveal">제품을 화자로 세운 10초짜리 사물 애니메이션 다섯 편입니다.</p>
+      <div class="refgrid refgrid--v refgrid--v5">
+        <article class="refcard reveal">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-dishsoap.mp4" poster="assets/ref/video/talk-dishsoap.jpg"
                    muted loop playsinline preload="none"></video>
@@ -257,7 +552,7 @@
           <p class="refcard-title">주방세제 — “한 번만 눌러도 기름때가 바로 지워집니다”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d1">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-sunscreen.mp4" poster="assets/ref/video/talk-sunscreen.jpg"
                    muted loop playsinline preload="none"></video>
@@ -267,17 +562,17 @@
           <p class="refcard-title">선크림 — “백탁 없이 그대로 스며듭니다”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d2">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-lipbalm.mp4" poster="assets/ref/video/talk-lipbalm.jpg"
                    muted loop playsinline preload="none"></video>
             <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
           </div>
           <p class="refcard-cat">사물 애니메이션 · 10초</p>
-          <p class="refcard-title">립밤 — “한 번 바르면 저녁까지 갑니다”</p>
+          <p class="refcard-title">립밤 — “한 번 바르면 반나절은 갑니다”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d3">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-toothpaste.mp4" poster="assets/ref/video/talk-toothpaste.jpg"
                    muted loop playsinline preload="none"></video>
@@ -287,7 +582,7 @@
           <p class="refcard-title">고체치약 — “하나만 씹으면 양치 끝입니다”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d4">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-softener.mp4" poster="assets/ref/video/talk-softener.jpg"
                    muted loop playsinline preload="none"></video>
@@ -299,9 +594,10 @@
         </article>
       </div>
 
-      <h3 class="ref-h3">동물 캐릭터 숏폼</h3>
-      <div class="refgrid refgrid--v">
-        <article class="refcard">
+      <h3 class="ref-h3 reveal">캐릭터 숏폼 · ASMR 먹방</h3>
+      <p class="ref-note reveal">동물 캐릭터 두 편과 ASMR 먹방 세 편입니다. 브금 없이 목소리와 먹는 소리만 남깁니다. 자체 AI 모델을 써서 모델 섭외 없이 만듭니다.</p>
+      <div class="refgrid refgrid--v refgrid--v5">
+        <article class="refcard reveal">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-dog.mp4" poster="assets/ref/video/talk-dog.jpg"
                    muted loop playsinline preload="none"></video>
@@ -311,7 +607,7 @@
           <p class="refcard-title">강아지 — “읽기 어려운 이름은 하나도 없어요”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d1">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/talk-cat.mp4" poster="assets/ref/video/talk-cat.jpg"
                    muted loop playsinline preload="none"></video>
@@ -321,12 +617,7 @@
           <p class="refcard-title">고양이 — “저희는 원래 아무거나 안 먹거든요”</p>
           <p class="refcard-badge">가상 브랜드 콘셉트</p>
         </article>
-      </div>
-
-      <h3 class="ref-h3">ASMR 먹방 숏폼</h3>
-      <p class="ref-note">브금 없이 먹는 소리와 짧은 대사만 남깁니다. 자체 AI 모델을 써서 모델 섭외 없이 만듭니다.</p>
-      <div class="refgrid refgrid--v">
-        <article class="refcard">
+        <article class="refcard reveal reveal-d2">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/mukbang-chicken.mp4" poster="assets/ref/video/mukbang-chicken.jpg"
                    muted loop playsinline preload="none"></video>
@@ -335,7 +626,7 @@
           <p class="refcard-cat">ASMR 먹방 · 15초</p>
           <p class="refcard-title">양념치킨 — “이거 이번에 새로 나온 건데 진짜 맛있대요”</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d3">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/mukbang-malatang.mp4" poster="assets/ref/video/mukbang-malatang.jpg"
                    muted loop playsinline preload="none"></video>
@@ -344,7 +635,7 @@
           <p class="refcard-cat">ASMR 먹방 · 15초</p>
           <p class="refcard-title">마라탕 — “진짜 매운데 계속 땡기는 맛이에요”</p>
         </article>
-        <article class="refcard">
+        <article class="refcard reveal reveal-d4">
           <div class="refcard-media">
             <video class="refvid" data-src="assets/ref/video/mukbang-cake.mp4" poster="assets/ref/video/mukbang-cake.jpg"
                    muted loop playsinline preload="none"></video>
@@ -355,18 +646,7 @@
         </article>
       </div>
 
-      <h3 class="ref-h3">쇼릴</h3>
-      <div class="refgrid refgrid--h">
-        <article class="refcard">
-          <div class="refcard-media">
-            <video class="refvid" data-src="assets/video/showreel.mp4" poster="assets/video/showreel-poster.jpg"
-                   muted loop playsinline preload="none"></video>
-            <button class="refcard-sound" type="button" aria-label="소리 켜기">소리</button>
-          </div>
-          <p class="refcard-cat">쇼릴</p>
-          <p class="refcard-title">your wings — 제작 영상 모음</p>
-        </article>
-      </div>
+      <p class="ref-legal">위 결과물은 실제 고객 작업이 아니라 자사가 직접 만든 샘플입니다. 실제 고객사 작업물이 아닙니다.</p>
     </div>
   </section>
 
@@ -395,8 +675,12 @@
 </footer>
 
 <div class="quickbar" id="quickbar">
-  <form class="quickform" id="quickform" novalidate>
-    <p class="quickform-lead">마음에 드는 게 있으셨다면 <strong>연락처만 남겨주세요.</strong> 어떤 걸 보셨는지 저희가 먼저 여쭙겠습니다.</p>
+  <div class="quickbar-inner">
+    <p class="quickbar-line">마음에 드는 게 있으셨나요? <strong>연락처만 남겨주세요.</strong><span class="q-long"> 어떤 걸 보셨는지 저희가 먼저 여쭙겠습니다.</span></p>
+    <button class="btn btn--primary btn--sm quickbar-toggle" type="button" aria-expanded="false" aria-controls="quickform">문의 남기기</button>
+  </div>
+  <form class="quickform" id="quickform" novalidate hidden>
+    <p class="quickform-lead">연락처만 남겨주시면 어떤 걸 보셨는지 저희가 먼저 여쭙겠습니다.</p>
     <div class="quickform-row">
       <label class="sr-only" for="q-brand">브랜드명 또는 업종</label>
       <input type="text" id="q-brand" name="brand" placeholder="브랜드명 또는 업종" autocomplete="organization">

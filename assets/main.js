@@ -75,3 +75,35 @@
 
   setTimeout(function () { if (v.paused) block(); }, 2000);
 })();
+
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (!items.length) return;
+
+  function showAll() { items.forEach(function (el) { el.classList.add('in'); }); }
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { showAll(); return; }
+
+  var io = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { rootMargin: '600px 0px -6% 0px', threshold: 0 });
+  items.forEach(function (el) { io.observe(el); });
+
+  var t;
+  function sweep() {
+    var edge = window.innerHeight;
+    items.forEach(function (el) {
+      if (el.classList.contains('in')) return;
+      if (el.getBoundingClientRect().top < edge) el.classList.add('in');
+    });
+  }
+  function later() { clearTimeout(t); t = setTimeout(function () { sweep(); requestAnimationFrame(sweep); }, 180); }
+  window.addEventListener('scroll', later, { passive: true });
+  window.addEventListener('resize', later);
+  window.addEventListener('beforeprint', showAll);
+  setTimeout(sweep, 2400);
+})();
