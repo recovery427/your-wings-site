@@ -846,6 +846,8 @@ table.plain th { font-weight: 800; background: var(--bg-soft); white-space: nowr
 .refgrid--s { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .refgrid--h { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
 
+.refgrid--b { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+
 .refcard-media {
   position: relative;
   border-radius: 12px;
@@ -856,6 +858,8 @@ table.plain th { font-weight: 800; background: var(--bg-soft); white-space: nowr
 .refgrid--v .refcard-media { aspect-ratio: 9 / 16; }
 .refgrid--s .refcard-media { aspect-ratio: 1 / 1; background: #f2f4f8; }
 .refgrid--h .refcard-media { aspect-ratio: 16 / 9; }
+.refgrid--b .refcard-media { aspect-ratio: 4 / 3; background: #fff; }
+.refgrid--b .refcard-media > img { object-fit: cover; }
 
 .refcard-media > video,
 .refcard-media > img {
