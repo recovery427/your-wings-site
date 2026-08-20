@@ -1232,6 +1232,24 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
   window.addEventListener('resize', onScroll);
   frame();
 })();
+
+  (function(){
+    var t;
+    function sweep(){
+      var edge = window.innerHeight;
+      Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function(el){
+        if (el.classList.contains('in') || el.classList.contains('is-in')) return;
+        if (el.getBoundingClientRect().top < edge) {
+          el.classList.add('in'); el.classList.add('is-in');
+        }
+      });
+    }
+    function later(){ clearTimeout(t); t = setTimeout(sweep, 220); }
+    window.addEventListener('scroll', later, {passive:true});
+    window.addEventListener('resize', later);
+    window.addEventListener('load', later);
+    setTimeout(sweep, 2600);
+  })();
 </script>
 </body>
 </html>

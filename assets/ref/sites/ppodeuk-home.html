@@ -151,7 +151,7 @@ button{font:inherit;letter-spacing:inherit;color:inherit;background:none;border:
   position:absolute;inset:-14%;
   background:
     radial-gradient(38% 26% at 22% 30%, rgba(20,184,166,.58), rgba(20,184,166,0) 70%),
-    radial-gradient(30% 22% at 74% 22%, rgba(234,88,12,.34), rgba(234,88,12,0) 72%),
+    radial-gradient(30% 22% at 74% 22%, rgba(217,84,30,.34), rgba(217,84,30,0) 72%),
     radial-gradient(34% 30% at 90% 58%, rgba(20,184,166,.52), rgba(20,184,166,0) 72%),
     radial-gradient(46% 30% at 58% 76%, rgba(13,148,136,.60), rgba(13,148,136,0) 70%),
     radial-gradient(26% 20% at 12% 82%, rgba(153,246,228,.30), rgba(153,246,228,0) 74%);
@@ -564,7 +564,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
               <circle cx="26" cy="26" r="7" fill="currentColor" stroke="none"/>
               <circle cx="62" cy="26" r="5" fill="currentColor" stroke="none" fill-opacity=".55"/>
               <circle cx="98" cy="26" r="3" fill="currentColor" stroke="none" fill-opacity=".25"/>
-              <path d="M8 62h104" stroke="#EA580C" stroke-width="3"/>
+              <path d="M8 62h104" stroke="#D9541E" stroke-width="3"/>
             </svg>
           </div>
           <div class="txt">
@@ -583,7 +583,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
               <circle cx="44" cy="42" r="3.5" fill="currentColor" stroke="none"/>
               <circle cx="76" cy="52" r="2.5" fill="currentColor" stroke="none" fill-opacity=".6"/>
               <circle cx="58" cy="82" r="3" fill="currentColor" stroke="none" fill-opacity=".4"/>
-              <path d="M60 8v22" stroke="#EA580C" stroke-width="3"/>
+              <path d="M60 8v22" stroke="#D9541E" stroke-width="3"/>
             </svg>
           </div>
           <div class="txt">
@@ -600,7 +600,7 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
               <path d="M42 20h36v16l-8 10v54H50V46l-8-10z"/>
               <path d="M50 62h20M50 76h20" stroke-opacity=".45"/>
               <circle cx="60" cy="50" r="3" fill="currentColor" stroke="none" fill-opacity=".6"/>
-              <path d="M42 28h36" stroke="#EA580C" stroke-width="3"/>
+              <path d="M42 28h36" stroke="#D9541E" stroke-width="3"/>
             </svg>
           </div>
           <div class="txt">
@@ -757,6 +757,24 @@ html.in-frame .reveal{opacity:1 !important;transform:none !important}
   window.addEventListener('resize', onScroll);
   frame();
 })();
+
+  (function(){
+    var t;
+    function sweep(){
+      var edge = window.innerHeight;
+      Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function(el){
+        if (el.classList.contains('in') || el.classList.contains('is-in')) return;
+        if (el.getBoundingClientRect().top < edge) {
+          el.classList.add('in'); el.classList.add('is-in');
+        }
+      });
+    }
+    function later(){ clearTimeout(t); t = setTimeout(sweep, 220); }
+    window.addEventListener('scroll', later, {passive:true});
+    window.addEventListener('resize', later);
+    window.addEventListener('load', later);
+    setTimeout(sweep, 2600);
+  })();
 </script>
 </body>
 </html>
