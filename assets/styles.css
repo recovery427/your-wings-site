@@ -1329,3 +1329,32 @@ a.card, a.brandcard, a.sample { text-decoration: none; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .stickycta { transition: none; }
 }
+
+@media (hover: none) {
+  .refcard-cover { opacity: 1; }
+  .refcard-media--frame:hover .refcard-media > img { transform: none; }
+}
+
+@media (max-width: 900px) {
+  .site-footer nav a,
+  .nav a,
+  button,
+  [role="button"],
+  .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .site-footer nav { gap: 4px 20px; }
+}
+
+.checks input[type="checkbox"],
+.consent input[type="checkbox"],
+.check input[type="checkbox"] { width: 24px; height: 24px; }
+
+.field input,
+.field select,
+.field textarea {
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.field [aria-invalid="true"] { transition: border-color .18s ease, box-shadow .18s ease; }

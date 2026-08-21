@@ -32,6 +32,15 @@
   var reduce = window.matchMedia &&
                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var small = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
+  function release() {
+    var s2 = v.querySelector('source');
+    if (!s2 || !s2.hasAttribute('media')) return false;
+    s2.removeAttribute('media');
+    v.load();
+    return true;
+  }
+
   function block() { media.classList.add('is-blocked'); }
   function unblock() { media.classList.remove('is-blocked'); }
 
@@ -48,8 +57,15 @@
 
   btn.addEventListener('click', function (e) {
     e.preventDefault();
+    release();
     v.play();
   });
+
+  if (small) {
+
+    block();
+    return;
+  }
 
   if (reduce) {
 
