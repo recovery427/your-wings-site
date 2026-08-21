@@ -16,7 +16,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
 <link rel="preload" href="assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
-<noscript><style>.reveal{opacity:1 !important;transform:none !important}.stickycta{display:none !important}.gw-play{display:none !important}</style></noscript>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}.stickycta{display:none !important}.gw-play{display:none !important  min-height: 44px;
+}</style></noscript>
 
 <style>
 /* ==================================================================
@@ -47,10 +48,10 @@ html { scroll-behavior: auto; }
   border: 1px solid var(--line); border-radius: var(--radius);
   background: #fff; padding: 16px 18px;
 }
-.gw-cycle p { margin: 0 0 6px; font-size: .75rem; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+.gw-cycle p { margin: 0 0 6px; font-size: .8125rem; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
 .gw-cycle ul { list-style: none; margin: 0; padding: 0; }
 .gw-cycle li { display: flex; justify-content: space-between; gap: 12px;
-  padding: 7px 0; border-top: 1px solid var(--line); font-size: .875rem; }
+  padding: 7px 0; border-top: 1px solid var(--line); font-size: .9375rem; }
 .gw-cycle li:first-of-type { border-top: 0; }
 .gw-cycle li span:last-child { font-weight: 800; }
 @media (max-width: 900px) { .gw-lede { grid-template-columns: minmax(0, 1fr); gap: 18px; } .gp .hero h1 { max-width: none; } }
@@ -83,7 +84,7 @@ html { scroll-behavior: auto; }
   border: 0; border-radius: 999px;
   background: rgba(14, 17, 22, .78);
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  color: #fff; font: inherit; font-size: .8125rem; font-weight: 700; cursor: pointer;
+  color: #fff; font: inherit; font-size: .9375rem; font-weight: 700; cursor: pointer;
   transition: background .22s ease, transform .22s var(--ease);
 }
 .gw-play:hover { background: rgba(14, 17, 22, .92); transform: translateY(-2px); }
@@ -105,14 +106,14 @@ html { scroll-behavior: auto; }
    매달 같은 리듬으로 나간다는 주장을 표로 세운다. 문단으로 쓰면 안 읽힌다. */
 .gw-rhythm { width: 100%; border-collapse: collapse; margin-top: clamp(24px, 3vw, 40px); text-align: left; }
 .gw-rhythm caption { caption-side: top; text-align: left; margin-bottom: 12px;
-  font-size: .875rem; color: var(--muted); }
+  font-size: .9375rem; color: var(--muted); }
 .gw-rhythm th, .gw-rhythm td { padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .gw-rhythm thead th {
-  font-size: .6875rem; font-weight: 800; letter-spacing: .1em; color: var(--muted);
+  font-size: .8125rem; font-weight: 800; letter-spacing: .1em; color: var(--muted);
   border-bottom: 2px solid var(--ink); padding-bottom: 10px;
 }
 .gw-rhythm tbody th {
-  width: 15%; font-size: 1.0625rem; font-weight: 800; letter-spacing: -.02em; color: var(--ink);
+  width: 15%; font-size: 1.1rem; font-weight: 800; letter-spacing: -.02em; color: var(--ink);
   white-space: nowrap;
 }
 .gw-rhythm td { font-size: .9375rem; line-height: 1.55; color: var(--ink-2); }
@@ -121,7 +122,7 @@ html { scroll-behavior: auto; }
 .gw-rhythm tbody.gw-first td.gw-out { color: var(--warm); }
 .gw-band {
   display: inline-block; margin-top: 4px; padding: 3px 10px; border-radius: 999px;
-  font-size: .6875rem; font-weight: 800; letter-spacing: .06em;
+  font-size: .8125rem; font-weight: 800; letter-spacing: .06em;
 }
 .gw-band--once { background: var(--warm); color: #fff; }
 .gw-band--loop { background: var(--accent); color: #fff; }
@@ -129,7 +130,7 @@ html { scroll-behavior: auto; }
 .gw-reelband { margin-top: clamp(30px, 3.6vw, 48px); }
 .gw-total { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 18px 0 0; padding: 16px 0 0;
   border-top: 2px solid var(--ink); }
-.gw-total div { font-size: .875rem; color: var(--muted); }
+.gw-total div { font-size: .9375rem; color: var(--muted); }
 .gw-total b { display: block; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800;
   letter-spacing: -.04em; color: var(--ink); line-height: 1.1; }
 @media (max-width: 760px) {
@@ -146,7 +147,7 @@ html { scroll-behavior: auto; }
 .gw-set + .gw-set { margin-top: clamp(30px, 3.6vw, 46px); }
 .gw-sethead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 6px; }
 .gw-sethead h3 { margin: 0; }
-.gw-sethead span { font-size: .75rem; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+.gw-sethead span { font-size: .8125rem; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
 @media (min-width: 900px) { .gw-set--b { padding-left: clamp(40px, 8vw, 120px); } }
 
 /* ---------- 6. 마무리 ---------- */

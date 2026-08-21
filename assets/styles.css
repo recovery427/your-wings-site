@@ -1345,7 +1345,11 @@ a.card, a.brandcard, a.sample { text-decoration: none; color: inherit; }
     display: inline-flex;
     align-items: center;
   }
-  .site-footer nav { gap: 4px 20px; }
+  .site-footer nav { gap: 4px 16px; }
+  .site-footer nav a { min-width: 44px; padding-inline: 10px; justify-content: center; }
+  .brand, .skip { min-height: 44px; display: inline-flex; align-items: center; }
+  
+  [class$="-play"], [class*="-play "] { min-height: 44px; }
 }
 
 .checks input[type="checkbox"],
