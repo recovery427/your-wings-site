@@ -130,6 +130,10 @@ html { scroll-behavior: auto; }
   display: inline-block; margin: 12px 0 0;
   font-size: .8125rem; font-weight: 800; letter-spacing: .1em; color: #9DB2FF;
 }
+/* #9DB2FF 는 어두운 규정판(.bp-room) 위에서 쓰라고 정한 색이다.
+   흰 배경인 .bp-sitelist 에 그대로 쓰면 명암비가 2.05:1 까지 떨어져 읽히지 않는다.
+   밝은 배경에서는 본문용 accent 로 바꾼다 (흰 배경 대비 5.7:1). */
+.bp-sitelist .bp-num { color: var(--accent); }
 
 /* 규칙 목록 — 큰 숫자를 세워 판 옆에 붙인다 */
 .bp-spec { list-style: none; margin: clamp(26px, 3.2vw, 44px) 0 0; padding: 0;
