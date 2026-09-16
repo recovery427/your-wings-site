@@ -133,10 +133,16 @@ main .section--flush-t { padding-top: 0; }
       </div>
 
       <figure class="bleed bleed--cine hero-media media--flat mt-24" style="max-width:none" aria-hidden="true">
+        
         <video class="hero-video" autoplay muted loop playsinline preload="metadata"
-               poster="assets/hero/hero-poster.jpg">
-          <source src="assets/hero/hero.mp4" type="video/mp4" media="(min-width: 701px)">
-        </video>
+               poster="assets/hero/hero-poster.jpg"></video>
+        <script>(function(){var v=document.currentScript.previousElementSibling;
+          if(!v||v.tagName!=='VIDEO')return;
+          var s=document.createElement('source');
+          s.type='video/mp4';
+          s.src=(window.matchMedia&&window.matchMedia('(max-width: 700px)').matches)
+            ? 'assets/hero/hero-sm.mp4' : 'assets/hero/hero.mp4';
+          v.appendChild(s);})();</script>
         <span class="hero-scrim"></span>
       </figure>
 
