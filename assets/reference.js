@@ -56,6 +56,7 @@
   });
 
   var frames = slice(doc.querySelectorAll('.refcard-media--frame'));
+  var posters = slice(doc.querySelectorAll('video[data-poster]'));
 
   function fitFrames() {
     frames.forEach(function (box) {
@@ -82,6 +83,16 @@
 
   function scanFrames() {
     frames.forEach(function (box) { if (nearViewport(box, 500)) loadFrame(box); });
+    scanPosters();
+  }
+
+  function scanPosters() {
+    posters.forEach(function (v) {
+      if (v.getAttribute('poster')) return;
+      if (!nearViewport(v, 600)) return;
+      var src = v.dataset.poster;
+      if (src) v.setAttribute('poster', src);
+    });
   }
 
   window.addEventListener('resize', function () { fitFrames(); }, { passive: true });
