@@ -863,6 +863,7 @@ table.plain th { font-weight: 800; background: var(--bg-soft); white-space: nowr
 .mt-24 { margin-top: 24px; }
 .mt-32 { margin-top: 32px; }
 .mb-0 { margin-bottom: 0; }
+.mb-24 { margin-bottom: 24px; }
 .center { text-align: center; }
 .maxw-60 { max-width: 60ch; }
 
