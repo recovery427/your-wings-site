@@ -155,9 +155,11 @@ html { scroll-behavior: auto; }
 .bp-fit dd { grid-column: 2; margin: 0; padding: 12px 0; border-top: 1px solid var(--line);
   font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
 @media (max-width: 560px) {
+  /* 한 칸짜리 그리드로 바꿀 때 dt/dd 의 열 지정도 같이 풀어야 한다.
+     dd 에 grid-column: 2 가 남아 있으면 없는 두 번째 열로 밀려 라벨과 겹친다. */
   .bp-fit { grid-template-columns: minmax(0, 1fr); }
-  .bp-fit dt { padding-bottom: 0; }
-  .bp-fit dd { border-top: 0; padding-top: 2px; }
+  .bp-fit dt { grid-column: 1; padding-bottom: 0; white-space: normal; }
+  .bp-fit dd { grid-column: 1; border-top: 0; padding-top: 2px; }
 }
 
 /* 마지막에 지키는 것 세 줄 */
