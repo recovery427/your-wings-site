@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "YOUR WINGS · 유어윙스",
+  "short_name": "유어윙스",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "ko",
+  "theme_color": "#2b55f0",
+  "background_color": "#2b55f0",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
