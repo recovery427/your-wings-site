@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 여러 개를 한 팀으로 쓸 때의 규칙 · 포레스트윙스 AI 자료실</title>
+<meta name="description" content="AI 에이전트 50개가 3시간 동안 문명을 만들다 회의만 한 실험 요약, 그리고 여러 AI를 한 팀으로 쓸 때 제가 지키는 규칙 4가지와 복사용 지시문.">
+<link rel="canonical" href="https://forestwings.co.kr/guide/004/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="포레스트윙스">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI 여러 개를 한 팀으로 쓸 때의 규칙">
+<meta property="og:description" content="역할 3개 이하·결정자 1명·허락 단계 빼기·끝 조건, 복사용 지시문 한 세트.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b55f0'/%3E%3Cpath d='M7 20l6-9 3 5 3-3 6 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="preload" href="../../assets/fonts/pretendard.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../guide.css">
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../index.html">Forest Wings <span>당신의 사업에 날개를 달아 드립니다</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">메뉴</button>
+    <nav class="nav" id="site-nav" aria-label="주요 메뉴">
+      <a href="../../service-brand.html">브랜드 시작</a>
+      <a href="../../service-sales.html">온라인 매출</a>
+      <a href="../../service-growth.html">채널 성장</a>
+      <a href="../../service-ads.html">광고 대행</a>
+      <a href="../../reference.html">레퍼런스</a>
+      <a href="../../about.html">회사소개</a>
+      <a class="btn btn--primary btn--sm" href="../../contact.html">지금 무료로 상담하기</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="gd">
+    <header class="gd-head">
+      <div class="gd-col">
+        <p class="gd-crumb"><a href="../">AI 자료실</a> <span aria-hidden="true">/</span> <span class="gd-no">No.004</span></p>
+        <h1>AI 여러 개를 한 팀으로 쓸 때의 규칙</h1>
+        <p class="lead">AI My Ground 쇼츠에서 말한 내용을 그대로 풀어 쓴 자료입니다. 한 연구소 보고서에서는 AI 에이전트 50개가 3시간 동안 문명을 만들라는 지시를 받고, 만들기보다 담당자를 정하고 허락을 구하는 데 시간을 썼습니다. 이 보고서가 규칙의 효과를 증명한 것은 아닙니다. 아래 규칙 4가지는 제가 AI를 나눠 쓸 때 지키는 방법입니다.</p>
+        <ul class="gd-meta">
+          <li>규칙 4가지</li>
+          <li>복사용 지시문 한 세트</li>
+          <li>확인일 2026-11-02</li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="gd-col gd-body">
+      <nav class="gd-toc" aria-label="이 자료의 목차">
+        <a href="#t0"><span class="gd-n">0</span><span><b>실험 요약</b><small>보도된 내용만 정리</small></span></a>
+        <a href="#t1"><span class="gd-n">1</span><span><b>역할은 3개 이하</b><small>쪼갤수록 회의가 늘어요</small></span></a>
+        <a href="#t2"><span class="gd-n">2</span><span><b>결정하는 한 명</b><small>투표 대신 사용자가 정하기</small></span></a>
+        <a href="#t3"><span class="gd-n">3</span><span><b>허락 단계 빼기</b><small>허락은 꼭 필요한 것만</small></span></a>
+        <a href="#t4"><span class="gd-n">4</span><span><b>끝 조건 정하기</b><small>채우면 멈추게 하기</small></span></a>
+        <a href="#t5"><span class="gd-n">5</span><span><b>한 번에 붙여 넣는 세트</b><small>위 네 가지를 한 문단으로</small></span></a>
+      </nav>
+
+      <p class="gd-tip">AI를 여러 개 쓰는 도구나 대화창마다 지시문을 하나씩 붙여 넣어 보세요. 아래 지시문의 대괄호 부분은 내 상황에 맞게 바꿔 쓰면 됩니다.</p>
+
+      <section class="gd-tool" id="t0">
+        <p class="gd-swap">실험 요약</p>
+        <h2>0. 보도된 실험은 이렇습니다</h2>
+        <ol class="gd-steps">
+          <li>Y Combinator Labs와 Olam Labs가 2026년 10월에 낸 보고서입니다.</li>
+          <li>AI 에이전트 50개(모델 GPT-6.1 Sol)가 마인크래프트 생존 월드에서 3시간 동안 "번영하는 문명을 만들어라(Build a thriving civilization)"는 지시를 받았습니다.</li>
+          <li>전체 사망 34번 중 22번이 첫 밤 20분 안에 나왔고, 그 뒤로는 탐험과 건설보다 신중함과 배급이 중심이 됐다고 합니다. 배급 장부가 생겼고, 잔디를 베기 전에도 승인을 요청한 에이전트가 있었습니다.</li>
+          <li>에이전트 4명이 11분 동안 뼈가루(Bone Meal) 담당자 한 명을 정했고, 낚시 교대·낚싯대 관리자·쉼터 관리자 같은 직책이 생겼습니다.</li>
+          <li>3시간 동안 오간 메시지는 약 5,900개입니다. 투표 없이 이름 순서가 맨 앞인 에이전트(Ada)가 사실상 리더가 됐고, 다른 49명 중 46명이 첫 메시지를 Ada에게 보냈습니다. Ada가 받은 개인 메시지는 616개입니다.</li>
+        </ol>
+        <p class="gd-ok"><b>알아 둘 점</b> 한 번만 돌린 실험이고, GPT 에이전트만 썼고, 동료 심사를 거친 논문이 아니라 투자 연구소가 낸 보고서입니다. 같은 실험을 다시 돌린 독립적인 결과는 확인하지 못했습니다. 원문 보고서는 직접 읽지 못했고, 아래 두 보도의 내용이 서로 일치하는 부분만 적었습니다.</p>
+        <p class="gd-note">출처(2차 보도): <a href="https://minecraft.pl/en/news/civ50-50-ai-agents-built-bureaucracy-in-minecraft" rel="noopener">minecraft.pl</a> · <a href="https://www.martincid.com/technology-sv/y-combinator-50-ai-agents-minecraft-civilization-bureaucracy-gpt-claude/" rel="noopener">martincid.com</a></p>
+      </section>
+
+      <section class="gd-tool" id="t1">
+        <p class="gd-swap">규칙 1</p>
+        <h2>1. 역할은 3개 이하</h2>
+        <ol class="gd-steps">
+          <li>AI에게 나눠 줄 역할을 먼저 적어 봅니다. 기획·작가·검수처럼 3개 안에 들어오는지 봅니다.</li>
+          <li>4개가 넘으면 비슷한 역할끼리 합칩니다.</li>
+          <li>각 AI에게는 맡은 역할만 하게 하고, 다른 역할 일은 하지 않게 합니다.</li>
+        </ol>
+        <div class="gd-ask"><p class="gd-ask-label">AI에게 이렇게 말해 주세요</p><p class="gd-ask-text">너는 이 팀의 [역할 한 가지]만 맡아. 역할은 전체 3개를 넘기지 않아. 네 역할이 아닌 일은 하지 말고, 필요하면 '내 역할이 아님'이라고만 답해.</p><button class="gd-copy" type="button">복사</button></div>
+        <p class="gd-ok"><b>성공 확인</b> AI가 자기 역할이 아닌 일에는 손대지 않고 짧게 답하면 됩니다.</p>
+        <p class="gd-note">3개 이하가 가장 좋다는 수치 근거는 없습니다. 제가 써 보며 정한 기준입니다.</p>
+      </section>
+
+      <section class="gd-tool" id="t2">
+        <p class="gd-swap">규칙 2</p>
+        <h2>2. 결정하는 한 명</h2>
+        <ol class="gd-steps">
+          <li>팀의 결정자를 사용자 본인으로 정합니다.</li>
+          <li>AI끼리 투표하거나 회의로 정하지 않게 합니다.</li>
+          <li>선택지를 둘 이내로 정리해 사용자에게 한 번에 묻게 합니다.</li>
+        </ol>
+        <div class="gd-ask"><p class="gd-ask-label">AI에게 이렇게 말해 주세요</p><p class="gd-ask-text">이 팀의 결정은 나(사용자) 한 명이 해. 너희끼리 투표하거나 회의로 정하지 마. 선택지를 2개 이내로 정리해서 나한테 한 번에 물어봐.</p><button class="gd-copy" type="button">복사</button></div>
+        <p class="gd-ok"><b>성공 확인</b> AI가 선택지 두 개와 추천 하나를 정리해 한 번만 묻고 기다리면 됩니다.</p>
+      </section>
+
+      <section class="gd-tool" id="t3">
+        <p class="gd-swap">규칙 3</p>
+        <h2>3. 허락 단계 빼기</h2>
+        <ol class="gd-steps">
+          <li>AI가 허락을 구해야 하는 일을 정합니다. 삭제·게시·결제처럼 되돌리기 어려운 것만 남깁니다.</li>
+          <li>문장 고치기, 자료 정리, 초안 쓰기 같은 작은 일은 바로 하게 합니다.</li>
+        </ol>
+        <div class="gd-ask"><p class="gd-ask-label">AI에게 이렇게 말해 주세요</p><p class="gd-ask-text">작은 일(문장 고치기, 자료 정리, 초안 쓰기)은 허락받지 말고 바로 해. 허락이 필요한 건 삭제, 게시, 결제 세 가지뿐이야.</p><button class="gd-copy" type="button">복사</button></div>
+        <p class="gd-ok"><b>성공 확인</b> AI가 작은 일은 바로 처리하고, 삭제·게시·결제 앞에서만 멈춰서 묻습니다.</p>
+        <p class="gd-note">허락이 필요한 목록은 내 일에 맞게 바꾸세요. 되돌릴 수 없는 일은 허락 목록에 남기는 편이 안전합니다.</p>
+      </section>
+
+      <section class="gd-tool" id="t4">
+        <p class="gd-swap">규칙 4</p>
+        <h2>4. 끝 조건 정하기</h2>
+        <ol class="gd-steps">
+          <li>결과물이 어떤 모습이면 끝인지 한 줄로 적습니다.</li>
+          <li>끝 조건을 채우면 더 하지 말고 멈추게 합니다.</li>
+          <li>추가 제안은 한 줄로만 받습니다.</li>
+        </ol>
+        <div class="gd-ask"><p class="gd-ask-label">AI에게 이렇게 말해 주세요</p><p class="gd-ask-text">끝나는 조건은 [결과물 한 줄]이야. 이 조건을 채우면 더 하지 말고 멈춰. 추가로 제안할 게 있으면 한 줄로만 말해.</p><button class="gd-copy" type="button">복사</button></div>
+        <p class="gd-ok"><b>성공 확인</b> 조건을 채운 뒤 AI가 작업을 멈추고, 제안은 한 줄만 붙이면 됩니다.</p>
+      </section>
+
+      <section class="gd-tool" id="t5">
+        <p class="gd-swap">한 번에</p>
+        <h2>5. 네 가지를 한 문단으로</h2>
+        <ol class="gd-steps">
+          <li>새 대화나 팀 설정의 맨 앞에 아래 문단을 붙여 넣습니다.</li>
+          <li>대괄호 부분만 내 상황에 맞게 바꿉니다.</li>
+        </ol>
+        <div class="gd-ask"><p class="gd-ask-label">AI에게 이렇게 말해 주세요</p><p class="gd-ask-text">우리 팀 규칙이야. 1) 역할은 3개를 넘기지 않고, 각자 [역할]만 맡아. 2) 결정은 나 한 명이 해. 선택지를 2개 이내로 정리해 한 번에 물어봐. 3) 작은 일은 허락 없이 바로 하고, 삭제·게시·결제만 먼저 물어봐. 4) 끝나는 조건은 [결과물 한 줄]이야. 채우면 멈춰.</p><button class="gd-copy" type="button">복사</button></div>
+        <p class="gd-ok"><b>성공 확인</b> AI가 네 가지 규칙을 한 줄씩 되짚고 시작하면 됩니다.</p>
+      </section>
+
+      <section class="gd-faq" aria-labelledby="faq-h">
+        <h2 id="faq-h">자주 묻는 것</h2>
+        <details><summary>이 규칙이 실험 결과로 증명됐나요?</summary><p>아닙니다. 보도된 실험은 AI 에이전트 50개가 어떻게 행동했는지 보여 줄 뿐이고, 이 규칙이 더 낫다는 것을 비교해 확인한 실험은 아닙니다. 규칙은 제가 AI를 나눠 쓰며 지키는 방법입니다.</p></details>
+        <details><summary>왜 AI를 많이 쓰면 오히려 느려질 수 있나요?</summary><p>보도된 실험에서는 에이전트들이 담당자를 정하고 허락을 구하는 데 메시지를 많이 썼습니다. 역할이 늘수록 서로 주고받는 일이 늘어날 수 있다는 점은 참고할 만하지만, 모든 상황에 그렇다고 말할 수는 없습니다.</p></details>
+        <details><summary>요금이나 기능은 그대로인가요?</summary><p>AI 서비스의 요금과 기능은 바뀔 수 있습니다. 이 자료는 2026-11-02 기준이며, 사용 전에 각 서비스의 공식 안내를 확인하세요.</p></details>
+      </section>
+    </div>
+
+    <aside class="gd-cta" aria-label="포레스트윙스 서비스 안내">
+      <div class="gd-col">
+        <p class="eyebrow">직접 하기엔 시간이 아깝다면</p>
+        <h2>로고·상세페이지·광고 영상, 포레스트윙스가 대신 만듭니다.</h2>
+        <p>프로그램을 익히는 대신 사업에 시간을 쓰고 싶은 분을 위해 만드는 일까지 맡습니다. 상담은 무료입니다.</p>
+        <div class="btn-row">
+          <a class="btn btn--on-ink" href="../../contact.html">지금 무료로 상담하기</a>
+          <a class="btn gd-btn-line" href="../../reference.html">만든 결과물 보기</a>
+        </div>
+      </div>
+    </aside>
+
+    <nav class="gd-col gd-next" aria-label="다른 자료">
+      <a href="../">← AI 자료실 전체 보기</a>
+    </nav>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <p class="brand mb-0">포레스트윙스</p>
+        <p class="small mb-0">당신의 사업에 날개를 달아 드립니다</p>
+        <p class="small mb-0"><a href="mailto:recovery427@gmail.com">recovery427@gmail.com</a> · 답변은 영업일 기준 하루 안에 드립니다</p>
+      </div>
+      <nav aria-label="푸터 메뉴">
+        <a href="../../index.html">홈</a>
+        <a href="../../service-brand.html">브랜드 시작 패키지</a>
+        <a href="../../service-sales.html">온라인 매출 스타터팩</a>
+        <a href="../../service-growth.html">채널 성장 패키지</a>
+        <a href="../../service-ads.html">광고 대행</a>
+        <a href="../../reference.html">레퍼런스</a>
+        <a href="../">AI 자료실</a>
+        <a href="../../contact.html">문의</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <p class="foot-price">프로젝트 180만 원부터 · 채널 운영 월 200만 원부터 · 단품 8만 원부터 · 프로젝트 규모에 따라 견적이 달라집니다 · 무료 상담 후 안내</p>
+      <p class="mb-0">대행료와 실비(광고비 · 인플루언서 섭외비 · PPL 비용 · 폰트 라이선스 · 도메인·호스팅 · 인쇄비)는 견적서에서 줄을 나눠 표기합니다.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../guide.js"></script>
+<script src="../../assets/main.js"></script>
+</body>
+</html>
