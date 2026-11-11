@@ -140,3 +140,9 @@
 .gd-check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .gd-check li::before { content: "☐ "; color: var(--accent); font-weight: 800; }
 @media (max-width: 560px) { .gd-grid.three { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gd-ba { grid-template-columns: 1fr; } .gd-ba .arrow { transform: rotate(90deg); justify-self: center; } }
+
+.gd-vid { margin: 16px 0 20px; }
+.gd-vid video { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line); background: #f3f5f9; box-shadow: 0 10px 30px rgba(20, 30, 60, .08); }
+.gd-vid figcaption { font-size: var(--t-xs); color: var(--muted); margin-top: 8px; text-align: center; }
+.gd-vid.phone { max-width: 340px; margin-inline: auto; }
+.gd-vid.phone video { border-radius: 22px; }
